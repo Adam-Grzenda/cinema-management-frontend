@@ -4,4 +4,6 @@ export class Movie {
   duration: number;
   is3d: boolean;
   premiere: string;
+  description: string;
+  imageSource: string;
 }

@@ -1,0 +1,13 @@
+.movie-img {
+  width: 250px;
+  object-fit: cover;
+}
+
+.movie-box {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.card {
+  max-height: 400px;
+}
