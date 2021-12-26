@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  sidebarOpen: boolean = true;
+  sidebarOpen: boolean = false;
 
   constructor() { }
 
