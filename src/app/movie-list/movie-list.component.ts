@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Movie} from "../../model/movie";
 import {MovieService} from "../movie.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-movie-list',
@@ -11,11 +12,17 @@ export class MovieListComponent implements OnInit {
 
   movies: Array<Movie>;
 
-  constructor(private movieService: MovieService) {
+  constructor(
+    private movieService: MovieService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
     this.movieService.getMovies().subscribe(next => this.movies = next);
   }
 
+  onClickAdd(): void {
+    this.router.navigate(['admin', 'movies']);
+  }
 }
