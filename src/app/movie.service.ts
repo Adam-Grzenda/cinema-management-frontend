@@ -14,6 +14,10 @@ export class MovieService {
     return of(this.movies);
   }
 
+  public addMovie(movie: Movie) : Observable<Movie> {
+    this.movies.push(movie);
+    return of(movie);
+  }
 
   constructor() {
     this.movies = new Array<Movie>();

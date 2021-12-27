@@ -1,0 +1,35 @@
+<div class="card bg-light mb-2">
+  <div class="movie-box">
+    <button class="addPhoto" mat-icon-button (click)="fileInput.click()">
+      <mat-icon>add_a_photo</mat-icon>
+      <input #fileInput type="file" accept="image/png" style="display:none;">
+    </button>
+    <div class="card-body">
+      <mat-form-field appearance="standard">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Title" [(ngModel)]="editedMovie.title">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Director</mat-label>
+        <input matInput placeholder="Movie director" [(ngModel)]="editedMovie.director">
+      </mat-form-field> <br>
+      <mat-form-field class="description" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="5" [(ngModel)]="editedMovie.description"></textarea>
+      </mat-form-field> <br>
+      <mat-form-field appearance="standard">
+        <mat-label>Premiere</mat-label>
+        <input matInput [matDatepicker]="premierePicker" [(ngModel)]="editedMovie.premiere">
+        <mat-datepicker-toggle matSuffix [for]="premierePicker"></mat-datepicker-toggle>
+        <mat-datepicker #premierePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Duration</mat-label>
+        <input matInput placeholder="Movie duration" [(ngModel)]="editedMovie.duration">
+      </mat-form-field> <br>
+      <button mat-icon-button (click)="onSaveMovie()">
+        <mat-icon>save_as</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

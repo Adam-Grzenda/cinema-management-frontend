@@ -15,6 +15,15 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { MovieEditComponent } from './admin/movie-edit/movie-edit.component';
+import {Router, RouterModule, Routes} from "@angular/router";
+import {MatButtonModule} from "@angular/material/button";
+import {FormsModule} from "@angular/forms";
+import {DatePipe} from "@angular/common";
+
+const routes: Routes = [
+  {path: "admin/movies", component: MovieEditComponent}
+];
 
 @NgModule({
   declarations: [
@@ -22,7 +31,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     LandingComponent,
     MovieListComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    MovieEditComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +44,16 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatButtonToggleModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    RouterModule.forRoot(routes),
+    MatButtonModule,
+    FormsModule
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    DatePipe
   ],
+  exports: [RouterModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
