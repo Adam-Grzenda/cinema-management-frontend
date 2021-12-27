@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Movie} from "../../../model/movie";
 import {MovieService} from "../../movie.service";
 
@@ -12,15 +12,25 @@ export class MovieEditComponent implements OnInit {
   @Input()
   editedMovie: Movie = new Movie();
 
+  @Output()
+  submittedEvent = new EventEmitter<any>();
+
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
   }
 
-  onSaveMovie(): void {
-    this.movieService.addMovie(this.editedMovie).subscribe(
-      a => console.log("saved:"+a)
-    )
+  onSubmit(): void {
+    if (this.editedMovie.id) {
+      this.movieService.updateMovie(this.editedMovie).subscribe(
+        a => console.log("updated: "+ a)
+      )
+    } else {
+      this.movieService.addMovie(this.editedMovie).subscribe(
+        a => console.log("saved:"+a)
+      )
+    }
+    this.submittedEvent.emit();
   }
 
 }

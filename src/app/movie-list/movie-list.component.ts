@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class MovieListComponent implements OnInit {
 
   movies: Array<Movie>;
+  editMovieId: number;
 
   constructor(
     private movieService: MovieService,
@@ -24,5 +25,13 @@ export class MovieListComponent implements OnInit {
 
   onClickAdd(): void {
     this.router.navigate(['admin', 'movies']);
+  }
+
+  onClickEdit(id: number): void {
+    this.editMovieId = id;
+  }
+
+  onSubmittedEvent(): void {
+    this.editMovieId = -1;
   }
 }

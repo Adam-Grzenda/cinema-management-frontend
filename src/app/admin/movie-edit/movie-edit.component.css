@@ -7,6 +7,10 @@
   max-height: fit-content;
 }
 
+.card.card-title {
+  display: flex;
+}
+
 mat-form-field.mat-form-field {
   padding: 10px;
 }
