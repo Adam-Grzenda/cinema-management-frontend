@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MovieEditComponent } from './movie-edit.component';
+import {MovieEditComponent} from './movie-edit.component';
 
 describe('MovieEditComponent', () => {
   let component: MovieEditComponent;

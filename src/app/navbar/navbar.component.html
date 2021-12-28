@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <mat-button-toggle (change)="onToggleSidebar()">Filters</mat-button-toggle>
+    <button mat-icon-button (click)="onToggleSidebar()">
+      <mat-icon style="color: white">filter_alt</mat-icon>
+    </button>
     <a class="navbar-brand" href="#">Cinema Brand</a>
     <ul class="navbar-nav">
       <li class="nav-item dropdown" ngbDropdown>

@@ -1,12 +1,3 @@
 <mat-nav-list>
-  <mat-form-field appearance="fill">
-    <mat-label>Date range</mat-label>
-    <mat-date-range-input
-      [rangePicker]="rangePicker">
-      <input matStartDate placeholder="Start date">
-      <input matEndDate placeholder="End date">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-    <mat-date-range-picker #rangePicker></mat-date-range-picker>
-  </mat-form-field>
+  <app-filter></app-filter>
 </mat-nav-list>

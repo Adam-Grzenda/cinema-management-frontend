@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Movie} from "../model/movie";
 import {Observable, of} from "rxjs";
 
@@ -9,10 +9,11 @@ export class MovieService {
 
   private movies: Array<Movie>;
 
-  public getMovies() : Observable<Array<Movie>>
+  public getMovies(dateFrom?: string, dateTo?: string) : Observable<Array<Movie>>
   {
     return of(this.movies);
   }
+
 
   public getMovie(id: number): Observable<Movie> {
     const movie = this.movies.find(m => m.id === id)!;
