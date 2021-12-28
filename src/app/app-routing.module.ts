@@ -8,13 +8,13 @@ const routes: Routes = [
   {path: '', redirectTo: '/customer', pathMatch: 'full'},
   {path: 'customer', component: LandingComponent},
   {path: 'admin/movies', component: MovieAddComponent},
-  {path: 'movie/:id', component: MovieDetailsComponent},
+  {path: 'movie/:id', component: MovieDetailsComponent}
 ]
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes)
   ],
   exports: [
     RouterModule
