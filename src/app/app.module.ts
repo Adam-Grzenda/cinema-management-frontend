@@ -22,6 +22,9 @@ import {DatePipe} from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
 import { MovieAddComponent } from './admin/movie-add/movie-add.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { MainAdminComponent } from './admin/main-admin/main-admin.component';
+import { AddCinemaComponent } from './admin/add-cinema/add-cinema.component';
+
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     SidebarComponent,
     MovieEditComponent,
     MovieAddComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    MainAdminComponent,
+    AddCinemaComponent,
   ],
   imports: [
     BrowserModule,

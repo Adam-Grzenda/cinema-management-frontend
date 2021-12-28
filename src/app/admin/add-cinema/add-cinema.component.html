@@ -1,0 +1,23 @@
+<p>add-cinema works!</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>Name</mat-label>
+  <input matInput [(ngModel)]="cinema.name" >
+</mat-form-field>
+
+<br>
+
+<mat-form-field appearance="fill">
+  <mat-label>Address</mat-label>
+  <input matInput [(ngModel)]="cinema.address" >
+</mat-form-field>
+
+<br>
+
+<button (click)="save()">Save cinema</button>
+
+<br>
+
+<ul>
+  <li *ngFor="let c of cinemas"> {{c.name}}</li>
+</ul>
