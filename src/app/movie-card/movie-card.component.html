@@ -1,0 +1,13 @@
+<a routerLink="/movie/{{movie.id}}">
+  <img class="movie-img" [src]=movie.imageSource alt="test">
+</a>
+<div class="card-body">
+  <h1 class="card-title">{{movie.title}}
+  </h1>
+  <h6 class="card-subtitle">Directed by: {{movie.director}}</h6>
+  <p class="card-text"> {{movie.description}} </p>
+  <div class="card-text font-weight-lighter">
+    <p>Premiered: {{movie.premiere}}</p>
+    <p>Duration: {{movie.duration}} minutes</p>
+  </div>
+</div>

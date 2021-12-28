@@ -23,6 +23,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {MovieAddComponent} from './admin/movie-add/movie-add.component';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {FilterComponent} from './sidebar/filter/filter.component';
+import { MovieCardComponent } from './movie-card/movie-card.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {FilterComponent} from './sidebar/filter/filter.component';
     MovieEditComponent,
     MovieAddComponent,
     MovieDetailsComponent,
-    FilterComponent
+    FilterComponent,
+    MovieCardComponent
   ],
   imports: [
     BrowserModule,
