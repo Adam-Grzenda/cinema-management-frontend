@@ -2,8 +2,8 @@
   <mat-label>Date range</mat-label>
   <mat-date-range-input
     [rangePicker]="rangePicker">
-    <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.dateStart" (dateInput)="onStartDateEntered()">
-    <input matEndDate placeholder="End date" [(ngModel)]="dateRange.dateEnd" (dateInput)="onEndDateEntered()">
+    <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.dateStart" (dateInput)="onDateEntered()">
+    <input matEndDate placeholder="End date" [(ngModel)]="dateRange.dateEnd" (dateInput)="onDateEntered()">
   </mat-date-range-input>
   <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
   <mat-date-range-picker #rangePicker></mat-date-range-picker>

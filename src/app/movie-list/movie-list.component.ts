@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from "../../model/movie";
 import {MovieService} from "../movie.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-movie-list',
@@ -15,12 +15,21 @@ export class MovieListComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private router: Router
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe(next => this.movies = next);
+    this.route.queryParams.subscribe(
+      (params) => {
+        const startDateParam = params['dateFrom']
+        const endDateParam = params['dateTo']
+
+        const startDate = startDateParam ? startDateParam : (new Date().toISOString());
+
+        this.movieService.getMovies(startDate, endDateParam).subscribe(next => this.movies = next);
+      }
+    )
   }
 
   onClickEdit(id: number): void {
