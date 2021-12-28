@@ -1,6 +1,9 @@
 <div class="card bg-light mb-2" *ngFor="let movie of movies">
+
   <div class="movie-box" *ngIf="this.editMovieId!==movie.id">
-    <img class="movie-img" [src]=movie.imageSource alt="test">
+    <a routerLink="/movie/{{movie.id}}">
+      <img class="movie-img" [src]=movie.imageSource alt="test">
+    </a>
     <div class="card-body">
       <h1 class="card-title">{{movie.title}}
       </h1>
@@ -15,15 +18,19 @@
       <mat-icon>mode_icon</mat-icon>
     </button>
   </div>
-  <app-movie-edit [editedMovie]="movie" *ngIf="this.editMovieId===movie.id" (submittedEvent)="onSubmittedEvent()"></app-movie-edit>
+
+  <app-movie-edit [editedMovie]="movie" *ngIf="this.editMovieId===movie.id"
+                  (submittedEvent)="onSubmittedEvent()"></app-movie-edit>
 
 </div>
 <div style="display:flex; justify-content: center; padding: 25px">
-  <button mat-icon-button (click)="onClickAdd()">
-    <mat-icon>add</mat-icon>
-  </button>
+  <a routerLink="/admin/movies">
+    <button mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </a>
 </div>
 
-<router-outlet></router-outlet>
+
 
 

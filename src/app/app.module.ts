@@ -20,6 +20,9 @@ import {Router, RouterModule, Routes} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import { AppRoutingModule } from './app-routing.module';
+import { MovieAddComponent } from './admin/movie-add/movie-add.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 const routes: Routes = [
   {path: "admin/movies", component: MovieEditComponent}
@@ -32,7 +35,9 @@ const routes: Routes = [
     MovieListComponent,
     NavbarComponent,
     SidebarComponent,
-    MovieEditComponent
+    MovieEditComponent,
+    MovieAddComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,8 @@ const routes: Routes = [
     MatNativeDateModule,
     RouterModule.forRoot(routes),
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [
     MatDatepickerModule,

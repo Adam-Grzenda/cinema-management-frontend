@@ -3,11 +3,11 @@ import {Movie} from "../../../model/movie";
 import {MovieService} from "../../movie.service";
 
 @Component({
-  selector: 'app-movie-edit',
-  templateUrl: './movie-edit.component.html',
-  styleUrls: ['./movie-edit.component.css']
+  selector: 'app-movie-add',
+  templateUrl: './movie-add.component.html',
+  styleUrls: ['./movie-add.component.css']
 })
-export class MovieEditComponent implements OnInit {
+export class MovieAddComponent implements OnInit {
 
   @Input()
   editedMovie: Movie = new Movie();
@@ -21,9 +21,9 @@ export class MovieEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
-    this.movieService.updateMovie(this.editedMovie).subscribe(
-      a => console.log("updated: " + a))
+  onSubmit() {
+    this.movieService.addMovie(this.editedMovie).subscribe(
+      a => console.log("saved:" + a))
 
     this.submittedEvent.emit();
   }

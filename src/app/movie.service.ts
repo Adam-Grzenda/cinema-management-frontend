@@ -14,6 +14,11 @@ export class MovieService {
     return of(this.movies);
   }
 
+  public getMovie(id: number): Observable<Movie> {
+    const movie = this.movies.find(m => m.id === id)!;
+    return of(movie);
+  }
+
   public addMovie(movie: Movie) : Observable<Movie> {
     this.movies.push(movie);
     return of(movie);

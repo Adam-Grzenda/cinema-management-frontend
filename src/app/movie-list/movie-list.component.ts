@@ -23,10 +23,6 @@ export class MovieListComponent implements OnInit {
     this.movieService.getMovies().subscribe(next => this.movies = next);
   }
 
-  onClickAdd(): void {
-    this.router.navigate(['admin', 'movies']);
-  }
-
   onClickEdit(id: number): void {
     this.editMovieId = id;
   }
