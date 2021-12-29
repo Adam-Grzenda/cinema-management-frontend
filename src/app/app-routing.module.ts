@@ -9,6 +9,7 @@ import {AddCinemaHallComponent} from "./admin/add-cinema-hall/add-cinema-hall.co
 import {AddAdvertisementComponent} from "./admin/add-advertisement/add-advertisement.component";
 import {AddPromoOfferComponent} from "./admin/add-promo-offer/add-promo-offer.component";
 import {AddClientSegmentComponent} from "./admin/add-client-segment/add-client-segment.component";
+import {AddProductTypeComponent} from "./admin/add-product-type/add-product-type.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
   {path: 'admin/add-promo-offer', component: AddPromoOfferComponent},
   {path: 'admin/add-client-segment', component: AddClientSegmentComponent},
+  {path: 'admin/add-product-type', component: AddProductTypeComponent},
   {path: 'admin/:add', redirectTo: 'admin/main', pathMatch:'full'}
 
 ]

@@ -29,6 +29,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { AddAdvertisementComponent } from './admin/add-advertisement/add-advertisement.component';
 import { AddPromoOfferComponent } from './admin/add-promo-offer/add-promo-offer.component';
 import { AddClientSegmentComponent } from './admin/add-client-segment/add-client-segment.component';
+import { AddProductTypeComponent } from './admin/add-product-type/add-product-type.component';
 
 
 
@@ -48,6 +49,7 @@ import { AddClientSegmentComponent } from './admin/add-client-segment/add-client
     AddAdvertisementComponent,
     AddPromoOfferComponent,
     AddClientSegmentComponent,
+    AddProductTypeComponent,
   ],
   imports: [
     BrowserModule,
