@@ -1,1 +1,51 @@
-<p>add-advertisement works!</p>
+<h2>add new advertisement</h2>
+
+
+<button (click)="goBack()">Return</button>
+
+<br>
+<hr>
+
+<br>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Company Name</mat-label>
+    <input matInput formControlName="company"
+           placeholder="enter a valid number">
+  </mat-form-field>
+
+
+  <br>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Duration</mat-label>
+    <input matInput type="number" min="10" step="5"
+           formControlName="duration"
+           placeholder="enter a ad duration">
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Movie</mat-label>
+    <mat-select formControlName="movie">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let movie of movies" [value]="movie">{{movie.title}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
+  <button type="submit" [disabled]="!form.valid">Save cinema hall</button>
+
+</form>
+
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let a of ads">Reklama: Firma: {{a.companyName}} Film: {{a.movie.title}}</li>
+</ul>
+

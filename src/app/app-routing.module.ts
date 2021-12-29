@@ -6,6 +6,7 @@ import {MovieDetailsComponent} from "./movie-details/movie-details.component";
 import {MainAdminComponent} from "./admin/main-admin/main-admin.component";
 import {AddCinemaComponent} from "./admin/add-cinema/add-cinema.component";
 import {AddCinemaHallComponent} from "./admin/add-cinema-hall/add-cinema-hall.component";
+import {AddAdvertisementComponent} from "./admin/add-advertisement/add-advertisement.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
@@ -14,7 +15,10 @@ const routes: Routes = [
   {path: 'movie/:id', component: MovieDetailsComponent},
   {path: 'admin/main', component: MainAdminComponent,},
   {path: 'admin/add-cinema', component: AddCinemaComponent},
-  {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent}
+  {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},
+  {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
+  {path: 'admin/:add', redirectTo: 'admin/main', pathMatch:'full'}
+
 ]
 
 @NgModule({
