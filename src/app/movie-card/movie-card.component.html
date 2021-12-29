@@ -1,6 +1,6 @@
 <div class="movie-box">
   <a routerLink="/movie/{{movie.id}}">
-    <img class="movie-img" [src]=movie.imageSource alt="test">
+    <img class="movie-img" [src]="movieImage" alt="No image found">
   </a>
   <div class="card-body">
     <h1 class="card-title">{{movie.title}}

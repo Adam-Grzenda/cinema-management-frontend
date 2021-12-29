@@ -27,6 +27,7 @@ import {MovieCardComponent} from './movie-card/movie-card.component';
 import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
 import {environment} from "../environments/environment";
 import {Movie} from "../model/movie";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {Movie} from "../model/movie";
     MatNativeDateModule,
     MatButtonModule,
     FormsModule,
-    NgxHateoasClientModule.forRoot()
+    NgxHateoasClientModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     MatDatepickerModule,

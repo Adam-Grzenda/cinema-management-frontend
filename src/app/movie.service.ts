@@ -8,8 +8,6 @@ import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-
 })
 export class MovieService {
 
-  private movies: Array<Movie>;
-
   public getMovies(dateFrom?: string, dateTo?: string) : Observable<ResourceCollection<Movie>>
   {
     return this.resourceService.getCollection(Movie);
@@ -26,6 +24,10 @@ export class MovieService {
 
   public updateMovie(movie: Movie) : Observable<Movie> {
     return this.resourceService.updateResource(movie);
+  }
+
+  public deleteMovie(movie: Movie) : Observable<Movie> {
+    return this.resourceService.deleteResource(movie);
   }
 
   public addSampleMovies(): void{
