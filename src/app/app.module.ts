@@ -17,13 +17,16 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import { MovieEditComponent } from './admin/movie-edit/movie-edit.component';
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
 import { MovieAddComponent } from './admin/movie-add/movie-add.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MainAdminComponent } from './admin/main-admin/main-admin.component';
 import { AddCinemaComponent } from './admin/add-cinema/add-cinema.component';
+import { AddCinemaHallComponent } from './admin/add-cinema-hall/add-cinema-hall.component';
+import {MatSelectModule} from "@angular/material/select";
+import { AddAdvertisementComponent } from './admin/add-advertisement/add-advertisement.component';
 
 
 
@@ -39,6 +42,8 @@ import { AddCinemaComponent } from './admin/add-cinema/add-cinema.component';
     MovieDetailsComponent,
     MainAdminComponent,
     AddCinemaComponent,
+    AddCinemaHallComponent,
+    AddAdvertisementComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,8 @@ import { AddCinemaComponent } from './admin/add-cinema/add-cinema.component';
     MatNativeDateModule,
     MatButtonModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
   providers: [
     MatDatepickerModule,
