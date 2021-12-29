@@ -27,6 +27,8 @@ import { AddCinemaComponent } from './admin/add-cinema/add-cinema.component';
 import { AddCinemaHallComponent } from './admin/add-cinema-hall/add-cinema-hall.component';
 import {MatSelectModule} from "@angular/material/select";
 import { AddAdvertisementComponent } from './admin/add-advertisement/add-advertisement.component';
+import { AddPromoOfferComponent } from './admin/add-promo-offer/add-promo-offer.component';
+import { AddClientSegmentComponent } from './admin/add-client-segment/add-client-segment.component';
 
 
 
@@ -44,6 +46,8 @@ import { AddAdvertisementComponent } from './admin/add-advertisement/add-adverti
     AddCinemaComponent,
     AddCinemaHallComponent,
     AddAdvertisementComponent,
+    AddPromoOfferComponent,
+    AddClientSegmentComponent,
   ],
   imports: [
     BrowserModule,

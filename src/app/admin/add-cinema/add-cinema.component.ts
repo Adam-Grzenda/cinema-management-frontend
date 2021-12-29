@@ -41,6 +41,7 @@ export class AddCinemaComponent implements OnInit {
 
     });
 
+    this.form.reset();
 
     this.cinema = new Cinema();
   }

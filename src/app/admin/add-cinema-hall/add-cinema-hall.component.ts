@@ -66,6 +66,14 @@ export class AddCinemaHallComponent implements OnInit {
       console.log("saved: hall: " + a.number +" type: " + a.type + " cinema: " + a.cinema.name);
     });
 
+    this.form.reset();
+
+    /*for (let name in this.form.controls) {
+      this.form.controls[name].setErrors(null);
+
+    }
+    this.form.setErrors({ 'invalid': true });*/
+
     this.cinemaHall = new CinemaHall();
   }
 

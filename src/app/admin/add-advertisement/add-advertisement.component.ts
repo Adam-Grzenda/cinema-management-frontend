@@ -2,8 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Movie} from "../../../model/movie";
 import {Advertisement} from "../../../model/advertisement";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CinemaHallService} from "../../services/cinema-hall.service";
-import {CinemaService} from "../../services/cinema.service";
 import {Location} from "@angular/common";
 import {AdvertisementService} from "../../services/advertisement.service";
 import {MovieService} from "../../services/movie.service";
@@ -39,7 +37,7 @@ export class AddAdvertisementComponent implements OnInit {
       company: ["", [Validators.required]],
       duration: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1)]],
-      movie: ["", []]
+      movie: [""]
     })
   }
 
@@ -57,10 +55,19 @@ export class AddAdvertisementComponent implements OnInit {
     this.adv.duration = this.form.value.duration;
     this.adv.movie = this.form.value.movie;
 
-    this.advertisementService.addAdv(this.adv).subscribe((a) => {
-      console.log("saved advertisement: company: " + a.companyName + " duration: " +
-        a.duration + " film: " + a.movie.title);
-    });
+    if (this.adv.movie) {
+      this.advertisementService.addAdv(this.adv).subscribe((a) => {
+        console.log("saved advertisement: company: " + a.companyName + " duration: " +
+          a.duration + " film: " + a.movie.title);
+      });
+    } else {
+      this.advertisementService.addAdv(this.adv).subscribe((a) => {
+        console.log("saved advertisement: company: " + a.companyName + " duration: " +
+          a.duration + " film: none");
+      });
+    }
+
+    this.form.reset();
 
     this.adv = new Advertisement();
   }
