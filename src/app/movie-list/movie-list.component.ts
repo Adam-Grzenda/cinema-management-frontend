@@ -14,7 +14,7 @@ export class MovieListComponent implements OnInit {
   editMovieId: number;
 
   constructor(
-    private movieService: MovieService,
+    public movieService: MovieService,
     private route: ActivatedRoute
   ) {
   }
@@ -27,10 +27,15 @@ export class MovieListComponent implements OnInit {
 
         const startDate = startDateParam ? startDateParam : (new Date().toISOString());
 
-        this.movieService.getMovies(startDate, endDateParam).subscribe(next => this.movies = next);
+        this.movieService.getMovies(startDate, endDateParam).subscribe((next) => {
+          this.movies = next.resources;
+          console.log(this.movies);
+        });
       }
     )
   }
+
+
 
   onClickEdit(id: number): void {
     this.editMovieId = id;

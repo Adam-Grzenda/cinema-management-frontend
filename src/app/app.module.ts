@@ -23,7 +23,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {MovieAddComponent} from './admin/movie-add/movie-add.component';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {FilterComponent} from './sidebar/filter/filter.component';
-import { MovieCardComponent } from './movie-card/movie-card.component';
+import {MovieCardComponent} from './movie-card/movie-card.component';
+import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
+import {environment} from "../environments/environment";
+import {Movie} from "../model/movie";
 
 
 @NgModule({
@@ -53,6 +56,7 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
     MatNativeDateModule,
     MatButtonModule,
     FormsModule,
+    NgxHateoasClientModule.forRoot()
   ],
   providers: [
     MatDatepickerModule,
@@ -60,4 +64,17 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(hateoasConfig: NgxHateoasClientConfigurationService) {
+    hateoasConfig.configure(
+      {
+        http: {
+          rootUrl: environment.apiEndpoint
+        },
+        useTypes: {
+          resources: [Movie]
+        }
+      }
+    )
+  }
+}

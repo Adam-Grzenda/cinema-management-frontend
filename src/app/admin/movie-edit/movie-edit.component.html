@@ -19,7 +19,7 @@
       </mat-form-field> <br>
       <mat-form-field appearance="standard">
         <mat-label>Premiere</mat-label>
-        <input matInput [matDatepicker]="premierePicker" [(ngModel)]="editedMovie.premiere">
+        <input matInput [matDatepicker]="premierePicker" [(ngModel)]="editedMovie.premiereDate">
         <mat-datepicker-toggle matSuffix [for]="premierePicker"></mat-datepicker-toggle>
         <mat-datepicker #premierePicker></mat-datepicker>
       </mat-form-field>

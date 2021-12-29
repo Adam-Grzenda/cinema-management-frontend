@@ -1,10 +1,13 @@
-export class Movie {
+import {HateoasResource, Resource} from "@lagoshny/ngx-hateoas-client";
+
+@HateoasResource('movies')
+export class Movie extends Resource{
   id: number;
   title: string;
   director: string;
   duration: number;
   is3d: boolean;
-  premiere: string;
+  premiereDate: string;
   description: string;
   imageSource: string;
 }
