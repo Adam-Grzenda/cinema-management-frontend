@@ -1,16 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Movie} from "../../model/movie";
+import {Film} from "../../model/film";
 import {ImageService} from "../image.service";
 
 @Component({
   selector: 'app-movie-card',
-  templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.css']
+  templateUrl: './film-card.component.html',
+  styleUrls: ['./film-card.component.css']
 })
-export class MovieCardComponent implements OnInit {
+export class FilmCard implements OnInit {
 
   @Input()
-  movie: Movie;
+  movie: Film;
 
   movieImage: any;
 

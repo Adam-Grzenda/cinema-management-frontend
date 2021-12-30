@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Movie} from "../../../model/movie";
-import {MovieService} from "../../movie.service";
+import {Film} from "../../../model/film";
+import {FilmService} from "../../film.service";
 import {ImageService} from "../../image.service";
 
 @Component({
   selector: 'app-movie-add',
-  templateUrl: './movie-add.component.html',
-  styleUrls: ['./movie-add.component.css']
+  templateUrl: './film-add.component.html',
+  styleUrls: ['./film-add.component.css']
 })
-export class MovieAddComponent implements OnInit {
+export class FilmAddComponent implements OnInit {
 
   @Input()
-  editedMovie: Movie = new Movie();
+  editedMovie: Film = new Film();
 
   @Input()
   image: any;
@@ -19,7 +19,7 @@ export class MovieAddComponent implements OnInit {
   @Output()
   submittedEvent = new EventEmitter<any>();
 
-  constructor(private movieService: MovieService,
+  constructor(private movieService: FilmService,
               private imageService: ImageService) {
   }
 
@@ -27,7 +27,7 @@ export class MovieAddComponent implements OnInit {
   }
 
   onSubmit() {
-    this.movieService.addMovie(this.editedMovie).subscribe(
+    this.movieService.addFilm(this.editedMovie).subscribe(
       a => console.log("saved:" + a))
 
     this.submittedEvent.emit();

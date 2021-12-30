@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {LandingComponent} from './landing/landing.component';
 import {RouterModule, Routes} from "@angular/router";
-import {MovieAddComponent} from "./admin/movie-add/movie-add.component";
-import {MovieDetailsComponent} from "./movie-details/movie-details.component";
+import {FilmAddComponent} from "./admin/film-add/film-add.component";
+import {FilmDetailsComponent} from "./film-details/film-details.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/customer', pathMatch: 'full'},
   {path: 'customer', component: LandingComponent},
-  {path: 'admin/movies', component: MovieAddComponent},
-  {path: 'movie/:id', component: MovieDetailsComponent}
+  {path: 'admin/movies', component: FilmAddComponent},
+  {path: 'movie/:id', component: FilmDetailsComponent}
 ]
 
 @NgModule({

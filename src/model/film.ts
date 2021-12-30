@@ -1,7 +1,7 @@
 import {HateoasResource, Resource} from "@lagoshny/ngx-hateoas-client";
 
-@HateoasResource('movies')
-export class Movie extends Resource{
+@HateoasResource('films')
+export class Film extends Resource{
   id: number;
   title: string;
   director: string;

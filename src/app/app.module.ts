@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {LandingComponent} from './landing/landing.component';
-import {MovieListComponent} from './movie-list/movie-list.component';
+import {FilmListComponent} from './film-list/film-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -15,18 +15,18 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {MovieEditComponent} from './admin/movie-edit/movie-edit.component';
+import {FilmEditComponent} from './admin/film-edit/film-edit.component';
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {AppRoutingModule} from './app-routing.module';
-import {MovieAddComponent} from './admin/movie-add/movie-add.component';
-import {MovieDetailsComponent} from './movie-details/movie-details.component';
+import {FilmAddComponent} from './admin/film-add/film-add.component';
+import {FilmDetailsComponent} from './film-details/film-details.component';
 import {FilterComponent} from './sidebar/filter/filter.component';
-import {MovieCardComponent} from './movie-card/movie-card.component';
+import {FilmCard} from './film-card/film-card.component';
 import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
 import {environment} from "../environments/environment";
-import {Movie} from "../model/movie";
+import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
 
 
@@ -34,14 +34,14 @@ import {HttpClientModule} from "@angular/common/http";
   declarations: [
     AppComponent,
     LandingComponent,
-    MovieListComponent,
+    FilmListComponent,
     NavbarComponent,
     SidebarComponent,
-    MovieEditComponent,
-    MovieAddComponent,
-    MovieDetailsComponent,
+    FilmEditComponent,
+    FilmAddComponent,
+    FilmDetailsComponent,
     FilterComponent,
-    MovieCardComponent
+    FilmCard
   ],
   imports: [
     BrowserModule,
@@ -74,7 +74,7 @@ export class AppModule {
           rootUrl: environment.apiEndpoint
         },
         useTypes: {
-          resources: [Movie]
+          resources: [Film]
         }
       }
     )
