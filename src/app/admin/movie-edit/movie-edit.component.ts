@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Movie} from "../../../model/movie";
-import {MovieService} from "../../movie.service";
+import {MovieService} from "../../services/movie.service";
 
 @Component({
   selector: 'app-movie-edit',

@@ -1,0 +1,45 @@
+<h2>add new cinema hall</h2>
+
+<hr>
+
+<button (click)="goBack()">Return</button>
+
+<br>
+<hr>
+
+
+
+<br>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Client Segment Name</mat-label>
+    <input matInput formControlName="name"
+           placeholder="enter a valid name">
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Promo Offer</mat-label>
+    <mat-select placeholder="null" formControlName="offer">
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let offer of offers" [value]="offer">{{offer.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
+  <button type="submit" [disabled]="!form.valid">Save cinema hall</button>
+
+</form>
+
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let s of segments">Segment: {{s.name}}<div *ngIf="s.promoOffer else elseBlock">Offer: {{s.promoOffer.name}}</div>
+    <ng-template #elseBlock><br>Offer: none</ng-template>
+  </li>
+</ul>

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Movie} from "../../../model/movie";
-import {MovieService} from "../../movie.service";
+import {MovieService} from "../../services/movie.service";
 
 @Component({
   selector: 'app-movie-add',
@@ -21,7 +21,7 @@ export class MovieAddComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.movieService.addMovie(this.editedMovie).subscribe(
       a => console.log("saved:" + a))
 

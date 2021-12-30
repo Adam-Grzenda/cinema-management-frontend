@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Movie} from "../model/movie";
+import { Injectable } from '@angular/core';
+import {Movie} from "../../model/movie";
 import {Observable, of} from "rxjs";
 
 @Injectable({
