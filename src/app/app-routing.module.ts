@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'customer', component: LandingComponent},
   {path: 'admin/movies', component: MovieAddComponent},
   {path: 'movie/:id', component: MovieDetailsComponent},
-  {path: 'admin/main', component: MainAdminComponent,},
+  {path: 'admin/main', component: MainAdminComponent},
   {path: 'admin/add-cinema', component: AddCinemaComponent},
   {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
