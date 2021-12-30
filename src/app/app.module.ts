@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {LandingComponent} from './landing/landing.component';
-import {MovieListComponent} from './movie-list/movie-list.component';
+import {FilmListComponent} from './film-list/film-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -15,13 +15,13 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {MovieEditComponent} from './admin/movie-edit/movie-edit.component';
+import {FilmEditComponent} from './admin/film-edit/film-edit.component';
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {AppRoutingModule} from './app-routing.module';
-import {MovieAddComponent} from './admin/movie-add/movie-add.component';
-import {MovieDetailsComponent} from './movie-details/movie-details.component';
+import {FilmAddComponent} from './admin/film-add/film-add.component';
+import {FilmDetailsComponent} from './film-details/film-details.component';
 import {MainAdminComponent} from './admin/main-admin/main-admin.component';
 import {AddCinemaComponent} from './admin/add-cinema/add-cinema.component';
 import {AddCinemaHallComponent} from './admin/add-cinema-hall/add-cinema-hall.component';
@@ -31,21 +31,25 @@ import {AddPromoOfferComponent} from './admin/add-promo-offer/add-promo-offer.co
 import {AddClientSegmentComponent} from './admin/add-client-segment/add-client-segment.component';
 import {AddProductTypeComponent} from './admin/add-product-type/add-product-type.component';
 import {FilterComponent} from './sidebar/filter/filter.component';
-import {MovieCardComponent} from './movie-card/movie-card.component';
+import {FilmCard} from './film-card/film-card.component';
+import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
+import {environment} from "../environments/environment";
+import {Film} from "../model/film";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    MovieListComponent,
+    FilmListComponent,
     NavbarComponent,
     SidebarComponent,
-    MovieEditComponent,
-    MovieAddComponent,
+    FilmEditComponent,
+    FilmAddComponent,
+    FilmDetailsComponent,
     FilterComponent,
-    MovieCardComponent
-    MovieDetailsComponent,
+    FilmCard,
     MainAdminComponent,
     AddCinemaComponent,
     AddCinemaHallComponent,
@@ -68,6 +72,8 @@ import {MovieCardComponent} from './movie-card/movie-card.component';
     MatNativeDateModule,
     MatButtonModule,
     FormsModule,
+    NgxHateoasClientModule.forRoot(),
+    HttpClientModule
     ReactiveFormsModule,
     MatSelectModule,
   ],
@@ -77,5 +83,18 @@ import {MovieCardComponent} from './movie-card/movie-card.component';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
+  constructor(hateoasConfig: NgxHateoasClientConfigurationService) {
+    hateoasConfig.configure(
+      {
+        http: {
+          rootUrl: environment.apiEndpoint
+        },
+        useTypes: {
+          resources: [Film]
+        }
+      }
+    )
+  }
 }

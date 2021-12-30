@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {Movie} from "../../model/movie";
-import {MovieService} from "../services/movie.service";
+import {Film} from "../../model/film";
+import {FilmService} from "../services/film.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-movie-list',
-  templateUrl: './movie-list.component.html',
-  styleUrls: ['./movie-list.component.css']
+  templateUrl: './film-list.component.html',
+  styleUrls: ['./film-list.component.css']
 })
-export class MovieListComponent implements OnInit {
+export class FilmListComponent implements OnInit {
 
-  movies: Array<Movie>;
+  movies: Array<Film>;
   editMovieId: number;
 
   constructor(
-    private movieService: MovieService,
+    public movieService: FilmService,
     private route: ActivatedRoute
   ) {
   }
@@ -27,10 +27,15 @@ export class MovieListComponent implements OnInit {
 
         const startDate = startDateParam ? startDateParam : (new Date().toISOString());
 
-        this.movieService.getMovies(startDate, endDateParam).subscribe(next => this.movies = next);
+        this.movieService.getFilms(startDate, endDateParam).subscribe((next) => {
+          this.movies = next.resources;
+          console.log(this.movies);
+        });
       }
     )
   }
+
+
 
   onClickEdit(id: number): void {
     this.editMovieId = id;
