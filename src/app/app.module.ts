@@ -73,7 +73,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatButtonModule,
     FormsModule,
     NgxHateoasClientModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
     ReactiveFormsModule,
     MatSelectModule,
   ],

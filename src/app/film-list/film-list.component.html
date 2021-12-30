@@ -1,24 +1,24 @@
-<div class="card bg-light mb-2" *ngFor="let movie of movies">
+<div class="card bg-light mb-2" *ngFor="let film of films">
 
-  <div class="movie-box" *ngIf="this.editMovieId!==movie.id">
-    <app-movie-card [movie]="movie"></app-movie-card>
-    <button mat-icon-button (click)="onClickEdit(movie.id)">
+  <div class="movie-box" *ngIf="this.editFilmId!==film.id">
+    <app-film-card [film]="film"></app-film-card>
+    <button mat-icon-button (click)="onClickEdit(film.id)">
       <mat-icon>mode_icon</mat-icon>
     </button>
   </div>
 
-  <app-movie-edit [editedMovie]="movie" *ngIf="this.editMovieId===movie.id"
-                  (submittedEvent)="onSubmittedEvent()"></app-movie-edit>
+  <app-film-edit [editedFilm]="film" *ngIf="this.editFilmId===film.id"
+                 (submittedEvent)="onSubmittedEvent()"></app-film-edit>
 </div>
 <div style="display:flex; justify-content: center; padding: 25px">
-  <a routerLink="/admin/movies">
+  <a routerLink="/admin/films">
     <button mat-icon-button>
       <mat-icon>add</mat-icon>
     </button>
   </a>
 </div>
 
-<button (click)="movieService.addSampleFilms()">
+<button (click)="filmService.addSampleFilms()">
   add sample movies
 </button>
 

@@ -1,15 +1,15 @@
 <div class="movie-box">
-  <a routerLink="/movie/{{movie.id}}">
-    <img class="movie-img" [src]="movieImage" alt="No image found">
+  <a routerLink="/movie/{{film.id}}">
+    <img class="movie-img" [src]="filmImage" alt="No image found">
   </a>
   <div class="card-body">
-    <h1 class="card-title">{{movie.title}}
+    <h1 class="card-title">{{film.title}}
     </h1>
-    <h6 class="card-subtitle">Directed by: {{movie.director}}</h6>
-    <p class="card-text"> {{movie.description}} </p>
+    <h6 class="card-subtitle">Directed by: {{film.director}}</h6>
+    <p class="card-text"> {{film.description}} </p>
     <div class="card-text font-weight-lighter">
-      <p>Premiered: {{movie.premiereDate}}</p>
-      <p>Duration: {{movie.duration}} minutes</p>
+      <p>Premiered: {{film.premiereDate}}</p>
+      <p>Duration: {{film.duration}} minutes</p>
     </div>
   </div>
 </div>

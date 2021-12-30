@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Film} from "../model/film";
+import {Film} from "../../model/film";
 import {Observable} from "rxjs";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 

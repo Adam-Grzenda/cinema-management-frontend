@@ -1,8 +1,8 @@
-import {Movie} from "./movie";
+import {Film} from "./film";
 
 export class Advertisement {
   id: number;
   companyName: string;
   duration: number;
-  movie: Movie;
+  film: Film;
 }

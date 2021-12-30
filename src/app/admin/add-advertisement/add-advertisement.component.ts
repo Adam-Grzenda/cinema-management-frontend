@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Movie} from "../../../model/movie";
+import {Film} from "../../../model/film";
 import {Advertisement} from "../../../model/advertisement";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
 import {AdvertisementService} from "../../services/advertisement.service";
-import {MovieService} from "../../services/movie.service";
+import {FilmService} from "../../services/film.service";
+
 
 @Component({
   selector: 'app-add-advertisement',
@@ -15,13 +16,13 @@ export class AddAdvertisementComponent implements OnInit {
 
   constructor(
     private advertisementService: AdvertisementService,
-    private movieService: MovieService,
+    private filmService: FilmService,
     private location: Location,
     private formBuilder: FormBuilder
   ) {
   }
 
-  movies: Movie[] = [];
+  films: Film[] = [];
 
   ads: Advertisement[] = [];
 
@@ -46,19 +47,19 @@ export class AddAdvertisementComponent implements OnInit {
   }
 
   getMovies(): void {
-    this.movieService.getMovies().subscribe(movies => this.movies = movies);
+    this.filmService.getFilms().subscribe(films => this.films = films.resources);
 
   }
 
   save() {
     this.adv.companyName = this.form.value.company;
     this.adv.duration = this.form.value.duration;
-    this.adv.movie = this.form.value.movie;
+    this.adv.film = this.form.value.movie;
 
-    if (this.adv.movie) {
+    if (this.adv.film) {
       this.advertisementService.addAdv(this.adv).subscribe((a) => {
         console.log("saved advertisement: company: " + a.companyName + " duration: " +
-          a.duration + " film: " + a.movie.title);
+          a.duration + " film: " + a.film.title);
       });
     } else {
       this.advertisementService.addAdv(this.adv).subscribe((a) => {

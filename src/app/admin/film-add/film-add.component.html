@@ -9,27 +9,27 @@
     <div class="card-body">
       <mat-form-field appearance="standard">
         <mat-label>Title</mat-label>
-        <input matInput placeholder="Title" [(ngModel)]="editedMovie.title">
+        <input matInput placeholder="Title" [(ngModel)]="editedFilm.title">
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>Director</mat-label>
-        <input matInput placeholder="Movie director" [(ngModel)]="editedMovie.director">
+        <input matInput placeholder="Movie director" [(ngModel)]="editedFilm.director">
       </mat-form-field>
       <br>
       <mat-form-field class="description" appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea matInput rows="5" [(ngModel)]="editedMovie.description"></textarea>
+        <textarea matInput rows="5" [(ngModel)]="editedFilm.description"></textarea>
       </mat-form-field>
       <br>
       <mat-form-field appearance="standard">
         <mat-label>Premiere</mat-label>
-        <input matInput [matDatepicker]="premierePicker" [(ngModel)]="editedMovie.premiereDate">
+        <input matInput [matDatepicker]="premierePicker" [(ngModel)]="editedFilm.premiereDate">
         <mat-datepicker-toggle matSuffix [for]="premierePicker"></mat-datepicker-toggle>
         <mat-datepicker #premierePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>Duration</mat-label>
-        <input matInput placeholder="Movie duration" [(ngModel)]="editedMovie.duration">
+        <input matInput placeholder="Movie duration" [(ngModel)]="editedFilm.duration">
       </mat-form-field>
       <br>
       <button mat-icon-button (click)="onSubmit()">

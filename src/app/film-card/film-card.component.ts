@@ -1,29 +1,29 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Film} from "../../model/film";
-import {ImageService} from "../image.service";
+import {ImageService} from "../services/image.service";
 
 @Component({
-  selector: 'app-movie-card',
+  selector: 'app-film-card',
   templateUrl: './film-card.component.html',
   styleUrls: ['./film-card.component.css']
 })
 export class FilmCard implements OnInit {
 
   @Input()
-  movie: Film;
+  film: Film;
 
-  movieImage: any;
+  filmImage: any;
 
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
-    this.getMovieImage(this.movie.imageSource);
+    this.getFilmImage(this.film.imageSource);
   }
 
   createImageURL(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
-      this.movieImage = reader.result;
+      this.filmImage = reader.result;
     })
 
     if (image) {
@@ -31,7 +31,7 @@ export class FilmCard implements OnInit {
     }
   }
 
-  getMovieImage(imageId: string) {
+  getFilmImage(imageId: string) {
     this.imageService.getImage(imageId).subscribe(data => {
       this.createImageURL(data);
     })

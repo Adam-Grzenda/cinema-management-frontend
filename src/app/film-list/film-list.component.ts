@@ -10,11 +10,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class FilmListComponent implements OnInit {
 
-  movies: Array<Film>;
-  editMovieId: number;
+  films: Array<Film>;
+  editFilmId: number;
 
   constructor(
-    public movieService: FilmService,
+    public filmService: FilmService,
     private route: ActivatedRoute
   ) {
   }
@@ -27,9 +27,9 @@ export class FilmListComponent implements OnInit {
 
         const startDate = startDateParam ? startDateParam : (new Date().toISOString());
 
-        this.movieService.getFilms(startDate, endDateParam).subscribe((next) => {
-          this.movies = next.resources;
-          console.log(this.movies);
+        this.filmService.getFilms(startDate, endDateParam).subscribe((next) => {
+          this.films = next.resources;
+          console.log(this.films);
         });
       }
     )
@@ -38,10 +38,10 @@ export class FilmListComponent implements OnInit {
 
 
   onClickEdit(id: number): void {
-    this.editMovieId = id;
+    this.editFilmId = id;
   }
 
   onSubmittedEvent(): void {
-    this.editMovieId = -1;
+    this.editFilmId = -1;
   }
 }
