@@ -14,8 +14,9 @@ import {AddProductTypeComponent} from "./admin/add-product-type/add-product-type
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
   {path: 'customer', component: LandingComponent},
-  {path: 'admin/films', component: FilmAddComponent},
+  {path: 'admin/add-film', component: FilmAddComponent},
   {path: 'film/:id', component: FilmDetailsComponent},
+  {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
   {path: 'admin/main', component: MainAdminComponent},
   {path: 'admin/add-cinema', component: AddCinemaComponent},
   {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},

@@ -1,15 +1,48 @@
-<h2>Welcome to admin dashboard</h2>
+<br>
+<div class="center">
+  <h2>Welcome to admin dashboard</h2>
+</div>
 
-<nav>
-  <ul>
-    <li><a routerLink="/admin/add-cinema">Add cinema</a></li>
-    <li><a routerLink="/admin/add-cinema-hall">Add cinema hall</a></li>
-    <li><a routerLink="/admin/add-movie">Add movie</a></li>
-    <li><a routerLink="/admin/add-advertisement">Add advertisement</a></li>
-    <li><a routerLink="/admin/add-promo-offer">Add promo offer</a></li>
-    <li><a routerLink="/admin/add-client-segment">Add client segment</a></li>
-    <li><a routerLink="/admin/add-product-type">Add product type</a></li>
-  </ul>
-</nav>
+<hr>
+<br>
+
+<mat-accordion *ngFor="let o of list">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{o.name | uppercase}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Expand to manage {{o.name}}s
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <a class="button" mat-raised-button color="primary"
+       routerLink="{{o.addLink}}">Add new {{o.name}}</a>
+
+    <hr>
+
+    <mat-accordion *ngFor="let i of o.objectList">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{i.name | uppercase}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand to manage {{i.name}}s
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ul>
+          <li>modify</li>
+          <li>delete</li>
+        </ul>
+      </mat-expansion-panel>
+      <hr>
+    </mat-accordion>
+
+  </mat-expansion-panel>
+  <hr>
+</mat-accordion>
+
 
 

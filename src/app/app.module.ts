@@ -36,6 +36,7 @@ import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lag
 import {environment} from "../environments/environment";
 import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -58,25 +59,26 @@ import {HttpClientModule} from "@angular/common/http";
     AddClientSegmentComponent,
     AddProductTypeComponent,
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    FormsModule,
-    NgxHateoasClientModule.forRoot(),
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonToggleModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatButtonModule,
+        FormsModule,
+        NgxHateoasClientModule.forRoot(),
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatExpansionModule,
+    ],
   providers: [
     MatDatepickerModule,
     DatePipe

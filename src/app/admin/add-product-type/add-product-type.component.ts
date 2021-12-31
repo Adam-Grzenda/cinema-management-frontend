@@ -41,9 +41,14 @@ export class AddProductTypeComponent implements OnInit {
 
 
   save() {
+    this.productType.name = this.form.value.name;
+    this.productType.unit = this.form.value.unit;
+    this.productType.amount = this.form.value.amount;
 
-
-
+    this.productTypeService.addType(this.productType).subscribe((a) => {
+      console.log("saved type: name: " + a.name + " unit: " +
+        a.unit + " amount: " + a.amount);
+    });
 
     this.productType = new ProductType();
   }
