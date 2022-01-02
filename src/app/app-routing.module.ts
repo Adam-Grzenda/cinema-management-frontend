@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
   {path: 'admin/main', component: MainAdminComponent},
   {path: 'admin/add-cinema', component: AddCinemaComponent},
+  {path: 'admin/delete-cinema', component: AddCinemaComponent},
   {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
   {path: 'admin/add-promo-offer', component: AddPromoOfferComponent},

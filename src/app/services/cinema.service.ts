@@ -1,40 +1,35 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Cinema} from "../../model/cinema";
 import {Observable, of} from "rxjs";
+import {ServiceInterface} from "./serviceInterface";
+import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
+import {Film} from "../../model/film";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CinemaService {
-
-  private cinemas: Array<Cinema>;
+export class CinemaService implements ServiceInterface{
 
 
-
-  public getCinemas(): Observable<Cinema[]> {
-    return of(this.cinemas);
+  public getCinemas(): Observable<ResourceCollection<Cinema>> {
+    return this.resourceService.getCollection(Cinema);
   }
 
-  public addCinema(cinema: Cinema) : Observable<Cinema> {
-    this.cinemas.push(cinema);
-    return of(cinema);
+  public getCinema(id: number): Observable<Cinema> {
+    return this.resourceService.getResource(Cinema, id);
   }
 
-  constructor() {
-    this.cinemas = new Array<Cinema>();
+  public addCinema(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.createResource(Cinema, {body: cinema})
+  }
 
-    const c1 = new Cinema();
-    c1.name = "cinema 1"
-    c1.address = "address 1"
 
-    const c2= new Cinema();
-    c2.name = "cinema 2"
-    c2.address = "address 2"
+  public delete(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.deleteResource(cinema);
+  }
 
-    const c3 = new Cinema();
-    c3.name = "cinema 3"
-    c3.address = "address 3"
-
-    this.cinemas.push(c1, c2, c3);
+  constructor(
+    private resourceService: HateoasResourceService
+  ) {
   }
 }

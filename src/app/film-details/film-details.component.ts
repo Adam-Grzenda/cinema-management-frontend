@@ -18,12 +18,12 @@ export class FilmDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMovie();
+    this.getFilm();
   }
 
-  getMovie(): void {
+  getFilm(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log(id);
-    this.filmService.getFilm(id).subscribe(movie => this.film = movie);
+    this.filmService.getFilm(id).subscribe(f => this.film = f);
   }
 }

@@ -47,7 +47,7 @@ export class AddCinemaComponent implements OnInit {
   }
 
   getCinemas(): void {
-    this.cinemaService.getCinemas().subscribe(cinemas => this.cinemas = cinemas);
+    this.cinemaService.getCinemas().subscribe(cinemas => this.cinemas = cinemas.resources);
 
   }
 

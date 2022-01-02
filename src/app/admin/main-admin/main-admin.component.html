@@ -1,48 +1,53 @@
-<br>
-<div class="center">
-  <h2>Welcome to admin dashboard</h2>
-</div>
+<div class="component">
+  <br>
+  <div class="center">
+    <h2>Welcome to admin dashboard</h2>
+  </div>
 
-<hr>
-<br>
-
-<mat-accordion *ngFor="let o of list">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{o.name | uppercase}}
-      </mat-panel-title>
-      <mat-panel-description>
-        Expand to manage {{o.name}}s
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <a class="button" mat-raised-button color="primary"
-       routerLink="{{o.addLink}}">Add new {{o.name}}</a>
-
-    <hr>
-
-    <mat-accordion *ngFor="let item of o.objectList">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{getName(item) | titlecase}}
-          </mat-panel-title>
-          <mat-panel-description>
-            {{item.name}} options
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <ul>
-          <li>modify</li>
-          <li>delete</li>
-        </ul>
-      </mat-expansion-panel>
-      <hr>
-    </mat-accordion>
-
-  </mat-expansion-panel>
   <hr>
-</mat-accordion>
+  <br>
 
+  <mat-accordion *ngFor="let type of list">
+    <mat-expansion-panel class="main_panels">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{type.name | uppercase}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Expand to manage {{type.name}}s
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
+      <a class="button" mat-raised-button color="primary"
+         routerLink="{{type.addLink}}">Add new {{type.name}}</a>
+
+      <hr>
+
+      <mat-accordion *ngFor="let item of type.objectList">
+        <mat-expansion-panel class="inner_panels">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{getName(item) | titlecase}}
+              {{item.id}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{item.name}} options
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul>
+            <li>modify</li>
+            <li>delete</li>
+
+            <a class="button" mat-raised-button color="accent"
+               (click)="delete(type, item)" routerLink="/admin">Delete</a>
+          </ul>
+        </mat-expansion-panel>
+        <hr>
+      </mat-accordion>
+
+    </mat-expansion-panel>
+    <hr>
+  </mat-accordion>
+
+</div>
 

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminListService} from "../../services/admin-list.service";
 import {AdminList} from "../../../model/admin-list";
-import {FilmService} from "../../services/film.service";
 import {Film} from "../../../model/film";
-import {CinemaService} from "../../services/cinema.service";
 import {Cinema} from "../../../model/cinema";
 import {CinemaHall} from "../../../model/cinema-hall";
 import {Advertisement} from "../../../model/advertisement";
@@ -56,6 +54,13 @@ export class MainAdminComponent implements OnInit {
       default:
         return "Unknown"
     }
+  }
+
+  delete(type: AdminList, item: any) {
+    const it:any = type.service.delete(item.id);
+    console.log(it.name);
+    this.adminListService.getList().subscribe(list => this.list = list);
+
   }
 
 }

@@ -30,7 +30,8 @@ export class AdminListService {
     const cinema: AdminList = new AdminList();
     cinema.name = "cinema"
     cinema.addLink = "/admin/add-cinema"
-    this.cinemaService.getCinemas().subscribe(c => cinema.objectList = c);
+    this.cinemaService.getCinemas().subscribe(c => cinema.objectList = c.resources);
+    cinema.service = this.cinemaService;
 
     const cinemaHall: AdminList = new AdminList();
     cinemaHall.name = "cinema hall"

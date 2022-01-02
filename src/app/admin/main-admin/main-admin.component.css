@@ -1,3 +1,7 @@
+.component {
+  background: white;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -9,4 +13,16 @@ a{
   width:30%;
   margin-left:35%;
   margin-right:35%;
+}
+
+.main_panels {
+  background: aliceblue;
+}
+
+.inner_panels {
+  background: lightsteelblue;
+}
+
+hr {
+  background: gray;
 }

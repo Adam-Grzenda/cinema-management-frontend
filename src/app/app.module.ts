@@ -37,6 +37,7 @@ import {environment} from "../environments/environment";
 import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {Cinema} from "../model/cinema";
 
 
 @NgModule({
@@ -94,7 +95,10 @@ export class AppModule {
           rootUrl: environment.apiEndpoint
         },
         useTypes: {
-          resources: [Film]
+          resources: [
+            Film,
+            Cinema,
+          ]
         }
       }
     )

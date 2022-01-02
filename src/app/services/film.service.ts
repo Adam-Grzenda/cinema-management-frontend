@@ -37,7 +37,9 @@ export class FilmService {
     }
   }
 
-  constructor(private resourceService: HateoasResourceService) {
+  constructor(
+    private resourceService: HateoasResourceService
+  ) {
   }
 
   private sampleFilms() : Array<Film>{
