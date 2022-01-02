@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CinemaHall} from "../../model/cinema-hall";
 import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
+import {ServiceInterface} from "./serviceInterface";
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,5 @@ export class CinemaHallService {
     this.cinemaHalls.push(cinemaHall);
     return of(cinemaHall);
   }
+
 }

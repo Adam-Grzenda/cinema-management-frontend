@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AdminList} from "../../model/admin-list";
 import {Observable, of} from "rxjs";
-import {Cinema} from "../../model/cinema";
 import {CinemaService} from "./cinema.service";
 import {CinemaHallService} from "./cinema-hall.service";
 import {AdvertisementService} from "./advertisement.service";
@@ -9,29 +8,36 @@ import {PromoOfferService} from "./promo-offer.service";
 import {ClientSegmentService} from "./client-segment.service";
 import {ProductTypeService} from "./product-type.service";
 import {FilmService} from "./film.service";
+import {ServiceInterface} from "./serviceInterface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminListService {
   private adminList: Array<AdminList>;
+  private serviceList: Array<ServiceInterface>;
+
+  private cinema: AdminList;
 
   constructor(
     private cinemaService: CinemaService,
-    private cinemaHallService:CinemaHallService,
-    private  filmService:FilmService,
-    private advertisementService:AdvertisementService,
+    private cinemaHallService: CinemaHallService,
+    private filmService: FilmService,
+    private advertisementService: AdvertisementService,
     private promoOfferService: PromoOfferService,
-    private clientSegmentService:ClientSegmentService,
-    private productTypeService:ProductTypeService
+    private clientSegmentService: ClientSegmentService,
+    private productTypeService: ProductTypeService
   ) {
     this.adminList = new Array<AdminList>();
+    this.serviceList = new Array<ServiceInterface>();
 
-    const cinema: AdminList = new AdminList();
-    cinema.name = "cinema"
-    cinema.addLink = "/admin/add-cinema"
-    this.cinemaService.getCinemas().subscribe(c => cinema.objectList = c.resources);
-    cinema.service = this.cinemaService;
+    this.serviceList.push(cinemaService,)//cinemaHallService, filmService, advertisementService, )
+
+    this.cinema = new AdminList();
+    this.cinema.name = "cinema"
+    this.cinema.addLink = "/admin/add-cinema"
+    this.cinemaService.getAll().subscribe(c => this.cinema.objectList = c.resources);
+    this.cinema.service = this.cinemaService;
 
     const cinemaHall: AdminList = new AdminList();
     cinemaHall.name = "cinema hall"
@@ -63,11 +69,19 @@ export class AdminListService {
     type.addLink = "/admin/add-product-type"
     this.productTypeService.getTypes().subscribe(t => type.objectList = t);
 
-    this.adminList.push(cinema, cinemaHall, film, ad, promo, segment, type)
+    this.adminList.push(this.cinema, cinemaHall, film, ad, promo, segment, type)
   }
 
   public getList(): Observable<AdminList[]> {
+    this.updateLists();
     return of(this.adminList);
+  }
+
+  public updateLists(): void {
+
+    for (let i = 0; i < this.serviceList.length; i++) {
+      this.serviceList[i].getAll().subscribe(l => this.adminList[i].objectList = l.resources);
+    }
   }
 
 

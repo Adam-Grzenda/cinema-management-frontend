@@ -11,7 +11,7 @@ import {Film} from "../../model/film";
 export class CinemaService implements ServiceInterface{
 
 
-  public getCinemas(): Observable<ResourceCollection<Cinema>> {
+  public getAll(): Observable<ResourceCollection<Cinema>> {
     return this.resourceService.getCollection(Cinema);
   }
 
