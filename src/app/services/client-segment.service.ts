@@ -8,7 +8,9 @@ import {ClientSegment} from "../../model/client-segment";
 export class ClientSegmentService {
   private segments: Array<ClientSegment>;
 
-  constructor() {
+  constructor(
+    
+  ) {
     this.segments = new Array<ClientSegment>();
   }
 

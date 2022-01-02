@@ -5,7 +5,11 @@ import {FilmService} from "../../services/film.service";
 import {Film} from "../../../model/film";
 import {CinemaService} from "../../services/cinema.service";
 import {Cinema} from "../../../model/cinema";
-import {Router} from "@angular/router";
+import {CinemaHall} from "../../../model/cinema-hall";
+import {Advertisement} from "../../../model/advertisement";
+import {PromoOffer} from "../../../model/promo-offer";
+import {ClientSegment} from "../../../model/client-segment";
+import {ProductType} from "../../../model/product-type";
 
 @Component({
   selector: 'app-main-admin',
@@ -13,39 +17,45 @@ import {Router} from "@angular/router";
   styleUrls: ['./main-admin.component.css']
 })
 export class MainAdminComponent implements OnInit {
-  panelOpenState = false;
+
   list: AdminList[] = [];
-  films: Film[] = [];
-  cinemas: Cinema[] = [];
 
   constructor(
     private adminListService: AdminListService,
-    private cinemaService: CinemaService,
-    private filmService: FilmService,
   ) {
   }
 
   ngOnInit(): void {
     this.getList();
-    this.getFilms();
   }
+
 
   getList(): void {
     this.adminListService.getList().subscribe(list => this.list = list);
   }
 
-  getFilms(): void {
-    this.filmService.getFilms().subscribe(f => this.films = f.resources);
+
+  getName(item: any): string {
+    switch (item.constructor) {
+      case Cinema:
+      case PromoOffer:
+      case ClientSegment:
+      case ProductType:
+        return item.name;
+
+      case CinemaHall:
+        return "Hall nr: " + item.number + " Cinema: " + item.cinema.name;
+
+      case Film:
+        return item.title;
+
+      case Advertisement:
+        return "Advertisement of " + item.companyName;
+
+
+      default:
+        return "Unknown"
+    }
   }
-
-  getCinemas(): void {
-    this.cinemaService.getCinemas().subscribe(c => this.cinemas = c);
-  }
-
-  add(link:string): void {
-    //Router.na
-
-  }
-
 
 }

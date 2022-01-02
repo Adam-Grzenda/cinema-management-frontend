@@ -22,14 +22,14 @@
 
     <hr>
 
-    <mat-accordion *ngFor="let i of o.objectList">
+    <mat-accordion *ngFor="let item of o.objectList">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{i.name | uppercase}}
+            {{getName(item) | titlecase}}
           </mat-panel-title>
           <mat-panel-description>
-            Expand to manage {{i.name}}s
+            {{item.name}} options
           </mat-panel-description>
         </mat-expansion-panel-header>
         <ul>
