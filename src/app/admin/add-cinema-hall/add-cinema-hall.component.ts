@@ -49,7 +49,7 @@ export class AddCinemaHallComponent implements OnInit {
 
 
   getHalls(): void {
-    this.cinemaHallService.getHalls().subscribe(halls => this.cinemaHalls = halls);
+    this.cinemaHallService.getAll().subscribe(halls => this.cinemaHalls = halls.resources);
   }
 
   getCinemas(): void {

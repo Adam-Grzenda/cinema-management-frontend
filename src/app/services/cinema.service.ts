@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Cinema} from "../../model/cinema";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {ServiceInterface} from "./serviceInterface";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
-import {Film} from "../../model/film";
 
 @Injectable({
   providedIn: 'root'

@@ -38,6 +38,11 @@ import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {Cinema} from "../model/cinema";
+import {CinemaHall} from "../model/cinema-hall";
+import {TypeListComponent} from "./admin/type-list/type-list.component";
+import { ObjectListComponent } from './admin/object-list/object-list.component';
+import { ObjectPanelComponent } from './admin/object-panel/object-panel.component';
+
 
 
 @NgModule({
@@ -59,6 +64,9 @@ import {Cinema} from "../model/cinema";
     AddPromoOfferComponent,
     AddClientSegmentComponent,
     AddProductTypeComponent,
+    TypeListComponent,
+    ObjectListComponent,
+    ObjectPanelComponent,
   ],
     imports: [
         BrowserModule,
@@ -98,6 +106,7 @@ export class AppModule {
           resources: [
             Film,
             Cinema,
+            CinemaHall
           ]
         }
       }

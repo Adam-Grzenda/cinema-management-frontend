@@ -1,9 +1,12 @@
 import {Cinema} from "./cinema";
+import {HateoasResource, Resource} from "@lagoshny/ngx-hateoas-client";
 
-export class CinemaHall {
+@HateoasResource('cinemaHalls')
+export class CinemaHall extends Resource {
   id: number;
   number: number;
   type: string;
-  cinema: Cinema
+  cinema: Cinema;
+
 
 }
