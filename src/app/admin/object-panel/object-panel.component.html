@@ -4,7 +4,7 @@
       {{title| titlecase}}
     </mat-panel-title>
     <mat-panel-description>
-      {{item.name}} options {{item.id}}
+      {{title}} options
     </mat-panel-description>
   </mat-expansion-panel-header>
   <ul>
@@ -12,6 +12,6 @@
     <li>delete</li>
 
     <a class="button" mat-raised-button color="accent"
-       (click)="delete()" routerLink="/admin">Delete</a>
+       (click)="delete()" routerLink="/admin/main">Delete</a>
   </ul>
 </mat-expansion-panel>

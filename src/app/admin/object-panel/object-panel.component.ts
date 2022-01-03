@@ -8,6 +8,7 @@ import {Film} from "../../../model/film";
 import {Advertisement} from "../../../model/advertisement";
 import {AdminList} from "../../../model/admin-list";
 import {Observable} from "rxjs";
+import {AdminListService} from "../../services/admin-list.service";
 
 @Component({
   selector: 'app-object-panel',
@@ -24,7 +25,9 @@ export class ObjectPanelComponent implements OnInit {
 
   title: string;
 
-  constructor() {
+  constructor(
+    private service: AdminListService
+  ) {
   }
 
   ngOnInit(): void {
@@ -63,7 +66,12 @@ export class ObjectPanelComponent implements OnInit {
     console.log(this.item);
     let it: Observable<Cinema> = this.type.service.delete(this.item);
     //#TODO zwraca undefined
-    it.subscribe(a => console.log(a.name));
+    it.subscribe(a => {
+      console.log(a.name)
+      this.service.updateLists();
+    });
+
+
   }
 
 }

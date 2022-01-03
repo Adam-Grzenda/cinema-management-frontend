@@ -38,7 +38,7 @@ export class AddCinemaComponent implements OnInit {
     this.cinema.address = this.form.value.address;
     this.cinemaService.addCinema(this.cinema).subscribe((a) => {
       console.log("saved:" + a.name);
-
+      this.getCinemas();
     });
 
     this.form.reset();

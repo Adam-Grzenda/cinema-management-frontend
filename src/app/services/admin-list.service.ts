@@ -9,13 +9,12 @@ import {ClientSegmentService} from "./client-segment.service";
 import {ProductTypeService} from "./product-type.service";
 import {FilmService} from "./film.service";
 import {ServiceInterface} from "./serviceInterface";
-import {Cinema} from "../../model/cinema";
-import {Resource} from "@lagoshny/ngx-hateoas-client";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminListService {
+
   private adminList: Array<AdminList>;
   private serviceList: Array<ServiceInterface>;
 
@@ -32,9 +31,9 @@ export class AdminListService {
     this.adminList = new Array<AdminList>();
     this.serviceList = new Array<ServiceInterface>();
 
-    this.serviceList.push(cinemaService,cinemaHallService)//, filmService, advertisementService, )
+    this.serviceList.push(cinemaService, cinemaHallService)//, filmService, advertisementService, )
 
-    const cinema:AdminList = new AdminList();
+    const cinema: AdminList = new AdminList();
     cinema.name = "cinema"
     cinema.addLink = "/admin/add-cinema"
     cinema.service = this.cinemaService;
@@ -82,10 +81,6 @@ export class AdminListService {
     for (let i = 0; i < this.serviceList.length; i++) {
       this.serviceList[i].getAll().subscribe(l => this.adminList[i].objectList = l.resources);
     }
-  }
-
-  a (resource:any) {
-    resource.child
   }
 
 

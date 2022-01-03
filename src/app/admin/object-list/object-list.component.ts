@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AdminList} from "../../../model/admin-list";
 
 @Component({
@@ -11,7 +11,6 @@ export class ObjectListComponent implements OnInit {
   type: AdminList;
 
   constructor(
-
   ) {
   }
 
