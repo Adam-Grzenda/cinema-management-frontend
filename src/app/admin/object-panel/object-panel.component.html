@@ -8,10 +8,12 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
   <ul>
-    <li>modify</li>
-    <li>delete</li>
-
     <a class="button" mat-raised-button color="accent"
+        routerLink="{{type.editLink}}/{{item.id}}">Modify</a>
+
+    <hr>
+
+    <a class="button" mat-raised-button color="warn"
        (click)="delete()" routerLink="/admin/main">Delete</a>
   </ul>
 </mat-expansion-panel>

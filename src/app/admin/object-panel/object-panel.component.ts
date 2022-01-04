@@ -44,8 +44,15 @@ export class ObjectPanelComponent implements OnInit {
         break;
 
       case CinemaHall:
-        //#TODO nie przypisuje się kino
-        this.title = "Hall nr: " + this.item.number + " Cinema: ";
+        // @ts-ignore
+        this.item.getRelation<Cinema>('cinema').subscribe(
+          (i: { id: any; }) => {
+            this.title = "Hall nr: " + this.item.number + " Cinema: " + i.id;
+          }
+        )
+
+
+
         break;
 
       case Film:

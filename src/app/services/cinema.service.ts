@@ -11,7 +11,7 @@ export class CinemaService implements ServiceInterface{
 
 
   public getAll(): Observable<ResourceCollection<Cinema>> {
-    return this.resourceService.getCollection(Cinema);
+    return this.resourceService.getCollection(Cinema, );
   }
 
   public getCinema(id: number): Observable<Cinema> {
@@ -19,7 +19,11 @@ export class CinemaService implements ServiceInterface{
   }
 
   public addCinema(cinema: Cinema): Observable<Cinema> {
-    return this.resourceService.createResource(Cinema, {body: cinema})
+    return this.resourceService.createResource(Cinema, {body: cinema});
+  }
+
+  public updateCinema(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.updateResource(cinema);
   }
 
 

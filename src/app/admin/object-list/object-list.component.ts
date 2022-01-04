@@ -15,6 +15,7 @@ export class ObjectListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 

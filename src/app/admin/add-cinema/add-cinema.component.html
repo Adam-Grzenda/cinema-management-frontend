@@ -1,4 +1,5 @@
-<h2>add new cinema</h2>
+<h2 *ngIf="addMode">Add new cinema</h2>
+<h2 *ngIf="!addMode">Edit cinema</h2>
 
 <button (click)="goBack()">Return</button>
 

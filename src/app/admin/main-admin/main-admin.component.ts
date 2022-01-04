@@ -13,14 +13,12 @@ export class MainAdminComponent implements OnInit {
 
   constructor(
     private adminListService: AdminListService,
-    private cdr:ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
     this.adminListService.getList().subscribe(list => {
       this.typeList = list;
-      this.cdr.detectChanges();
     });
   }
 

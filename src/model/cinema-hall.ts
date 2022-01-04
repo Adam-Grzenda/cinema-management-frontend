@@ -6,7 +6,7 @@ export class CinemaHall extends Resource {
   id: number;
   number: number;
   type: string;
-  cinema: Cinema;
+  cinema_id: number;
 
 
 }

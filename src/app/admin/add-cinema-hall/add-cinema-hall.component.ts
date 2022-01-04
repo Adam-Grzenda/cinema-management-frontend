@@ -60,11 +60,15 @@ export class AddCinemaHallComponent implements OnInit {
   save() {
     this.cinemaHall.number = this.form.value.number
     this.cinemaHall.type = this.form.value.type
-    this.cinemaHall.cinema = this.form.value.cinema
+    this.cinemaHall.cinema_id = this.form.value.cinema.id
+    console.log(this.cinemaHall.cinema_id);
 
     this.cinemaHallService.addHall(this.cinemaHall).subscribe((a) => {
-      console.log("saved: hall: " + a.number +" type: " + a.type + " cinema: ");// + a.cinema.name);
-      this.getHalls();
+      this.cinemaService.getCinema(this.cinemaHall.cinema_id).subscribe((c) => {
+        console.log("saved: hall: " + a.number +" type: " + a.type + " cinema: " + c.name);
+        this.getHalls();
+      })
+
     });
 
     this.form.reset();
