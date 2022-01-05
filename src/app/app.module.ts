@@ -38,6 +38,9 @@ import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {Cinema} from "../model/cinema";
+import {FilmShow} from "../model/film-show";
+import { BuyTicketComponent } from './client/buy-ticket/buy-ticket.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -59,6 +62,7 @@ import {Cinema} from "../model/cinema";
     AddPromoOfferComponent,
     AddClientSegmentComponent,
     AddProductTypeComponent,
+    BuyTicketComponent,
   ],
     imports: [
         BrowserModule,
@@ -79,6 +83,7 @@ import {Cinema} from "../model/cinema";
         ReactiveFormsModule,
         MatSelectModule,
         MatExpansionModule,
+        MatDialogModule
     ],
   providers: [
     MatDatepickerModule,
@@ -98,6 +103,7 @@ export class AppModule {
           resources: [
             Film,
             Cinema,
+            FilmShow
           ]
         }
       }
