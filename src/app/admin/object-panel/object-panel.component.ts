@@ -9,6 +9,7 @@ import {Advertisement} from "../../../model/advertisement";
 import {AdminList} from "../../../model/admin-list";
 import {Observable} from "rxjs";
 import {AdminListService} from "../../services/admin-list.service";
+import {Resource} from "@lagoshny/ngx-hateoas-client";
 
 @Component({
   selector: 'app-object-panel',
@@ -71,10 +72,8 @@ export class ObjectPanelComponent implements OnInit {
 
   delete() {
     console.log(this.item);
-    let it: Observable<Cinema> = this.type.service.delete(this.item);
-    //#TODO zwraca undefined
-    it.subscribe(a => {
-      console.log(a.name)
+    this.type.service.delete(this.item).subscribe(a => {
+      console.log(a)
       this.service.updateLists();
     });
 

@@ -41,11 +41,11 @@ export class AddClientSegmentComponent implements OnInit {
 
 
   getSegments(): void {
-    this.clientSegmentService.getSegments().subscribe(segments => this.segments = segments);
+    this.clientSegmentService.getAll().subscribe(segments => this.segments = segments.resources);
   }
 
   getOffers(): void {
-    this.promoOfferService.getOffers().subscribe(offers => this.offers = offers);
+    this.promoOfferService.getAll().subscribe(offers => this.offers = offers.resources);
 
   }
 
@@ -54,12 +54,12 @@ export class AddClientSegmentComponent implements OnInit {
     this.segment.promoOffer = this.form.value.offer
 
     if (this.segment.promoOffer) {
-      this.clientSegmentService.addSegment(this.segment).subscribe((a) => {
+      this.clientSegmentService.add(this.segment).subscribe((a) => {
         console.log("saved segment: name: " + a.name + " promo offer name: " +
           a.promoOffer.name);
       });
     } else {
-      this.clientSegmentService.addSegment(this.segment).subscribe((a) => {
+      this.clientSegmentService.add(this.segment).subscribe((a) => {
         console.log("saved segment: name: " + a.name + " promo offer name: none");
       });
 

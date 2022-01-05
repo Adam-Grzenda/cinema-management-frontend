@@ -43,7 +43,7 @@ export class AddAdvertisementComponent implements OnInit {
   }
 
   getAds(): void {
-    this.advertisementService.getAds().subscribe(ads => this.ads = ads);
+    this.advertisementService.getAll().subscribe(ads => this.ads = ads.resources);
   }
 
   getMovies(): void {
@@ -57,14 +57,19 @@ export class AddAdvertisementComponent implements OnInit {
     this.adv.film = this.form.value.movie;
 
     if (this.adv.film) {
-      this.advertisementService.addAdv(this.adv).subscribe((a) => {
-        console.log("saved advertisement: company: " + a.companyName + " duration: " +
-          a.duration + " film: " + a.film.title);
+      this.advertisementService.add(this.adv).subscribe((a) => {
+        a.getRelation<Film>('film').subscribe(film => {
+          console.log("saved advertisement: company: " + a.companyName + " duration: " +
+            a.duration + " film: " + film.title);
+          this.getAds();
+        })
+
       });
     } else {
-      this.advertisementService.addAdv(this.adv).subscribe((a) => {
+      this.advertisementService.add(this.adv).subscribe((a) => {
         console.log("saved advertisement: company: " + a.companyName + " duration: " +
           a.duration + " film: none");
+        this.getAds();
       });
     }
 

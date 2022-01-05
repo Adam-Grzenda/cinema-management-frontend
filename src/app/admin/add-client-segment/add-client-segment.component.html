@@ -39,7 +39,8 @@
 <hr>
 
 <ul>
-  <li *ngFor="let s of segments">Segment: {{s.name}}<div *ngIf="s.promoOffer else elseBlock">Offer: {{s.promoOffer.name}}</div>
+  <li *ngFor="let s of segments">Segment: {{s.name}}
+    <div *ngIf="s.promoOffer else elseBlock">Offer: {{s.promoOffer.name}}</div>
     <ng-template #elseBlock><br>Offer: none</ng-template>
   </li>
 </ul>

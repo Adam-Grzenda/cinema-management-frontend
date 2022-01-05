@@ -8,7 +8,8 @@ import {PromoOfferService} from "./promo-offer.service";
 import {ClientSegmentService} from "./client-segment.service";
 import {ProductTypeService} from "./product-type.service";
 import {FilmService} from "./film.service";
-import {ServiceInterface} from "./serviceInterface";
+import {AbstractService} from "./abstract-service";
+import {Resource} from "@lagoshny/ngx-hateoas-client";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import {ServiceInterface} from "./serviceInterface";
 export class AdminListService {
 
   private adminList: Array<AdminList>;
-  private serviceList: Array<ServiceInterface>;
+  private serviceList: Array<AbstractService<Resource>>;
 
 
   constructor(
@@ -29,9 +30,10 @@ export class AdminListService {
     private productTypeService: ProductTypeService
   ) {
     this.adminList = new Array<AdminList>();
-    this.serviceList = new Array<ServiceInterface>();
+    this.serviceList = new Array<AbstractService<Resource>>();
 
-    this.serviceList.push(cinemaService, cinemaHallService)//, filmService, advertisementService, )
+    this.serviceList.push(cinemaService, cinemaHallService, filmService,
+      advertisementService, promoOfferService, clientSegmentService);
 
     const cinema: AdminList = new AdminList();
     cinema.name = "cinema"
@@ -49,31 +51,31 @@ export class AdminListService {
     film.name = "film"
     film.addLink = "/admin/add-film"
     film.editLink = "/admin/edit-film"
-    this.filmService.getFilms().subscribe(f => film.objectList = f.resources);
+    film.service = this.filmService
 
     const ad: AdminList = new AdminList();
     ad.name = "advertisement"
     ad.addLink = "/admin/add-advertisement"
     ad.editLink = "/admin/edit-ad"
-    this.advertisementService.getAds().subscribe(a => ad.objectList = a);
+    ad.service = this.advertisementService
 
     const promo: AdminList = new AdminList();
     promo.name = "promo offer"
     promo.addLink = "/admin/add-promo-offer"
     promo.editLink = "/admin/edit-promo-offer"
-    this.promoOfferService.getOffers().subscribe(p => promo.objectList = p);
+    promo.service = this.promoOfferService
 
     const segment: AdminList = new AdminList();
     segment.name = "client segment"
     segment.addLink = "/admin/add-client-segment"
     segment.editLink = "/admin/edit-client-segment"
-    this.clientSegmentService.getSegments().subscribe(s => segment.objectList = s);
+    segment.service = this.clientSegmentService
 
     const type: AdminList = new AdminList();
     type.name = "product type"
     type.addLink = "/admin/add-product-type"
     type.editLink = "/admin/edit-product-type"
-    this.productTypeService.getTypes().subscribe(t => type.objectList = t);
+    type.service = this.productTypeService
 
     this.adminList.push(cinema, cinemaHall, film, ad, promo, segment, type)
   }

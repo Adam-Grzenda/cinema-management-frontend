@@ -38,14 +38,14 @@ export class AddPromoOfferComponent implements OnInit {
   }
 
   getOffers(): void {
-    this.promoOfferService.getOffers().subscribe(offers => this.offers = offers);
+    this.promoOfferService.getAll().subscribe(offers => this.offers = offers.resources);
   }
 
   save() {
     this.offer.name = this.form.value.name
     this.offer.discount = this.form.value.discount
 
-    this.promoOfferService.addOffer(this.offer).subscribe((a) => {
+    this.promoOfferService.add(this.offer).subscribe((a) => {
       console.log("saved: offer: " + a.name +" discount: " +a.discount);
     });
 

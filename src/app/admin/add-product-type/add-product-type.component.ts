@@ -36,7 +36,7 @@ export class AddProductTypeComponent implements OnInit {
   }
 
   getTypes(): void {
-    this.productTypeService.getTypes().subscribe(types => this.types = types);
+    this.productTypeService.getAll().subscribe(types => this.types = types.resources);
   }
 
 
@@ -45,7 +45,7 @@ export class AddProductTypeComponent implements OnInit {
     this.productType.unit = this.form.value.unit;
     this.productType.amount = this.form.value.amount;
 
-    this.productTypeService.addType(this.productType).subscribe((a) => {
+    this.productTypeService.add(this.productType).subscribe((a) => {
       console.log("saved type: name: " + a.name + " unit: " +
         a.unit + " amount: " + a.amount);
     });
