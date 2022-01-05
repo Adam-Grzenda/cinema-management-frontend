@@ -1,4 +1,4 @@
-import {AbstractService} from "../app/services/abstract-service";
+import {GenericService} from "../app/services/generic-service";
 import {Resource} from "@lagoshny/ngx-hateoas-client";
 
 export class AdminList {
@@ -6,5 +6,5 @@ export class AdminList {
   addLink: string;
   editLink: string;
   objectList: any[];
-  service: AbstractService<Resource>;
+  service: GenericService<Resource>;
 }

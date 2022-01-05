@@ -8,7 +8,7 @@ import {PromoOfferService} from "./promo-offer.service";
 import {ClientSegmentService} from "./client-segment.service";
 import {ProductTypeService} from "./product-type.service";
 import {FilmService} from "./film.service";
-import {AbstractService} from "./abstract-service";
+import {GenericService} from "./generic-service";
 import {Resource} from "@lagoshny/ngx-hateoas-client";
 
 @Injectable({
@@ -17,7 +17,7 @@ import {Resource} from "@lagoshny/ngx-hateoas-client";
 export class AdminListService {
 
   private adminList: Array<AdminList>;
-  private serviceList: Array<AbstractService<Resource>>;
+  private serviceList: Array<GenericService<Resource>>;
 
 
   constructor(
@@ -30,7 +30,7 @@ export class AdminListService {
     private productTypeService: ProductTypeService
   ) {
     this.adminList = new Array<AdminList>();
-    this.serviceList = new Array<AbstractService<Resource>>();
+    this.serviceList = new Array<GenericService<Resource>>();
 
     this.serviceList.push(cinemaService, cinemaHallService, filmService,
       advertisementService, promoOfferService, clientSegmentService);

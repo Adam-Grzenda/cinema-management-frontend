@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {PromoOffer} from "../../model/promo-offer";
-import {AbstractService} from "./abstract-service";
+import {GenericService} from "./generic-service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PromoOfferService extends AbstractService<PromoOffer> {
+export class PromoOfferService extends GenericService<PromoOffer> {
 
 }

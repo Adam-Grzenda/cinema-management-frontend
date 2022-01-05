@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {Film} from "../../model/film";
 import {Observable} from "rxjs";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
-import {AbstractService} from "./abstract-service";
+import {GenericService} from "./generic-service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FilmService extends AbstractService<Film>{
+export class FilmService extends GenericService<Film>{
 
   public getFilms(dateFrom?: string, dateTo?: string): Observable<ResourceCollection<Film>> {
     return this.resourceService.getCollection(Film);
