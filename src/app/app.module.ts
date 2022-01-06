@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {LandingComponent} from './landing/landing.component';
-import {FilmListComponent} from './film-list/film-list.component';
+import {FilmListComponent} from './film/film-list/film-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
@@ -21,7 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {AppRoutingModule} from './app-routing.module';
 import {FilmAddComponent} from './admin/film-add/film-add.component';
-import {FilmDetailsComponent} from './film-details/film-details.component';
+import {FilmDetailsComponent} from './film/film-details/film-details.component';
 import {MainAdminComponent} from './admin/main-admin/main-admin.component';
 import {AddCinemaComponent} from './admin/add-cinema/add-cinema.component';
 import {AddCinemaHallComponent} from './admin/add-cinema-hall/add-cinema-hall.component';
@@ -31,7 +31,7 @@ import {AddPromoOfferComponent} from './admin/add-promo-offer/add-promo-offer.co
 import {AddClientSegmentComponent} from './admin/add-client-segment/add-client-segment.component';
 import {AddProductTypeComponent} from './admin/add-product-type/add-product-type.component';
 import {FilterComponent} from './sidebar/filter/filter.component';
-import {FilmCard} from './film-card/film-card.component';
+import {FilmCard} from './film/film-card/film-card.component';
 import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
 import {environment} from "../environments/environment";
 import {Film} from "../model/film";
@@ -41,6 +41,8 @@ import {Cinema} from "../model/cinema";
 import {FilmShow} from "../model/film-show";
 import { BuyTicketComponent } from './client/buy-ticket/buy-ticket.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatStepperModule} from "@angular/material/stepper";
+import {Chair} from "../model/chair";
 
 
 @NgModule({
@@ -64,27 +66,28 @@ import {MatDialogModule} from "@angular/material/dialog";
     AddProductTypeComponent,
     BuyTicketComponent,
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonModule,
-        FormsModule,
-        NgxHateoasClientModule.forRoot(),
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatExpansionModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    FormsModule,
+    NgxHateoasClientModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatStepperModule
+  ],
   providers: [
     MatDatepickerModule,
     DatePipe
@@ -103,7 +106,8 @@ export class AppModule {
           resources: [
             Film,
             Cinema,
-            FilmShow
+            FilmShow,
+            Chair
           ]
         }
       }
