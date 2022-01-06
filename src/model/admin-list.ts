@@ -1,4 +1,4 @@
-import {ServiceInterface} from "../app/services/serviceInterface";
+import {ServiceInterface} from "../app/services/service-interface";
 
 export class AdminList {
   name: string;

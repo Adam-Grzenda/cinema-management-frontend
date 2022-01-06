@@ -5,6 +5,8 @@ import {CinemaHall} from "../../../model/cinema-hall";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Cinema} from "../../../model/cinema";
 import {CinemaService} from "../../services/cinema.service";
+import {ActivatedRoute} from "@angular/router";
+import {first} from "rxjs";
 
 
 @Component({
@@ -14,13 +16,16 @@ import {CinemaService} from "../../services/cinema.service";
 })
 export class AddCinemaHallComponent implements OnInit {
 
+  public addMode: boolean = true;
+  private id: number;
+
   maxNumber: number = 25;
 
   cinemaHalls: CinemaHall[] = [];
 
   cinemas: Cinema[] = [];
 
-  hallTypes: String[] = ['normal','premium', 'imax']
+  hallTypes: String[] = ['normal', 'premium', 'imax']
 
   @Input()
   cinemaHall: CinemaHall = new CinemaHall();
@@ -31,12 +36,17 @@ export class AddCinemaHallComponent implements OnInit {
     private cinemaHallService: CinemaHallService,
     private cinemaService: CinemaService,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) {
   }
 
 
   ngOnInit(): void {
+
+    this.id = this.route.snapshot.params['id'];
+    this.addMode = !this.id;
+
     this.getHalls();
     this.getCinemas();
     this.form = this.formBuilder.group({
@@ -45,6 +55,23 @@ export class AddCinemaHallComponent implements OnInit {
       type: ["", [Validators.required]],
       cinema: ["", [Validators.required]]
     })
+
+    if (!this.addMode) {
+      this.cinemaHallService.getHall(this.id).pipe(first()).subscribe(h => {
+        this.cinemaHall = h;
+        console.log(h);
+        h.getRelation<Cinema>('cinema').subscribe(c => {
+          console.log(c)
+            this.cinemaHall.cinema = c;
+            this.form.patchValue(this.cinemaHall);
+            this.form.patchValue({cinema: this.cinemaHall.cinema.name})
+        }
+        )
+      });
+
+
+    }
+
   }
 
 
@@ -60,26 +87,41 @@ export class AddCinemaHallComponent implements OnInit {
   save() {
     this.cinemaHall.number = this.form.value.number
     this.cinemaHall.type = this.form.value.type
-    this.cinemaHall.cinema_id = this.form.value.cinema.id
-    console.log(this.cinemaHall.cinema_id);
+    this.cinemaHall.cinema = this.form.value.cinema
+    console.log(this.cinemaHall);
+    console.log(this.cinemaHall.cinema);
+    this.cinemaHall.bindRelation<Cinema>('cinema',this.cinemaHall.cinema).subscribe()
 
-    this.cinemaHallService.addHall(this.cinemaHall).subscribe((a) => {
-      this.cinemaService.getCinema(this.cinemaHall.cinema_id).subscribe((c) => {
-        console.log("saved: hall: " + a.number +" type: " + a.type + " cinema: " + c.name);
-        this.getHalls();
-      })
+    if (this.addMode) {
+      this.cinemaHallService.addHall(this.cinemaHall).subscribe((a) => {
+        this.cinemaService.getCinema(this.cinemaHall.cinema.id).subscribe((c) => {
+          console.log("saved: hall: " + a.number + " type: " + a.type + " cinema: " + c.name);
+          this.getHalls();
 
-    });
+          this.form.reset();
 
-    this.form.reset();
+          this.cinemaHall = new CinemaHall();
+        })
 
-    /*for (let name in this.form.controls) {
-      this.form.controls[name].setErrors(null);
+      });
+    } else {
+
+
+      this.cinemaHallService.updateHall(this.cinemaHall).subscribe((a) => {
+        this.cinemaService.getCinema(this.cinemaHall.cinema.id).subscribe((c) => {
+          console.log("updated: hall: " + a.number + " type: " + a.type + " cinema: " + c.name);
+          this.getHalls();
+
+          this.form.reset();
+
+          this.cinemaHall = new CinemaHall();
+        })
+
+      });
 
     }
-    this.form.setErrors({ 'invalid': true });*/
 
-    this.cinemaHall = new CinemaHall();
+
   }
 
   goBack(): void {

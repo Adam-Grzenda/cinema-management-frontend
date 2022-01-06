@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CinemaHall} from "../../model/cinema-hall";
 import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
-import {ServiceInterface} from "./serviceInterface";
+import {ServiceInterface} from "./service-interface";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 import {Cinema} from "../../model/cinema";
 
@@ -29,6 +29,10 @@ export class CinemaHallService implements ServiceInterface {
 
   public addHall(cinemaHall: CinemaHall): Observable<CinemaHall> {
     return this.resourceService.createResource(CinemaHall, {body: cinemaHall});
+  }
+
+  public updateHall(hall: CinemaHall): Observable<CinemaHall> {
+    return this.resourceService.updateResource(hall);
   }
 
   delete(hall: CinemaHall): Observable<CinemaHall> {

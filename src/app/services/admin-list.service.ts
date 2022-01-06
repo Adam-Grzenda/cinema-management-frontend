@@ -8,7 +8,7 @@ import {PromoOfferService} from "./promo-offer.service";
 import {ClientSegmentService} from "./client-segment.service";
 import {ProductTypeService} from "./product-type.service";
 import {FilmService} from "./film.service";
-import {ServiceInterface} from "./serviceInterface";
+import {ServiceInterface} from "./service-interface";
 
 @Injectable({
   providedIn: 'root'

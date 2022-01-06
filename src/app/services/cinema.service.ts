@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Cinema} from "../../model/cinema";
 import {Observable} from "rxjs";
-import {ServiceInterface} from "./serviceInterface";
+import {ServiceInterface} from "./service-interface";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 
 @Injectable({
@@ -11,7 +11,7 @@ export class CinemaService implements ServiceInterface{
 
 
   public getAll(): Observable<ResourceCollection<Cinema>> {
-    return this.resourceService.getCollection(Cinema, );
+    return this.resourceService.getCollection(Cinema);
   }
 
   public getCinema(id: number): Observable<Cinema> {

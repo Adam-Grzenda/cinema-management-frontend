@@ -4,7 +4,6 @@ import {CinemaService} from "../../services/cinema.service";
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {verifySupportedTypeScriptVersion} from "@angular/compiler-cli/src/typescript_support";
 import {first} from "rxjs";
 
 @Component({
@@ -14,7 +13,7 @@ import {first} from "rxjs";
 })
 export class AddCinemaComponent implements OnInit {
 
-  public addMode: boolean;
+  public addMode: boolean = true;
   private id: number;
 
   cinemas: Cinema[] = [];
@@ -44,7 +43,10 @@ export class AddCinemaComponent implements OnInit {
     })
 
     if (!this.addMode) {
-      this.cinemaService.getCinema(this.id).pipe(first()).subscribe(c => this.form.patchValue(c));
+      this.cinemaService.getCinema(this.id).pipe(first()).subscribe(c => {
+        this.cinema = c;
+        this.form.patchValue(c);
+      });
     }
 
   }
@@ -59,7 +61,8 @@ export class AddCinemaComponent implements OnInit {
         this.getCinemas();
       });
     } else {
-      this.cinemaService.updateCinema(this.cinema).pipe(first()).subscribe((a) => {
+      console.log(this.cinema)
+      this.cinemaService.updateCinema(this.cinema).subscribe((a) => {
         console.log("updated cinema: " + a.name);
         this.getCinemas();
       });
