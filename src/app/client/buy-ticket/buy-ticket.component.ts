@@ -16,10 +16,10 @@ import {OrderService} from "../../services/order.service";
 })
 export class BuyTicketComponent implements OnInit {
 
-  public availableChairs: Array<Chair>;
+  public availableChairs: Array<Chair>; //tutaj są ładowane dostępne fotele dla danego seansu
 
   //Order elements
-  public user: User;
+  public user: User; //Tutaj teraz jest zaciagany z user service placeholder - bede ogarnial auth po weekendzie pewnie
   public chairs: Array<Chair>; //TODO tutaj dodawać wybrane fotele + screening
   public pickedFoodCourtProducts: Array<FoodCourtProduct>; //TODO póki co tego nie implementujmy
 
@@ -51,7 +51,7 @@ export class BuyTicketComponent implements OnInit {
     order.filmShowId = this.data.screening.id;
     console.log(order);
 
-    this.orderService.placeOrder(order).subscribe(
+    this.orderService.placeOrder(order).subscribe( //To generalnie już działa, także jak się ustawi fieldy z forma to powinno być oki
       (next) => console.log(next)
     );
 

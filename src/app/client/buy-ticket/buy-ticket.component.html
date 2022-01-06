@@ -36,6 +36,7 @@
       <ng-template matStepLabel>Order details</ng-template>
       <ng-template matStepContent>
         <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
+        tutaj musi być form z podaniem danych - email, imie, nazwisko - auth bedziemy sie martwic pozniej
         Name: {{user.name}} <br>
         Surname: {{user.surname}} <br>
         Email: {{user.email}} <br>
@@ -46,6 +47,7 @@
       <ng-template matStepLabel>Order summary</ng-template>
       <ng-template matStepContent>
         <p>Trzeci krok - tutaj będą konkretne dane na temat zamówienia</p>
+        Tutaj będzie tabelka z podsumowaniem
         <button mat-button (click)="placeOrder()">Submit order</button>
       </ng-template>
     </mat-step>
