@@ -10,3 +10,8 @@
   display: flex;
   flex-wrap: nowrap;
 }
+
+.screenings {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -38,6 +38,9 @@ import {Film} from "../model/film";
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {Cinema} from "../model/cinema";
+import {FilmShow} from "../model/film-show";
+import { BuyTicketComponent } from './client/buy-ticket/buy-ticket.component';
+import {MatDialogModule} from "@angular/material/dialog";
 import {CinemaHall} from "../model/cinema-hall";
 import {TypeListComponent} from "./admin/type-list/type-list.component";
 import { ObjectListComponent } from './admin/object-list/object-list.component';
@@ -67,6 +70,7 @@ import { ObjectPanelComponent } from './admin/object-panel/object-panel.componen
     TypeListComponent,
     ObjectListComponent,
     ObjectPanelComponent,
+    BuyTicketComponent,
   ],
     imports: [
         BrowserModule,
@@ -87,6 +91,7 @@ import { ObjectPanelComponent } from './admin/object-panel/object-panel.componen
         ReactiveFormsModule,
         MatSelectModule,
         MatExpansionModule,
+        MatDialogModule
     ],
   providers: [
     MatDatepickerModule,
@@ -106,7 +111,8 @@ export class AppModule {
           resources: [
             Film,
             Cinema,
-            CinemaHall
+            CinemaHall,
+            FilmShow
           ]
         }
       }

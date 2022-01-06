@@ -11,5 +11,17 @@
       <p>Premiered: {{film.premiereDate}}</p>
       <p>Duration: {{film.duration}} minutes</p>
     </div>
+    <mat-expansion-panel hideToggle (opened)="loadScreenings()" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>See screenings</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="screenings">
+      <div *ngFor="let screening of screenings" style="padding: 10px">
+        <a mat-raised-button (click)="onClickScreening(screening)">
+          {{screening.date | date: 'short' }}
+        </a>
+      </div>
+      </div>
+    </mat-expansion-panel>
   </div>
 </div>
