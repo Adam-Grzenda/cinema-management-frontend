@@ -33,7 +33,8 @@
   <mat-form-field appearance="fill">
     <mat-label>Cinema</mat-label>
     <mat-select formControlName="cinema">
-      <mat-option *ngFor="let cinema of cinemas" [value]="cinema">{{cinema.name}}</mat-option>
+     <!-- value="{{current cinema}}" - try as placeholder in edit form  \|/ -->
+      <mat-option *ngFor="let cinema of cinemas" [value]="cinema" >{{cinema.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 

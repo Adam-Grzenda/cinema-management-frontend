@@ -8,6 +8,7 @@ import {User} from "../../../model/user";
 import {FoodCourtProduct} from "../../../model/FoodCourtProduct";
 import {Order} from "../../../model/order";
 import {OrderService} from "../../services/order.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -20,21 +21,44 @@ export class BuyTicketComponent implements OnInit {
 
   //Order elements
   public user: User; //Tutaj teraz jest zaciagany z user service placeholder - bede ogarnial auth po weekendzie pewnie
-  public chairs: Array<Chair>; //TODO tutaj dodawać wybrane fotele + screening
-  public pickedFoodCourtProducts: Array<FoodCourtProduct>; //TODO póki co tego nie implementujmy
+  public chairs: Array<Chair> = new Array<Chair>(); //TODO tutaj dodawać wybrane fotele + screening
+  public pickedFoodCourtProducts: Array<FoodCourtProduct> = new Array<FoodCourtProduct>(); //TODO póki co tego nie implementujmy
+
+  seatForm: FormGroup
+  detailsForm: FormGroup
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {screening: FilmShow},
+    @Inject(MAT_DIALOG_DATA) private data: { screening: FilmShow },
     private chairService: ChairService,
     private userService: UserService,
-    private orderService: OrderService
-  ) { }
+    private orderService: OrderService,
+    private formBuilder:FormBuilder
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAvailableChairs();
     this.userService.getLoggedInUser().subscribe(
       (next) => this.user = next
     );
+    this.seatForm = this.formBuilder.group({
+      seat: ["", Validators.required]
+    })
+
+    this.detailsForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      surname: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+    })
+
+    if (this.user) {
+      this.detailsForm.setValue({
+        name: this.user.name,
+        surname: this.user.surname,
+        email: this.user.email
+      })
+    }
+
   }
 
   getAvailableChairs() {
@@ -45,8 +69,11 @@ export class BuyTicketComponent implements OnInit {
 
   placeOrder() {
     let order: Order = new Order();
+    this.chairs.push(this.seatForm.value)
     order.chairs = this.chairs;
+
     order.userId = this.user.id;
+
     order.foodProducts = this.pickedFoodCourtProducts;
     order.filmShowId = this.data.screening.id;
     console.log(order);

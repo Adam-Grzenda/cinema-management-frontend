@@ -54,7 +54,7 @@ export class FilmCard implements OnInit {
     console.log(screening);
     this.dialog.open(BuyTicketComponent, {
       data: {screening: screening},
-      height: '60%',
+      height: '80%',
       width: '50%'
     });
   }
