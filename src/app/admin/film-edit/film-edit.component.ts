@@ -27,7 +27,7 @@ export class FilmEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.filmService.updateFilm(this.editedFilm).subscribe(
+    this.filmService.update(this.editedFilm).subscribe(
       a => console.log("updated: " + a))
 
     this.submittedEvent.emit();

@@ -43,7 +43,7 @@ export class AddCinemaComponent implements OnInit {
     })
 
     if (!this.addMode) {
-      this.cinemaService.getCinema(this.id).pipe(first()).subscribe(c => {
+      this.cinemaService.getOne(this.id).pipe(first()).subscribe(c => {
         this.cinema = c;
         this.form.patchValue(c);
       });
@@ -56,13 +56,13 @@ export class AddCinemaComponent implements OnInit {
     this.cinema.address = this.form.value.address;
 
     if (this.addMode) {
-      this.cinemaService.addCinema(this.cinema).subscribe((a) => {
+      this.cinemaService.add(this.cinema).subscribe((a) => {
         console.log("saved:" + a.name);
         this.getCinemas();
       });
     } else {
       console.log(this.cinema)
-      this.cinemaService.updateCinema(this.cinema).subscribe((a) => {
+      this.cinemaService.update(this.cinema).subscribe((a) => {
         console.log("updated cinema: " + a.name);
         this.getCinemas();
       });

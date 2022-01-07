@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminListService} from "../../services/admin-list.service";
 import {AdminList} from "../../../model/admin-list";
 

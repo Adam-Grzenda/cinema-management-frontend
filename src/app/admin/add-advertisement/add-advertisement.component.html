@@ -1,4 +1,5 @@
-<h2>add new advertisement</h2>
+<h2 *ngIf="addMode">Add new advertisement</h2>
+<h2 *ngIf="!addMode">Edit the advertisement</h2>
 
 
 <button (click)="goBack()">Return</button>
@@ -12,7 +13,7 @@
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Company Name</mat-label>
-    <input matInput formControlName="company"
+    <input matInput formControlName="companyName"
            placeholder="enter a valid number">
   </mat-form-field>
 
@@ -30,7 +31,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Film</mat-label>
-    <mat-select placeholder="null" formControlName="movie">
+    <mat-select placeholder="null" formControlName="film">
       <mat-option [value]="null">None</mat-option>
       <mat-option *ngFor="let film of films" [value]="film">{{film.title}}</mat-option>
     </mat-select>

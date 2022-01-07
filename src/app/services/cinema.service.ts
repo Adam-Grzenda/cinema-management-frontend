@@ -7,32 +7,31 @@ import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-
 @Injectable({
   providedIn: 'root'
 })
-export class CinemaService implements ServiceInterface{
-
-
-  public getAll(): Observable<ResourceCollection<Cinema>> {
-    return this.resourceService.getCollection(Cinema);
-  }
-
-  public getCinema(id: number): Observable<Cinema> {
-    return this.resourceService.getResource(Cinema, id);
-  }
-
-  public addCinema(cinema: Cinema): Observable<Cinema> {
-    return this.resourceService.createResource(Cinema, {body: cinema});
-  }
-
-  public updateCinema(cinema: Cinema): Observable<Cinema> {
-    return this.resourceService.updateResource(cinema);
-  }
-
-
-  public delete(cinema: Cinema): Observable<Cinema> {
-    return this.resourceService.deleteResource(cinema);
-  }
+export class CinemaService implements ServiceInterface {
 
   constructor(
     private resourceService: HateoasResourceService
   ) {
   }
+
+  public getAll(): Observable<ResourceCollection<Cinema>> {
+    return this.resourceService.getCollection(Cinema);
+  }
+
+  public getOne(id: number): Observable<Cinema> {
+    return this.resourceService.getResource(Cinema, id);
+  }
+
+  public add(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.createResource(Cinema, {body: cinema});
+  }
+
+  public update(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.updateResource(cinema);
+  }
+
+  public delete(cinema: Cinema): Observable<Cinema> {
+    return this.resourceService.deleteResource(cinema);
+  }
+
 }

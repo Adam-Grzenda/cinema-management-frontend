@@ -26,10 +26,17 @@ const routes: Routes = [
   {path: 'admin/edit-cinema-hall/:id', component: AddCinemaHallComponent},
 
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
+  {path: 'admin/edit-advertisement/:id', component: AddAdvertisementComponent},
+
   {path: 'admin/add-promo-offer', component: AddPromoOfferComponent},
+  {path: 'admin/edit-promo-offer/:id', component: AddPromoOfferComponent},
+
   {path: 'admin/add-client-segment', component: AddClientSegmentComponent},
+  {path: 'admin/edit-client-segment/:id', component: AddClientSegmentComponent},
+
   {path: 'admin/add-product-type', component: AddProductTypeComponent},
-  {path: 'admin/:add', redirectTo: 'admin/main', pathMatch:'full'}
+  {path: 'admin/edit-product-type/:id', component: AddProductTypeComponent},
+
 
 ]
 

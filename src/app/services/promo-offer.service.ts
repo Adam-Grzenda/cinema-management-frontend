@@ -1,33 +1,37 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {PromoOffer} from "../../model/promo-offer";
+import {ServiceInterface} from "./service-interface";
+import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PromoOfferService {
-  private promoOffers: Array<PromoOffer>;
+export class PromoOfferService implements ServiceInterface {
 
-  constructor() {
-    this.promoOffers = new Array<PromoOffer>();
-
-    const o1 = new PromoOffer();
-    o1.name = "New Clients";
-    o1.discount = 10;
-
-    const o2 = new PromoOffer();
-    o2.name = "Regular Clients";
-    o2.discount = 15;
-
-    this.promoOffers.push(o1, o2);
+  constructor(
+    private resourceService: HateoasResourceService
+  ) {
   }
 
-  public getOffers(): Observable<PromoOffer[]> {
-    return of(this.promoOffers)
+  public getAll(): Observable<ResourceCollection<PromoOffer>> {
+    return this.resourceService.getCollection(PromoOffer);
   }
 
-  public addOffer(offer: PromoOffer): Observable<PromoOffer> {
-    this.promoOffers.push(offer);
-    return of(offer);
+  public getOne(id: number): Observable<PromoOffer> {
+    return this.resourceService.getResource(PromoOffer, id);
   }
+
+  public add(promoOffer: PromoOffer): Observable<PromoOffer> {
+    return this.resourceService.createResource(PromoOffer, {body: promoOffer});
+  }
+
+  public update(promoOffer: PromoOffer): Observable<PromoOffer> {
+    return this.resourceService.updateResource(promoOffer);
+  }
+
+  public delete(promoOffer: PromoOffer): Observable<PromoOffer> {
+    return this.resourceService.deleteResource(promoOffer);
+  }
+
 }

@@ -49,6 +49,7 @@ export class AddCinemaHallComponent implements OnInit {
 
     this.getHalls();
     this.getCinemas();
+
     this.form = this.formBuilder.group({
       number: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1), Validators.max(this.maxNumber)]],
@@ -57,18 +58,18 @@ export class AddCinemaHallComponent implements OnInit {
     })
 
     if (!this.addMode) {
-      this.cinemaHallService.getHall(this.id).pipe(first()).subscribe(h => {
+      this.cinemaHallService.getOne(this.id).pipe(first()).subscribe(h => {
         this.cinemaHall = h;
-        console.log(h);
         h.getRelation<Cinema>('cinema').subscribe(c => {
-          console.log(c)
-            this.cinemaHall.cinema = c;
-            this.form.patchValue(this.cinemaHall);
-            this.form.patchValue({cinema: this.cinemaHall.cinema.name})
-        }
-        )
+          this.cinemaHall.cinema = c;
+          this.form.patchValue(this.cinemaHall);
+          this.form.patchValue({
+            cinema: this.cinemaHall.cinema
+          })
+        })
       });
 
+      //this.form.get('cinema')?.setValue(this.cinemaHall.cinema.name)
 
     }
 
@@ -88,39 +89,26 @@ export class AddCinemaHallComponent implements OnInit {
     this.cinemaHall.number = this.form.value.number
     this.cinemaHall.type = this.form.value.type
     this.cinemaHall.cinema = this.form.value.cinema
-    console.log(this.cinemaHall);
-    console.log(this.cinemaHall.cinema);
-    this.cinemaHall.bindRelation<Cinema>('cinema',this.cinemaHall.cinema).subscribe()
+
+    this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema).subscribe()
 
     if (this.addMode) {
-      this.cinemaHallService.addHall(this.cinemaHall).subscribe((a) => {
-        this.cinemaService.getCinema(this.cinemaHall.cinema.id).subscribe((c) => {
-          console.log("saved: hall: " + a.number + " type: " + a.type + " cinema: " + c.name);
-          this.getHalls();
-
-          this.form.reset();
-
-          this.cinemaHall = new CinemaHall();
-        })
-
+      this.cinemaHallService.add(this.cinemaHall).subscribe((a) => {
+        console.log("saved: hall: " + a.number + " type: " + a.type);
+        this.getHalls();
       });
     } else {
-
-
-      this.cinemaHallService.updateHall(this.cinemaHall).subscribe((a) => {
-        this.cinemaService.getCinema(this.cinemaHall.cinema.id).subscribe((c) => {
-          console.log("updated: hall: " + a.number + " type: " + a.type + " cinema: " + c.name);
-          this.getHalls();
-
-          this.form.reset();
-
-          this.cinemaHall = new CinemaHall();
-        })
-
+      this.cinemaHallService.update(this.cinemaHall).subscribe((a) => {
+        console.log("updated: hall: " + a.number + " type: " + a.type);
+        this.getHalls();
       });
 
     }
 
+
+    this.form.reset();
+
+    this.cinemaHall = new CinemaHall();
 
   }
 

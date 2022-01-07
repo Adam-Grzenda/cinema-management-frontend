@@ -12,26 +12,23 @@ import {Cinema} from "../../model/cinema";
 export class CinemaHallService implements ServiceInterface {
 
   constructor(
-    private cinemaService: CinemaService,
     private resourceService: HateoasResourceService
   ) {
   }
-
 
   public getAll(): Observable<ResourceCollection<CinemaHall>> {
     return this.resourceService.getCollection(CinemaHall);
   }
 
-  public getHall(id: number): Observable<CinemaHall> {
+  public getOne(id: number): Observable<CinemaHall> {
     return this.resourceService.getResource(CinemaHall, id);
   }
 
-
-  public addHall(cinemaHall: CinemaHall): Observable<CinemaHall> {
+  public add(cinemaHall: CinemaHall): Observable<CinemaHall> {
     return this.resourceService.createResource(CinemaHall, {body: cinemaHall});
   }
 
-  public updateHall(hall: CinemaHall): Observable<CinemaHall> {
+  public update(hall: CinemaHall): Observable<CinemaHall> {
     return this.resourceService.updateResource(hall);
   }
 

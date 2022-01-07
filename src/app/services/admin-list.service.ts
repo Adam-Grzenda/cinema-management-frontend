@@ -31,7 +31,8 @@ export class AdminListService {
     this.adminList = new Array<AdminList>();
     this.serviceList = new Array<ServiceInterface>();
 
-    this.serviceList.push(cinemaService, cinemaHallService)//, filmService, advertisementService, )
+    this.serviceList.push(cinemaService, cinemaHallService, filmService,
+      advertisementService, promoOfferService, clientSegmentService)
 
     const cinema: AdminList = new AdminList();
     cinema.name = "cinema"
@@ -49,25 +50,25 @@ export class AdminListService {
     film.name = "film"
     film.addLink = "/admin/add-film"
     film.editLink = "/admin/edit-film"
-    this.filmService.getFilms().subscribe(f => film.objectList = f.resources);
+    film.service = this.filmService
 
     const ad: AdminList = new AdminList();
     ad.name = "advertisement"
     ad.addLink = "/admin/add-advertisement"
-    ad.editLink = "/admin/edit-ad"
-    this.advertisementService.getAds().subscribe(a => ad.objectList = a);
+    ad.editLink = "/admin/edit-advertisement"
+    ad.service = this.advertisementService
 
     const promo: AdminList = new AdminList();
     promo.name = "promo offer"
     promo.addLink = "/admin/add-promo-offer"
     promo.editLink = "/admin/edit-promo-offer"
-    this.promoOfferService.getOffers().subscribe(p => promo.objectList = p);
+    promo.service = this.promoOfferService
 
     const segment: AdminList = new AdminList();
     segment.name = "client segment"
     segment.addLink = "/admin/add-client-segment"
     segment.editLink = "/admin/edit-client-segment"
-    this.clientSegmentService.getSegments().subscribe(s => segment.objectList = s);
+    segment.service = this.clientSegmentService
 
     const type: AdminList = new AdminList();
     type.name = "product type"

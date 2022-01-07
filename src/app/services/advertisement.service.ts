@@ -3,37 +3,38 @@ import {Advertisement} from "../../model/advertisement";
 import {Observable, of} from "rxjs";
 import {FilmService} from "./film.service";
 import {A} from "@angular/cdk/keycodes";
+import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
+import {CinemaHall} from "../../model/cinema-hall";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdvertisementService {
-  private ads: Array<Advertisement>;
 
   constructor(
     private filmService: FilmService,
+    private resourceService: HateoasResourceService
   ) {
-    this.ads = new Array<Advertisement>();
-
-    const a1:Advertisement = new Advertisement();
-    a1.companyName = "Coca Cola";
-    a1.duration = 30;
-
-    const a2:Advertisement = new Advertisement();
-    a2.companyName = "Lego";
-    a2.duration = 40;
-    this.filmService.getFilm(3).subscribe(f => a2.film = f);
-
-
-    this.ads.push(a1, a2);
   }
 
-  public getAds(): Observable<Advertisement[]> {
-    return of(this.ads)
+  public getAll(): Observable<ResourceCollection<Advertisement>> {
+    return this.resourceService.getCollection(Advertisement);
   }
 
-  public addAdv(advertisement: Advertisement): Observable<Advertisement> {
-    this.ads.push(advertisement);
-    return of(advertisement);
+  public getOne(id: number): Observable<Advertisement> {
+    return this.resourceService.getResource(Advertisement, id);
+  }
+
+
+  public add(ad: Advertisement): Observable<Advertisement> {
+    return this.resourceService.createResource(Advertisement, {body: ad});
+  }
+
+  public update(ad: Advertisement): Observable<Advertisement> {
+    return this.resourceService.updateResource(ad);
+  }
+
+  delete(ad: Advertisement): Observable<Advertisement> {
+    return this.resourceService.deleteResource(ad);
   }
 }
