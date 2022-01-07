@@ -10,20 +10,26 @@ import {AddAdvertisementComponent} from "./admin/add-advertisement/add-advertise
 import {AddPromoOfferComponent} from "./admin/add-promo-offer/add-promo-offer.component";
 import {AddClientSegmentComponent} from "./admin/add-client-segment/add-client-segment.component";
 import {AddProductTypeComponent} from "./admin/add-product-type/add-product-type.component";
+import {FilmEditComponent} from "./admin/film-edit/film-edit.component";
+import {MainManagerComponent} from "./manager/main-manager/main-manager.component";
+import {CinemaChooseComponent} from "./manager/cinema-choose/cinema-choose.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
   {path: 'customer', component: LandingComponent},
-  {path: 'admin/add-film', component: FilmAddComponent},
   {path: 'film/:id', component: FilmDetailsComponent},
-  {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
+
   {path: 'admin/main', component: MainAdminComponent},
+  {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
 
   {path: 'admin/add-cinema', component: AddCinemaComponent},
   {path: 'admin/edit-cinema/:id', component: AddCinemaComponent},
 
   {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},
   {path: 'admin/edit-cinema-hall/:id', component: AddCinemaHallComponent},
+
+  {path: 'admin/add-film', component: FilmAddComponent},
+  {path: 'admin/edit-film/:id', component: FilmEditComponent},
 
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},
   {path: 'admin/edit-advertisement/:id', component: AddAdvertisementComponent},
@@ -36,6 +42,11 @@ const routes: Routes = [
 
   {path: 'admin/add-product-type', component: AddProductTypeComponent},
   {path: 'admin/edit-product-type/:id', component: AddProductTypeComponent},
+
+  {path: 'manager', component: CinemaChooseComponent},
+  {path: 'manager/main', redirectTo: 'manager',pathMatch: 'full'},
+
+  {path: 'manager/main/:cinema-id', component: MainManagerComponent},
 
 
 ]

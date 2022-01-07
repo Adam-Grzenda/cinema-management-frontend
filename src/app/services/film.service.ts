@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Film} from "../../model/film";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 import {ServiceInterface} from "./service-interface";
 
@@ -31,6 +31,10 @@ export class FilmService implements ServiceInterface {
 
   public delete(film: Film): Observable<Film> {
     return this.resourceService.deleteResource(film);
+  }
+
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
   }
 
   public addSampleFilms(): void {

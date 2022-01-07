@@ -36,4 +36,8 @@ export class CinemaHallService implements ServiceInterface {
     return this.resourceService.deleteResource(hall);
   }
 
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
+  }
+
 }

@@ -69,8 +69,6 @@ export class AddCinemaHallComponent implements OnInit {
         })
       });
 
-      //this.form.get('cinema')?.setValue(this.cinemaHall.cinema.name)
-
     }
 
   }

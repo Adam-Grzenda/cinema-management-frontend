@@ -8,4 +8,6 @@ export interface ServiceInterface {
 
   getAll(): Observable<ResourceCollection<any>>;
 
+  getAllSub(id: number): Observable<ResourceCollection<any>>;
+
 }

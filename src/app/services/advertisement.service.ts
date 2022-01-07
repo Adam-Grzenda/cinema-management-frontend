@@ -37,4 +37,8 @@ export class AdvertisementService {
   delete(ad: Advertisement): Observable<Advertisement> {
     return this.resourceService.deleteResource(ad);
   }
+
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
+  }
 }

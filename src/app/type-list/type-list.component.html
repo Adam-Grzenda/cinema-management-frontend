@@ -1,0 +1,24 @@
+<mat-accordion *ngFor="let type of typeList">
+  <mat-expansion-panel class="main_panels" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{type.name | uppercase}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Expand to manage {{type.name}}s
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+      <a class="button" mat-raised-button color="primary"
+         routerLink="{{type.addLink}}" *ngIf="type.type == 'admin'">Add new {{type.name}}</a>
+
+      <hr>
+
+      <mat-accordion *ngFor="let item of type.objectList">
+        <app-object-panel [item]="item" [type]="type"></app-object-panel>
+        <hr>
+      </mat-accordion>
+
+  </mat-expansion-panel>
+  <hr>
+</mat-accordion>

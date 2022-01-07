@@ -6,9 +6,10 @@ import {ProductType} from "../../../model/product-type";
 import {CinemaHall} from "../../../model/cinema-hall";
 import {Film} from "../../../model/film";
 import {Advertisement} from "../../../model/advertisement";
-import {AdminList} from "../../../model/admin-list";
+import {TypeList} from "../../../model/type-list";
 import {Observable} from "rxjs";
 import {AdminListService} from "../../services/admin-list.service";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-object-panel',
@@ -21,7 +22,7 @@ export class ObjectPanelComponent implements OnInit {
   item: any;
 
   @Input()
-  type: AdminList;
+  type: TypeList;
 
   title: string;
 
@@ -78,6 +79,10 @@ export class ObjectPanelComponent implements OnInit {
       this.service.updateLists();
     });
 
+
+  }
+//#TODO move to new component
+  sortData(sort: Sort) {
 
   }
 

@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProductType} from "../../../model/product-type";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PromoOfferService} from "../../services/promo-offer.service";
 import {Location} from "@angular/common";
 import {ProductTypeService} from "../../services/product-type.service";
+import {ActivatedRoute} from "@angular/router";
+import {first} from "rxjs";
 
 @Component({
   selector: 'app-add-product-type',
@@ -11,6 +12,9 @@ import {ProductTypeService} from "../../services/product-type.service";
   styleUrls: ['./add-product-type.component.css']
 })
 export class AddProductTypeComponent implements OnInit {
+
+  public addMode: boolean = true;
+  private id: number;
 
   types: ProductType[] = [];
 
@@ -22,10 +26,15 @@ export class AddProductTypeComponent implements OnInit {
   constructor(
     private productTypeService: ProductTypeService,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    this.id = this.route.snapshot.params['id'];
+    this.addMode = !this.id;
+
     this.getTypes();
     this.form = this.formBuilder.group({
       name: ["", [Validators.required]],
@@ -33,10 +42,18 @@ export class AddProductTypeComponent implements OnInit {
       amount: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1)]],
     })
+
+    if (!this.addMode) {
+      this.productTypeService.getOne(this.id).pipe(first()).subscribe(t => {
+        this.productType = t;
+        this.form.patchValue(this.productType);
+      })
+    }
+
   }
 
   getTypes(): void {
-    this.productTypeService.getTypes().subscribe(types => this.types = types);
+    this.productTypeService.getAll().subscribe(types => this.types = types.resources);
   }
 
 
@@ -44,11 +61,23 @@ export class AddProductTypeComponent implements OnInit {
     this.productType.name = this.form.value.name;
     this.productType.unit = this.form.value.unit;
     this.productType.amount = this.form.value.amount;
+    console.log(this.productType)
 
-    this.productTypeService.addType(this.productType).subscribe((a) => {
-      console.log("saved type: name: " + a.name + " unit: " +
-        a.unit + " amount: " + a.amount);
-    });
+    if (this.addMode) {
+      this.productTypeService.add(this.productType).subscribe((a) => {
+        console.log("saved type: name: " + a.name + " unit: " +
+          a.unit + " amount: " + a.amount);
+        this.getTypes();
+      });
+    } else {
+      this.productTypeService.update(this.productType).subscribe((a) => {
+        console.log("updated type: name: " + a.name + " unit: " +
+          a.unit + " amount: " + a.amount);
+        this.getTypes();
+      });
+    }
+
+
 
     this.productType = new ProductType();
   }

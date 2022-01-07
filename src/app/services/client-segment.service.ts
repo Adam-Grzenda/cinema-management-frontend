@@ -35,4 +35,8 @@ export class ClientSegmentService implements ServiceInterface {
     return this.resourceService.deleteResource(segment);
   }
 
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
+  }
+
 }

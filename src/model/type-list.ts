@@ -1,6 +1,8 @@
 import {ServiceInterface} from "../app/services/service-interface";
 
-export class AdminList {
+export class TypeList {
+  id: number;
+  type: string = 'admin';
   name: string;
   addLink: string;
   editLink: string;

@@ -1,35 +1,42 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {ProductType} from "../../model/product-type";
+import {ServiceInterface} from "./service-interface";
+import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
+import {Cinema} from "../../model/cinema";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductTypeService {
-  private productTypes: Array<ProductType>;
+export class ProductTypeService implements ServiceInterface {
 
-  constructor() {
-    this.productTypes = new Array<ProductType>();
-
-    const o1 = new ProductType();
-    o1.name = "popcorn";
-    o1.unit = "g";
-    o1.amount = 100;
-
-    const o2 = new ProductType();
-    o2.name = "Cola";
-    o2.unit = "ml";
-    o2.amount = 500;
-
-    this.productTypes.push(o1, o2);
+  constructor(
+    private resourceService: HateoasResourceService
+  ) {
   }
 
-  public getTypes(): Observable<ProductType[]> {
-    return of(this.productTypes)
+  public getAll(): Observable<ResourceCollection<ProductType>> {
+    return this.resourceService.getCollection(ProductType);
   }
 
-  public addType(offer: ProductType): Observable<ProductType> {
-    this.productTypes.push(offer);
-    return of(offer);
+  public getOne(id: number): Observable<ProductType> {
+    return this.resourceService.getResource(ProductType, id);
   }
+
+  public add(type: ProductType): Observable<ProductType> {
+    return this.resourceService.createResource(ProductType, {body: type});
+  }
+
+  public update(type: ProductType): Observable<ProductType> {
+    return this.resourceService.updateResource(type);
+  }
+
+  public delete(type: ProductType): Observable<ProductType> {
+    return this.resourceService.deleteResource(type);
+  }
+
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
+  }
+
 }

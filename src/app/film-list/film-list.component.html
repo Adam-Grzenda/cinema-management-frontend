@@ -7,7 +7,7 @@
     </button>
   </div>
 
-  <app-film-edit [editedFilm]="film" *ngIf="this.editFilmId===film.id"
+  <app-film-edit [film]="film" *ngIf="this.editFilmId===film.id"
                  (submittedEvent)="onSubmittedEvent()"></app-film-edit>
 </div>
 <div style="display:flex; justify-content: center; padding: 25px">

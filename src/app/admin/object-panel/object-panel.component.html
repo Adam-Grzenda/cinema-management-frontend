@@ -7,7 +7,7 @@
       {{title}} options
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <ul>
+  <ul *ngIf="type.type == 'admin'">
     <a class="button" mat-raised-button color="accent"
         routerLink="{{type.editLink}}/{{item.id}}">Modify</a>
 
@@ -16,4 +16,12 @@
     <a class="button" mat-raised-button color="warn"
        (click)="delete()" routerLink="/admin/main">Delete</a>
   </ul>
+
+  <table matSort (matSortChange)="sortData($event)">
+    <tr>
+
+    </tr>
+
+  </table>
+
 </mat-expansion-panel>

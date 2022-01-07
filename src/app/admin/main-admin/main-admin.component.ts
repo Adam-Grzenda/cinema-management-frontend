@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminListService} from "../../services/admin-list.service";
-import {AdminList} from "../../../model/admin-list";
+import {TypeList} from "../../../model/type-list";
 
 @Component({
   selector: 'app-main-admin',
@@ -9,7 +9,7 @@ import {AdminList} from "../../../model/admin-list";
 })
 export class MainAdminComponent implements OnInit {
 
-  typeList: AdminList[] = [];
+  typeList: TypeList[] = [];
 
   constructor(
     private adminListService: AdminListService,

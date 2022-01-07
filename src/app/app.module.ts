@@ -42,9 +42,11 @@ import {FilmShow} from "../model/film-show";
 import { BuyTicketComponent } from './client/buy-ticket/buy-ticket.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {CinemaHall} from "../model/cinema-hall";
-import {TypeListComponent} from "./admin/type-list/type-list.component";
-import { ObjectListComponent } from './admin/object-list/object-list.component';
+import {TypeListComponent} from "./type-list/type-list.component";
 import { ObjectPanelComponent } from './admin/object-panel/object-panel.component';
+import { MainManagerComponent } from './manager/main-manager/main-manager.component';
+import { CinemaChooseComponent } from './manager/cinema-choose/cinema-choose.component';
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -68,31 +70,33 @@ import { ObjectPanelComponent } from './admin/object-panel/object-panel.componen
     AddClientSegmentComponent,
     AddProductTypeComponent,
     TypeListComponent,
-    ObjectListComponent,
     ObjectPanelComponent,
     BuyTicketComponent,
+    MainManagerComponent,
+    CinemaChooseComponent,
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonModule,
-        FormsModule,
-        NgxHateoasClientModule.forRoot(),
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatExpansionModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    FormsModule,
+    NgxHateoasClientModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSortModule
+  ],
   providers: [
     MatDatepickerModule,
     DatePipe

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {PromoOffer} from "../../model/promo-offer";
 import {ServiceInterface} from "./service-interface";
 import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
@@ -32,6 +32,10 @@ export class PromoOfferService implements ServiceInterface {
 
   public delete(promoOffer: PromoOffer): Observable<PromoOffer> {
     return this.resourceService.deleteResource(promoOffer);
+  }
+
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
   }
 
 }

@@ -1,0 +1,23 @@
+<h2>Temporary, until manager will be assigned to cinema</h2>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cinema</mat-label>
+      <mat-select formControlName="cinema" id="cinema" ngDefaultControl>
+        <mat-option *ngFor="let cinema of cinemas" [value]="cinema">{{cinema.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="center">
+      <button type="submit" [disabled]="!form.valid">Save cinema hall</button>
+    </div>
+  </form>
+</div>
