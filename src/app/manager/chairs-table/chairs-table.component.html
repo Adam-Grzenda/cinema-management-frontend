@@ -1,1 +1,27 @@
-<p>chairs-table works!</p>
+<p>chairs of hall: {{hall_id}}</p>
+
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<table  matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+  <tr>
+    <th mat-sort-header="id">ID</th>
+    <th mat-sort-header="hallRow">Row</th>
+    <th mat-sort-header="hallColumn">Column</th>
+    <th mat-sort-header="chairType">Type</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+
+  <tr *ngFor="let chair of sortedChairs">
+    <td>{{chair.id}}</td>
+    <td>{{chair.hallRow}}</td>
+    <td>{{chair.hallColumn}}</td>
+    <td>{{chair.chairType}}</td>
+    <td>edit button</td>
+    <td><a type="button" mat-raised-button color="warn" (click)="delete(chair)">delete</a></td>
+  </tr>
+
+</table>

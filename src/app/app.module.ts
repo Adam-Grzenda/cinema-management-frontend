@@ -54,6 +54,7 @@ import {Advertisement} from "../model/advertisement";
 import {PromoOffer} from "../model/promo-offer";
 import {ProductType} from "../model/product-type";
 import {ClientSegment} from "../model/client-segment";
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -103,7 +104,9 @@ import {ClientSegment} from "../model/client-segment";
     MatSelectModule,
     MatExpansionModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [
     MatDatepickerModule,

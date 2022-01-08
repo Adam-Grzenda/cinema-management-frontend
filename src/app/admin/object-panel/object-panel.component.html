@@ -17,6 +17,6 @@
        (click)="delete()" routerLink="/admin/main">Delete</a>
   </ul>
 
-  <app-chairs-table *ngIf="type.type == 'manager'"></app-chairs-table>
+  <app-chairs-table *ngIf="type.type == 'manager'" [hall_id]="item.id"></app-chairs-table>
 
 </mat-expansion-panel>

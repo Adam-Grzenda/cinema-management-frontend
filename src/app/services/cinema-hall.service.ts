@@ -3,8 +3,10 @@ import {CinemaHall} from "../../model/cinema-hall";
 import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
 import {ServiceInterface} from "./service-interface";
-import {HateoasResourceService, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
+import {HateoasResourceService, HttpMethod, ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 import {Cinema} from "../../model/cinema";
+import {Chair} from "../../model/chair";
+import {verifyHostBindings} from "@angular/compiler";
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +38,8 @@ export class CinemaHallService implements ServiceInterface {
     return this.resourceService.deleteResource(hall);
   }
 
-  getAllSub(id: number): Observable<ResourceCollection<any>> {
-    return of(new ResourceCollection());
+  getAllSub(id: number): Observable<ResourceCollection<Chair>> {
+    return this.resourceService.customQuery<ResourceCollection<Chair>>(CinemaHall, HttpMethod.GET, "/" + id + "/chairs")
   }
 
 }
