@@ -47,6 +47,7 @@ import { ObjectPanelComponent } from './admin/object-panel/object-panel.componen
 import { MainManagerComponent } from './manager/main-manager/main-manager.component';
 import { CinemaChooseComponent } from './manager/cinema-choose/cinema-choose.component';
 import {MatSortModule} from "@angular/material/sort";
+import { ChairsTableComponent } from './manager/chairs-table/chairs-table.component';
 
 
 
@@ -74,6 +75,7 @@ import {MatSortModule} from "@angular/material/sort";
     BuyTicketComponent,
     MainManagerComponent,
     CinemaChooseComponent,
+    ChairsTableComponent,
   ],
   imports: [
     BrowserModule,

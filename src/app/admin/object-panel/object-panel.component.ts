@@ -9,7 +9,6 @@ import {Advertisement} from "../../../model/advertisement";
 import {TypeList} from "../../../model/type-list";
 import {Observable} from "rxjs";
 import {AdminListService} from "../../services/admin-list.service";
-import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-object-panel',
@@ -78,12 +77,6 @@ export class ObjectPanelComponent implements OnInit {
       console.log(a.name)
       this.service.updateLists();
     });
-
-
-  }
-//#TODO move to new component
-  sortData(sort: Sort) {
-
   }
 
 }

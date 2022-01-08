@@ -17,11 +17,6 @@
        (click)="delete()" routerLink="/admin/main">Delete</a>
   </ul>
 
-  <table matSort (matSortChange)="sortData($event)">
-    <tr>
-
-    </tr>
-
-  </table>
+  <app-chairs-table *ngIf="type.type == 'manager'"></app-chairs-table>
 
 </mat-expansion-panel>
