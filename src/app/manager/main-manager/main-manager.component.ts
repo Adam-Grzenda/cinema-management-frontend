@@ -11,7 +11,7 @@ import {CinemaService} from "../../services/cinema.service";
 })
 export class MainManagerComponent implements OnInit {
 
-  private id: number;
+  public id: number;
   public title: string;
 
   typeList: TypeList[] = [];
@@ -31,7 +31,7 @@ export class MainManagerComponent implements OnInit {
 
     this.managerListService.getList(this.id).subscribe(list => {
       this.typeList = list;
-      console.log(this.typeList)
+      //console.log(this.typeList)
     });
   }
 

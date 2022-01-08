@@ -9,7 +9,7 @@
   </mat-expansion-panel-header>
   <ul *ngIf="type.type == 'admin'">
     <a class="button" mat-raised-button color="accent"
-        routerLink="{{type.editLink}}/{{item.id}}">Modify</a>
+       [routerLink]="[type.editLink + '/' + item.id, {'cinema_id': cinema_id}]">Modify</a>
 
     <hr>
 

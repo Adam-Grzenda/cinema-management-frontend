@@ -1,0 +1,39 @@
+<h2 *ngIf="addMode" class="center">Add new food court</h2>
+<h2 *ngIf="!addMode" class="center">Edit food court</h2>
+
+<hr>
+<div class="center">
+  <button (click)="goBack()">Return</button>
+</div>
+<br>
+<hr>
+
+<br>
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Checkouts Number</mat-label>
+      <input matInput type="number" min="1" step="1" max="{{this.maxNumber}}"
+             formControlName="checkoutNumber"
+             placeholder="enter a number (1-10)">
+    </mat-form-field>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="center">
+      <button type="submit" [disabled]="!form.valid">Save cinema hall</button>
+    </div>
+  </form>
+</div>
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let f of foodCourts">FoodCourt id: {{f.id}}</li>
+</ul>
