@@ -4,6 +4,7 @@ import {CinemaHallService} from "../../services/cinema-hall.service";
 import {Sort} from "@angular/material/sort";
 import {ChairService} from "../../services/chair.service";
 import {MatTableDataSource} from "@angular/material/table";
+import {CinemaHall} from "../../../model/cinema-hall";
 
 export interface PeriodicElement {
   name: string;
@@ -37,7 +38,7 @@ export class ChairsTableComponent implements OnInit {
   //#TODO displaying issues
 
   @Input()
-  hall_id: number;
+  hall: CinemaHall;
 
   chairs: Chair[];
 
@@ -46,7 +47,7 @@ export class ChairsTableComponent implements OnInit {
   searchText: string = '';
 
   dataSource = new MatTableDataSource(this.sortedChairs)
-  displayedColumns: ['id', 'hallRow', 'hallColumn', 'chairType'];
+  displayedColumns: string[] = ['id', 'hallRow', 'hallColumn', 'chairType'];
 
   dataSource2 = new MatTableDataSource(ELEMENT_DATA);
 
@@ -57,7 +58,7 @@ export class ChairsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getChairs(this.hall_id);
+    this.getChairs(this.hall.id);
   }
 
 
@@ -67,6 +68,7 @@ export class ChairsTableComponent implements OnInit {
       this.sortedChairs = this.chairs.slice()
       console.log(this.chairs)
       this.dataSource = new MatTableDataSource(this.sortedChairs);
+      console.log(this.dataSource)
     })
   }
 
@@ -97,7 +99,7 @@ export class ChairsTableComponent implements OnInit {
   delete(chair: Chair) {
     this.chairService.delete(chair).subscribe(c => {
       console.log("deleted: " + chair.id);
-      this.getChairs(this.hall_id);
+      this.getChairs(this.hall.id);
     })
   }
 

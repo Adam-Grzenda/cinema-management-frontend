@@ -4,6 +4,7 @@ import {ServiceInterface} from "./service-interface";
 import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
 import {FoodCourtService} from "./food-court.service";
+import {FoodCourtProductTypeService} from "./food-court-product-type.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +12,15 @@ import {FoodCourtService} from "./food-court.service";
 export class ManagerListService {
 
   private managerList: Array<TypeList>;
-  private serviceList: Array<ServiceInterface>;
 
   constructor(
     private cinemaService: CinemaService,
-    private foodCourtService: FoodCourtService
+    private foodCourtService: FoodCourtService,
   ) {
     this.managerList = new Array<TypeList>();
-    this.serviceList = new Array<ServiceInterface>();
-
-    this.serviceList.push(cinemaService, foodCourtService)
 
     const halls: TypeList = new TypeList();
-    halls.id = 1
+    halls.id = 11
     halls.type = 'manager'
     halls.name = "cinema halls"
     halls.addLink = ""
@@ -31,14 +28,22 @@ export class ManagerListService {
     halls.service = this.cinemaService;
 
     const courts: TypeList = new TypeList();
-    courts.id = 2
+    courts.id = 22
     courts.type = 'admin'
     courts.name = "food courts"
     courts.addLink = "/manager/add-food-court"
     courts.editLink = "/manager/edit-food-court"
     courts.service = this.foodCourtService;
 
-    this.managerList.push(halls, courts)
+    const courts_types: TypeList = new TypeList();
+    courts_types.id = 33;
+    courts_types.type = 'manager'
+    courts_types.name = 'Product types for food court'
+    courts_types.addLink = "/manager/add-food-court-product-type"
+    courts_types.editLink = ""
+    courts_types.service = this.foodCourtService;
+
+    this.managerList.push(halls, courts, courts_types)
 
   }
 
@@ -50,22 +55,18 @@ export class ManagerListService {
 
   public updateLists(id: number): void {
 
-    this.serviceList[0].getAllSub(id).subscribe(l => {
-      console.log(l)
-      this.managerList[0].objectList = l.resources
-    })
-
-    for (let i = 0; i < this.serviceList.length; i++) {
-      this.serviceList[i].getAllSub(id).subscribe(l => {
-        console.log(l)
+    for (let i = 0; i < this.managerList.length; i++) {
+      this.managerList[i].service.getAllSub(id).subscribe(l => {
         this.managerList[i].objectList = l.resources
       })
     }
+
+
   }
 
 
   public updateList(id: number): void {
-    this.serviceList[id].getAll().subscribe(l => this.managerList[id].objectList = l.resources);
+    this.managerList[id].service.getAll().subscribe(l => this.managerList[id].objectList = l.resources);
   }
 
 }

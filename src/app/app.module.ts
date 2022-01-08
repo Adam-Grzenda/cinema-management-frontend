@@ -56,6 +56,7 @@ import {ProductType} from "../model/product-type";
 import {ClientSegment} from "../model/client-segment";
 import {MatTableModule} from "@angular/material/table";
 import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
+import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
 
 
 
@@ -85,6 +86,7 @@ import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.c
     CinemaChooseComponent,
     ChairsTableComponent,
     AddFoodCourtComponent,
+    FoodCourtProductTypeComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,10 @@
       {{title}} options
     </mat-panel-description>
   </mat-expansion-panel-header>
+
+
   <ul *ngIf="type.type == 'admin'">
+    <hr>
     <a class="button" mat-raised-button color="accent"
        [routerLink]="[type.editLink + '/' + item.id, {'cinema_id': cinema_id}]">Modify</a>
 
@@ -15,8 +18,10 @@
 
     <a class="button" mat-raised-button color="warn"
        (click)="delete()" routerLink="/admin/main">Delete</a>
+
   </ul>
 
-  <app-chairs-table *ngIf="type.type == 'manager'" [hall_id]="item.id"></app-chairs-table>
+  <app-chairs-table *ngIf="type.id == 11" [hall]="item"></app-chairs-table>
+  <app-food-court-product-type *ngIf="type.id == 33" [foodCourt]="item"></app-food-court-product-type>
 
 </mat-expansion-panel>
