@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Film} from "../../model/film";
-import {ImageService} from "../services/image.service";
-import {FilmShowService} from "../services/film-show.service";
-import {FilmShow} from "../../model/film-show";
+import {Film} from "../../../model/film";
+import {ImageService} from "../../services/image.service";
+import {FilmShowService} from "../../services/film-show.service";
+import {FilmShow} from "../../../model/film-show";
 import {MatDialog} from "@angular/material/dialog";
-import {BuyTicketComponent} from "../client/buy-ticket/buy-ticket.component";
+import {BuyTicketComponent} from "../../client/buy-ticket/buy-ticket.component";
 
 @Component({
   selector: 'app-film-card',
@@ -53,7 +53,9 @@ export class FilmCard implements OnInit {
   onClickScreening(screening: FilmShow): void {
     console.log(screening);
     this.dialog.open(BuyTicketComponent, {
-      data: {screening: screening}
+      data: {screening: screening},
+      height: '80%',
+      width: '50%'
     });
   }
 

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {LandingComponent} from './landing/landing.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FilmAddComponent} from "./admin/film-add/film-add.component";
-import {FilmDetailsComponent} from "./film-details/film-details.component";
+import {FilmDetailsComponent} from "./film/film-details/film-details.component";
 import {MainAdminComponent} from "./admin/main-admin/main-admin.component";
 import {AddCinemaComponent} from "./admin/add-cinema/add-cinema.component";
 import {AddCinemaHallComponent} from "./admin/add-cinema-hall/add-cinema-hall.component";

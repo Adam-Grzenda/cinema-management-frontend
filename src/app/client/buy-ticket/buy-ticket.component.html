@@ -12,6 +12,68 @@
 </div>
 
 <mat-dialog-content>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis corporis debitis dignissimos, dolor doloremque ducimus eos in, ipsum iste laudantium, magni obcaecati odit placeat quidem recusandae rem repudiandae saepe tempora.
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, cumque dolores error eum ex expedita libero nam nesciunt, praesentium quas quibusdam rerum sint totam, ut voluptates? Corporis incidunt molestiae nobis.
+  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+    <mat-step [stepControl]="seatForm">
+      <form [formGroup]="seatForm">
+        <ng-template matStepLabel>Pick seats</ng-template>
+        <ng-template matStepContent>
+          <p>Pierwszy krok - tutaj będzie wybór miejsc / dodawanie kolejnych
+            - trzeba dodać do listy wybrany po kliknęciu w coś, pop z listy dostepnych
+            Trzeba też wyłączyć guzik na next jeśli żadne miejsce nie jest wybrane
+          </p>
+          <mat-form-field appearance="fill">
+            <mat-label>Pick a free seat</mat-label>
+            <mat-select formControlName="seat">
+              <mat-option *ngFor="let chair of availableChairs" [value]="chair">
+                Row: {{chair.hallRow}} Column: {{chair.hallColumn}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="detailsForm">
+      <form [formGroup]="detailsForm">
+        <ng-template matStepLabel>Order details</ng-template>
+        <ng-template matStepContent>
+          <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
+          tutaj musi być form z podaniem danych - email, imie, nazwisko - auth bedziemy sie martwic pozniej
+
+          <hr>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="John" value="{{user.name}}" formControlName="name">
+          </mat-form-field>
+          <hr>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Surname</mat-label>
+            <input matInput placeholder="Smith" value="{{user.surname}}" formControlName="surname">
+          </mat-form-field>
+          <hr>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="some_email@domain.com" value="{{user.email}}" formControlName="email">
+          </mat-form-field>
+
+          <hr>
+
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Order summary</ng-template>
+      <ng-template matStepContent>
+        <p>Trzeci krok - tutaj będą konkretne dane na temat zamówienia</p>
+        Tutaj będzie tabelka z podsumowaniem
+        <button mat-button (click)="placeOrder()">Submit order</button>
+      </ng-template>
+    </mat-step>
+  </mat-stepper>
+
+
 </mat-dialog-content>
