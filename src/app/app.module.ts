@@ -45,7 +45,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {Chair} from "../model/chair";
 import {CinemaHall} from "../model/cinema-hall";
 import {TypeListComponent} from "./type-list/type-list.component";
-import { ObjectPanelComponent } from './admin/object-panel/object-panel.component';
+import { ObjectPanelComponent } from './object-panel/object-panel.component';
 import { MainManagerComponent } from './manager/main-manager/main-manager.component';
 import { CinemaChooseComponent } from './manager/cinema-choose/cinema-choose.component';
 import {MatSortModule} from "@angular/material/sort";
@@ -55,6 +55,8 @@ import {PromoOffer} from "../model/promo-offer";
 import {ProductType} from "../model/product-type";
 import {ClientSegment} from "../model/client-segment";
 import {MatTableModule} from "@angular/material/table";
+import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
+import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
 
 
 
@@ -83,6 +85,8 @@ import {MatTableModule} from "@angular/material/table";
     MainManagerComponent,
     CinemaChooseComponent,
     ChairsTableComponent,
+    AddFoodCourtComponent,
+    FoodCourtProductTypeComponent,
   ],
   imports: [
     BrowserModule,

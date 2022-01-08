@@ -10,12 +10,12 @@
     </mat-expansion-panel-header>
 
       <a class="button" mat-raised-button color="primary"
-         routerLink="{{type.addLink}}" *ngIf="type.type == 'admin'">Add new {{type.name}}</a>
+         [routerLink]="[type.addLink, {'cinema_id': cinema_id}]" *ngIf="type.type == 'admin'">Add new {{type.name}}</a>
 
       <hr>
 
       <mat-accordion *ngFor="let item of type.objectList">
-        <app-object-panel [item]="item" [type]="type"></app-object-panel>
+        <app-object-panel [item]="item" [type]="type" [cinema_id]="cinema_id"></app-object-panel>
         <hr>
       </mat-accordion>
 

@@ -1,27 +1,48 @@
-<p>chairs of hall: {{hall_id}}</p>
 
 <mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
 
-<table  matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
-  <tr>
-    <th mat-sort-header="id">ID</th>
-    <th mat-sort-header="hallRow">Row</th>
-    <th mat-sort-header="hallColumn">Column</th>
-    <th mat-sort-header="chairType">Type</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
+<table mat-table matSort [dataSource]="dataSource" (matSortChange)="sortData($event)" class="mat-elevation-z8">
 
-  <tr *ngFor="let chair of sortedChairs">
-    <td>{{chair.id}}</td>
-    <td>{{chair.hallRow}}</td>
-    <td>{{chair.hallColumn}}</td>
-    <td>{{chair.chairType}}</td>
-    <td>edit button</td>
-    <td><a type="button" mat-raised-button color="warn" (click)="delete(chair)">delete</a></td>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let chair">{{chair.id}}</td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="hallRow">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Row</th>
+    <td mat-cell *matCellDef="let chair"> {{chair.hallRow}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="hallColumn">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Column</th>
+    <td mat-cell *matCellDef="let chair"> {{chair.hallColumn}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="chairType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+    <td mat-cell *matCellDef="let chair"> {{chair.chairType}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data found</td>
   </tr>
 
 </table>
+
+
+
+
+
+
+

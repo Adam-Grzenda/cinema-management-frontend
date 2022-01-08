@@ -12,6 +12,9 @@ export class TypeListComponent implements OnInit {
   @Input()
   typeList:TypeList[];
 
+  @Input()
+  cinema_id: number = 0;
+
   constructor(
   ) { }
 

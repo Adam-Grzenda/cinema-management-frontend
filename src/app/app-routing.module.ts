@@ -13,6 +13,9 @@ import {AddProductTypeComponent} from "./admin/add-product-type/add-product-type
 import {FilmEditComponent} from "./admin/film-edit/film-edit.component";
 import {MainManagerComponent} from "./manager/main-manager/main-manager.component";
 import {CinemaChooseComponent} from "./manager/cinema-choose/cinema-choose.component";
+import {AddFoodCourtComponent} from "./manager/add-food-court/add-food-court.component";
+import {FoodCourtProductType} from "../model/FoodCourt-ProductType";
+import {FoodCourtProductTypeComponent} from "./manager/food-court-product-type/food-court-product-type.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
@@ -47,6 +50,13 @@ const routes: Routes = [
   {path: 'manager/main', redirectTo: 'manager',pathMatch: 'full'},
 
   {path: 'manager/main/:cinema-id', component: MainManagerComponent},
+
+  {path: 'manager/add-food-court', component: AddFoodCourtComponent},
+  {path: 'manager/edit-food-court/:id', component: AddFoodCourtComponent},
+
+  {path: 'manager/add-food-court-product-type', component: FoodCourtProductTypeComponent},
+  {path: 'manager/edit-food-court-product-type/:id', component: FoodCourtProductTypeComponent},
+
 
 
 ]
