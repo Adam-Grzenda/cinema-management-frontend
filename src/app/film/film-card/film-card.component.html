@@ -11,7 +11,7 @@
       <p>Premiered: {{film.premiereDate}}</p>
       <p>Duration: {{film.duration}} minutes</p>
     </div>
-    <mat-expansion-panel hideToggle (opened)="loadScreenings()" >
+    <mat-expansion-panel hideToggle (opened)="isScreeningsExpanded = true; loadScreenings()" (afterCollapse)="isScreeningsExpanded=false" >
       <mat-expansion-panel-header>
         <mat-panel-title>See screenings</mat-panel-title>
       </mat-expansion-panel-header>

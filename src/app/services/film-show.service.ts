@@ -22,10 +22,11 @@ export class FilmShowService {
   }
 
   public getAllForFilmFilteredByDate(film: Film, startDate: Date, endDate: Date) {
-    console.log("Start date: " + startDate + " end date: " + endDate);
-    return this.resourceService.searchCollection(FilmShow,'findFilmShowsByFilmId', {
+    return this.resourceService.searchCollection(FilmShow,'findFilmShowsByDateBetweenAndFilmId', {
       params: {
-        filmId: film.id
+        filmId: film.id,
+        dateFrom: startDate.toISOString().split('T')[0],
+        dateTo: endDate.toISOString().split('T')[0]
       }
     });
   }

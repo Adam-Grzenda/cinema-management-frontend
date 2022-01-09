@@ -23,6 +23,8 @@ export class FilmCard implements OnInit {
   startDate: Date;
   endDate: Date;
 
+  isScreeningsExpanded: boolean = false;
+
 
   constructor(private imageService: ImageService,
               private filmShowService: FilmShowService,
@@ -36,12 +38,22 @@ export class FilmCard implements OnInit {
       (params) =>
       {
         const startDateParam = params['dateFrom'];
-        this.startDate = startDateParam ? startDateParam : new Date();
-        this.endDate = params['dateTo'];
+        const endDateParam = params['dateTo'];
+
+        this.startDate = startDateParam ? new Date(startDateParam) : new Date();
+
+        // By default only film shows that are happening in a week after the start date should be displayed
+        this.endDate = endDateParam ? new Date(endDateParam) : this.getDefaultEndDate();
 
         this.loadScreenings();
       }
     )
+  }
+
+  getDefaultEndDate(): Date {
+    let endDate = new Date(this.startDate);
+    endDate.setDate(endDate.getDate() + 7);
+    return endDate;
   }
 
   createImageURL(image: Blob) {
@@ -62,13 +74,22 @@ export class FilmCard implements OnInit {
   }
 
   loadScreenings() : void {
-    if (this.startDate || this.endDate) {
-      this.filmShowService.getAllForFilmFilteredByDate(this.film, this.startDate, this.endDate);
+    if (this.isScreeningsExpanded) {
+      this.loadScreeningsData();
     }
+  }
 
-    this.filmShowService.getAllForFilm(this.film).subscribe(
-      (next) => this.screenings = next.resources
-    );
+
+  private loadScreeningsData() {
+    if (this.startDate || this.endDate) {
+      this.filmShowService.getAllForFilmFilteredByDate(this.film, this.startDate, this.endDate).subscribe(
+        (next) => this.screenings = next.resources
+      );
+    } else {
+      this.filmShowService.getAllForFilm(this.film).subscribe(
+        (next) => this.screenings = next.resources
+      );
+    }
   }
 
   onClickScreening(screening: FilmShow): void {
