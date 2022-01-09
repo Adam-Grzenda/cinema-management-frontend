@@ -63,9 +63,6 @@ export class AddCinemaHallComponent implements OnInit {
         h.getRelation<Cinema>('cinema').subscribe(c => {
           this.cinemaHall.cinema = c;
           this.form.patchValue(this.cinemaHall);
-          this.form.patchValue({
-            cinema: this.cinemaHall.cinema
-          })
         })
       });
 

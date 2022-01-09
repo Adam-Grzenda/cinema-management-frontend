@@ -57,6 +57,7 @@ import {ClientSegment} from "../model/client-segment";
 import {MatTableModule} from "@angular/material/table";
 import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
 import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -88,30 +89,31 @@ import { FoodCourtProductTypeComponent } from './manager/food-court-product-type
     AddFoodCourtComponent,
     FoodCourtProductTypeComponent,
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    FormsModule,
-    NgxHateoasClientModule.forRoot(),
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatStepperModule,
-    MatSortModule,
-    MatTableModule
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonToggleModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatButtonModule,
+        FormsModule,
+        NgxHateoasClientModule.forRoot(),
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatStepperModule,
+        MatSortModule,
+        MatTableModule,
+        MatPaginatorModule
+    ],
   providers: [
     MatDatepickerModule,
     DatePipe

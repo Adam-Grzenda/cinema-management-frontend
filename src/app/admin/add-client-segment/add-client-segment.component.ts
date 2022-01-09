@@ -52,14 +52,6 @@ export class AddClientSegmentComponent implements OnInit {
       this.clientSegmentService.getOne(this.id).pipe(first()).subscribe(s => {
         this.segment = s;
         this.form.patchValue(this.segment);
-
-        /*s.getRelation<PromoOffer>('promoOffer').subscribe((o) => {
-            this.segment.promoOffer = o;
-            this.form.patchValue(this.segment);
-          },
-          er => {
-            this.form.patchValue(this.segment);
-          })*/
       });
     }
   }

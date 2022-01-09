@@ -45,7 +45,6 @@ export class AddFoodCourtComponent implements OnInit {
   ngOnInit(): void {
 
     this.cinema_id = this.route.snapshot.params['cinema_id']
-    console.log(this.cinema_id)
     this.id = this.route.snapshot.params['id'];
     this.addMode = !this.id;
 
@@ -89,7 +88,6 @@ export class AddFoodCourtComponent implements OnInit {
       this.cinemaService.getOne(this.cinema_id).subscribe(c => {
 
         this.foodCourt.cinema = c;
-        console.log(this.foodCourt)
 
         this.foodCourtService.add(this.foodCourt).subscribe((f) => {
           console.log("saved: foodcourt: " + f.id + "ch. num: " + f.checkoutNumber);
@@ -105,11 +103,13 @@ export class AddFoodCourtComponent implements OnInit {
       this.foodCourtService.update(this.foodCourt).subscribe((f) => {
         console.log("updated: foodcourt: " + f.id + "ch. num: " + f.checkoutNumber);
         this.getCourts();
+
+        this.form.reset();
+
+        this.foodCourt = new FoodCourt();
+
       });
-
     }
-
-
   }
 
   goBack(): void {
