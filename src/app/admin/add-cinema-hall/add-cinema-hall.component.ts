@@ -88,25 +88,31 @@ export class AddCinemaHallComponent implements OnInit {
     this.cinemaHall.type = this.form.value.type
     this.cinemaHall.cinema = this.form.value.cinema
 
-    this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema).subscribe()
+
 
     if (this.addMode) {
       this.cinemaHallService.add(this.cinemaHall).subscribe((a) => {
         console.log("saved: hall: " + a.number + " type: " + a.type);
         this.getHalls();
+
+        this.form.reset();
+
+        this.cinemaHall = new CinemaHall();
       });
     } else {
-      this.cinemaHallService.update(this.cinemaHall).subscribe((a) => {
-        console.log("updated: hall: " + a.number + " type: " + a.type);
-        this.getHalls();
-      });
+      this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema).subscribe(_ => {
+        this.cinemaHallService.update(this.cinemaHall).subscribe((a) => {
+          console.log("updated: hall: " + a.number + " type: " + a.type);
+          this.getHalls();
+
+          this.form.reset();
+
+          this.cinemaHall = new CinemaHall();
+        });
+      })
+
 
     }
-
-
-    this.form.reset();
-
-    this.cinemaHall = new CinemaHall();
 
   }
 

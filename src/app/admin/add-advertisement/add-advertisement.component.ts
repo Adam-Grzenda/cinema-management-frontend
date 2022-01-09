@@ -55,8 +55,8 @@ export class AddAdvertisementComponent implements OnInit {
     if (!this.addMode) {
       this.advertisementService.getOne(this.id).pipe(first()).subscribe(a => {
         this.advertisement = a;
-        console.log(a)
-        this.form.patchValue(this.advertisement)
+        this.form.patchValue(this.advertisement);
+
         /*a.getRelation<Film>('film').subscribe(f => {
             this.advertisement.film = f;
             this.form.patchValue(this.advertisement);
@@ -65,7 +65,6 @@ export class AddAdvertisementComponent implements OnInit {
             this.form.patchValue(this.advertisement);
           })*/
       });
-
     }
   }
 
@@ -81,47 +80,67 @@ export class AddAdvertisementComponent implements OnInit {
   save() {
     this.advertisement.companyName = this.form.value.companyName;
     this.advertisement.duration = this.form.value.duration;
+    this.advertisement.film = this.form.value.film;
 
-    console.log(this.advertisement)
-    console.log(this.form.value)
 
     if (this.addMode) {
-
-      this.advertisement.film = this.form.value.film
 
       this.advertisementService.add(this.advertisement).subscribe((a) => {
         console.log("saved advertisement: company: " + a.companyName + " duration: " +
           a.duration);
         this.getAds();
+
+        this.form.reset();
+
+        this.advertisement = new Advertisement();
       });
     } else {
 
       if (this.form.value.film) {
-        console.log("filmmm")
-        this.advertisement.bindRelation<Film>('film', this.form.value.film).subscribe();
+
+        this.advertisement.bindRelation<Film>('film', this.form.value.film).subscribe(_ => {
+
+          this.advertisementService.update(this.advertisement).subscribe(a => {
+            console.log("updated advertisement: company: " + a.companyName + " duration: " +
+              a.duration);
+            this.getAds();
+
+            this.form.reset();
+
+            this.advertisement = new Advertisement();
+          })
+
+        });
       } else {
-        console.log("nooo")
+
         this.advertisement.getRelation<Film>('film').subscribe(f => {
-            this.advertisement.deleteRelation<Film>('film', f).subscribe();
+            this.advertisement.deleteRelation<Film>('film', f).subscribe(_ => {
+
+              this.advertisementService.update(this.advertisement).subscribe(a => {
+                console.log("updated advertisement: company: " + a.companyName + " duration: " +
+                  a.duration);
+                this.getAds();
+
+                this.form.reset();
+
+                this.advertisement = new Advertisement();
+              })
+
+            });
           },
           e => {
-            console.log("nul null")
+            this.advertisementService.update(this.advertisement).subscribe(a => {
+              console.log("updated advertisement: company: " + a.companyName + " duration: " +
+                a.duration);
+              this.getAds();
+
+              this.form.reset();
+
+              this.advertisement = new Advertisement();
+            })
           })
       }
-
-      console.log(this.advertisement)
-
-      this.advertisementService.update(this.advertisement).subscribe(a => {
-        console.log("updated advertisement: company: " + a.companyName + " duration: " +
-          a.duration);
-        this.getAds();
-      })
     }
-
-
-    this.form.reset();
-
-    this.advertisement = new Advertisement();
   }
 
 
