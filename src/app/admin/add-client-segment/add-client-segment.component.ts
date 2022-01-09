@@ -51,19 +51,17 @@ export class AddClientSegmentComponent implements OnInit {
     if (!this.addMode) {
       this.clientSegmentService.getOne(this.id).pipe(first()).subscribe(s => {
         this.segment = s;
-        console.log(this.segment)
+        this.form.patchValue(this.segment);
 
-        s.getRelation<PromoOffer>('promoOffer').subscribe((o) => {
+        /*s.getRelation<PromoOffer>('promoOffer').subscribe((o) => {
             this.segment.promoOffer = o;
             this.form.patchValue(this.segment);
           },
           er => {
             this.form.patchValue(this.segment);
-          }
-        )
-      })
+          })*/
+      });
     }
-
   }
 
 
@@ -77,42 +75,66 @@ export class AddClientSegmentComponent implements OnInit {
   }
 
   save() {
-    this.segment.name = this.form.value.name
-
-    console.log(this.segment)
+    this.segment.name = this.form.value.name;
+    this.segment.promoOffer = this.form.value.promoOffer;
 
     if (this.addMode) {
-
-      this.segment.promoOffer = this.form.value.promoOffer
-
       this.clientSegmentService.add(this.segment).subscribe(s => {
         console.log("saved segment: name: " + s.name);
         this.getSegments();
+
+        this.form.reset();
+
+        this.segment = new ClientSegment();
+
       });
     } else {
 
       if (this.form.value.promoOffer) {
-        this.segment.bindRelation<PromoOffer>('promoOffer', this.form.value.promoOffer).subscribe();
+
+        this.segment.bindRelation<PromoOffer>('promoOffer', this.form.value.promoOffer).subscribe(_ => {
+
+          this.clientSegmentService.update(this.segment).subscribe(s => {
+            console.log("updated segment: name: " + s.name);
+            this.getSegments();
+
+            this.form.reset();
+
+            this.segment = new ClientSegment();
+
+          });
+
+        });
       } else {
+
         this.segment.getRelation<PromoOffer>('promoOffer').subscribe(o => {
-            this.segment.deleteRelation<PromoOffer>('promoOffer', o).subscribe();
+            this.segment.deleteRelation<PromoOffer>('promoOffer', o).subscribe(_ => {
+              this.clientSegmentService.update(this.segment).subscribe(s => {
+                console.log("updated segment: name: " + s.name);
+                this.getSegments();
+
+                this.form.reset();
+
+                this.segment = new ClientSegment();
+
+              });
+            });
           },
           (er) => {
             console.log("null null")
+            this.clientSegmentService.update(this.segment).subscribe(s => {
+              console.log("updated segment: name: " + s.name);
+              this.getSegments();
+
+              this.form.reset();
+
+              this.segment = new ClientSegment();
+
+            });
           })
       }
-
-      this.clientSegmentService.update(this.segment).subscribe(s => {
-        console.log("updated segment: name: " + s.name);
-        this.getSegments();
-      })
     }
-
-    this.form.reset();
-
-    this.segment = new ClientSegment();
   }
-
 
   goBack(): void {
     this.location.back();
