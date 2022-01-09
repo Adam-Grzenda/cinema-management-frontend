@@ -3,10 +3,10 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {LandingComponent} from './landing/landing.component';
-import {FilmListComponent} from './film/film-list/film-list.component';
+import {FilmListComponent} from './landing/film-list/film-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavbarComponent} from './navbar/navbar.component';
-import {SidebarComponent} from './sidebar/sidebar.component';
+import {SidebarComponent} from './landing/sidebar/sidebar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
@@ -30,7 +30,7 @@ import {AddAdvertisementComponent} from './admin/add-advertisement/add-advertise
 import {AddPromoOfferComponent} from './admin/add-promo-offer/add-promo-offer.component';
 import {AddClientSegmentComponent} from './admin/add-client-segment/add-client-segment.component';
 import {AddProductTypeComponent} from './admin/add-product-type/add-product-type.component';
-import {FilterComponent} from './sidebar/filter/filter.component';
+import {FilterComponent} from './landing/sidebar/filter/filter.component';
 import {FilmCard} from './film/film-card/film-card.component';
 import {NgxHateoasClientConfigurationService, NgxHateoasClientModule} from "@lagoshny/ngx-hateoas-client";
 import {environment} from "../environments/environment";

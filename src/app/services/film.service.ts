@@ -9,7 +9,7 @@ import {ServiceInterface} from "./service-interface";
 })
 export class FilmService implements ServiceInterface {
 
-  public getFilms(dateFrom?: string, dateTo?: string): Observable<ResourceCollection<Film>> {
+  public getFilms(): Observable<ResourceCollection<Film>> {
     return this.resourceService.getCollection(Film);
   }
 
@@ -96,17 +96,5 @@ export class FilmService implements ServiceInterface {
     movie5.id = 5;
 
     return Array.of(movie1, movie2, movie3, movie4)
-  }
-
-  private static isDateBetween(premiere: string, dateFrom: any, dateTo: any): boolean {
-    const premiereDate = new Date(premiere);
-    let isBetween: boolean = true;
-    if (dateFrom && new Date(dateFrom) > premiereDate) {
-      isBetween = false;
-    }
-    if (dateTo && new Date(dateTo) < premiereDate) {
-      isBetween = false;
-    }
-    return isBetween;
   }
 }
