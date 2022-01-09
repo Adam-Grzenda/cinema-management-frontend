@@ -5,6 +5,7 @@ import {FilmShowService} from "../../services/film-show.service";
 import {FilmShow} from "../../../model/film-show";
 import {MatDialog} from "@angular/material/dialog";
 import {BuyTicketComponent} from "../../client/buy-ticket/buy-ticket.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-film-card',
@@ -19,12 +20,28 @@ export class FilmCard implements OnInit {
   screenings: Array<FilmShow>;
   filmImage: any;
 
+  startDate: Date;
+  endDate: Date;
+
+
   constructor(private imageService: ImageService,
               private filmShowService: FilmShowService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getFilmImage(this.film.imageSource);
+
+    this.route.queryParams.subscribe(
+      (params) =>
+      {
+        const startDateParam = params['dateFrom'];
+        this.startDate = startDateParam ? startDateParam : new Date();
+        this.endDate = params['dateTo'];
+
+        this.loadScreenings();
+      }
+    )
   }
 
   createImageURL(image: Blob) {
@@ -45,6 +62,10 @@ export class FilmCard implements OnInit {
   }
 
   loadScreenings() : void {
+    if (this.startDate || this.endDate) {
+      this.filmShowService.getAllForFilmFilteredByDate(this.film, this.startDate, this.endDate);
+    }
+
     this.filmShowService.getAllForFilm(this.film).subscribe(
       (next) => this.screenings = next.resources
     );

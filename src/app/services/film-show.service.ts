@@ -20,4 +20,13 @@ export class FilmShowService {
       }
     });
   }
+
+  public getAllForFilmFilteredByDate(film: Film, startDate: Date, endDate: Date) {
+    console.log("Start date: " + startDate + " end date: " + endDate);
+    return this.resourceService.searchCollection(FilmShow,'findFilmShowsByFilmId', {
+      params: {
+        filmId: film.id
+      }
+    });
+  }
 }
