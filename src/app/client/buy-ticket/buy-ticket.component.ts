@@ -6,9 +6,10 @@ import {Chair} from "../../../model/chair";
 import {UserService} from "../../services/user.service";
 import {User} from "../../../model/user";
 import {FoodCourtProduct} from "../../../model/FoodCourtProduct";
-import {Order} from "../../../model/order";
+import {Order} from "../../../model/order/order";
 import {OrderService} from "../../services/order.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {OrderProductCalculation} from "../../../model/order/orderProductCalculation";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -23,6 +24,9 @@ export class BuyTicketComponent implements OnInit {
   public user: User; //Tutaj teraz jest zaciagany z user service placeholder - bede ogarnial auth po weekendzie pewnie
   public chairs: Array<Chair> = new Array<Chair>(); //TODO tutaj dodawać wybrane fotele + screening
   public pickedFoodCourtProducts: Array<FoodCourtProduct> = new Array<FoodCourtProduct>(); //TODO póki co tego nie implementujmy
+
+  order: Order;
+  orderSummary: Array<OrderProductCalculation>;
 
   seatForm: FormGroup
   detailsForm: FormGroup
@@ -67,22 +71,35 @@ export class BuyTicketComponent implements OnInit {
     )
   }
 
+  createOrder() {
+    this.chairs.push(this.seatForm.value.seat)
+
+    this.order = new Order();
+    this.order.chairs = this.chairs;
+    this.order.userId = this.user.id;
+    this.order.foodProducts = this.pickedFoodCourtProducts;
+    this.order.filmShowId = this.data.screening.id;
+    this.getOrderCalculation();
+  }
+
+  getOrderCalculation() {
+    this.orderService.calculateOrder(this.order).subscribe(
+      (next) => {
+        this.orderSummary = next
+        console.log(next);
+        console.log(this.orderSummary)
+      }
+    );
+  }
+
   placeOrder() {
-    let order: Order = new Order();
-    this.chairs.push(this.seatForm.value)
-    order.chairs = this.chairs;
-
-    order.userId = this.user.id;
-
-    order.foodProducts = this.pickedFoodCourtProducts;
-    order.filmShowId = this.data.screening.id;
-    console.log(order);
-
-    this.orderService.placeOrder(order).subscribe( //To generalnie już działa, także jak się ustawi fieldy z forma to powinno być oki
+    this.orderService.placeOrder(this.order).subscribe( //To generalnie już działa, także jak się ustawi fieldy z forma to powinno być oki
       (next) => console.log(next)
     );
 
   }
+
+
 
 
 }

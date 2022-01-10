@@ -17,10 +17,6 @@
       <form [formGroup]="seatForm">
         <ng-template matStepLabel>Pick seats</ng-template>
         <ng-template matStepContent>
-          <p>Pierwszy krok - tutaj będzie wybór miejsc / dodawanie kolejnych
-            - trzeba dodać do listy wybrany po kliknęciu w coś, pop z listy dostepnych
-            Trzeba też wyłączyć guzik na next jeśli żadne miejsce nie jest wybrane
-          </p>
           <mat-form-field appearance="fill">
             <mat-label>Pick a free seat</mat-label>
             <mat-select formControlName="seat">
@@ -40,7 +36,6 @@
         <ng-template matStepContent>
           <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
           tutaj musi być form z podaniem danych - email, imie, nazwisko - auth bedziemy sie martwic pozniej
-
           <hr>
 
           <mat-form-field class="example-full-width" appearance="fill">
@@ -60,7 +55,7 @@
 
           <hr>
 
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="createOrder()">Next</button>
         </ng-template>
       </form>
     </mat-step>
@@ -68,8 +63,9 @@
     <mat-step>
       <ng-template matStepLabel>Order summary</ng-template>
       <ng-template matStepContent>
-        <p>Trzeci krok - tutaj będą konkretne dane na temat zamówienia</p>
-        Tutaj będzie tabelka z podsumowaniem
+        <div *ngFor="let product of orderSummary">
+          Type: {{product.type}} Subtype: {{product.subtype}} BasePrice: {{product.basePrice}}  Discount: {{product.discount}} FinalPrice: {{product.finalPrice}} ItemCount: {{product.itemCount}}
+        </div>
         <button mat-button (click)="placeOrder()">Submit order</button>
       </ng-template>
     </mat-step>

@@ -1,5 +1,5 @@
-import {FoodCourtProduct} from "./FoodCourtProduct";
-import {Chair} from "./chair";
+import {FoodCourtProduct} from "../FoodCourtProduct";
+import {Chair} from "../chair";
 
 export class Order {
   userId: number;
