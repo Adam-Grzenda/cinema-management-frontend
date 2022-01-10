@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Cinema} from "../../../model/cinema";
-import {CinemaService} from "../../services/cinema.service";
+import {Component, Inject, OnInit} from '@angular/core';
+import {Cinema} from "../../../../model/cinema";
+import {CinemaService} from "../../../services/cinema.service";
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-cinema',
@@ -14,27 +13,25 @@ import {first} from "rxjs";
 export class AddCinemaComponent implements OnInit {
 
   public addMode: boolean = true;
-  private id: number;
 
   cinemas: Cinema[] = [];
 
-  @Input()
-  cinema: Cinema = new Cinema();
+  private cinema: Cinema;
 
   form: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { cinema: Cinema },
     private cinemaService: CinemaService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private dialogRef: MatDialogRef<AddCinemaComponent>
   ) {
   }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params['id'];
-    this.addMode = !this.id;
+    this.addMode = this.data.cinema == null;
 
     this.getCinemas()
     this.form = this.formBuilder.group({
@@ -42,13 +39,12 @@ export class AddCinemaComponent implements OnInit {
       address: ["", [Validators.required]]
     })
 
-    if (!this.addMode) {
-      this.cinemaService.getOne(this.id).pipe(first()).subscribe(c => {
-        this.cinema = c;
-        this.form.patchValue(c);
-      });
+    if (this.addMode) {
+      this.cinema = new Cinema();
+    } else {
+      this.cinema = this.data.cinema;
+      this.form.patchValue(this.cinema);
     }
-
   }
 
   save() {
@@ -56,31 +52,18 @@ export class AddCinemaComponent implements OnInit {
     this.cinema.address = this.form.value.address;
 
     if (this.addMode) {
-      this.cinemaService.add(this.cinema).subscribe((a) => {
-        console.log("saved:" + a.name);
-        this.getCinemas();
+      this.cinemaService.add(this.cinema).subscribe(_ => {
+        this.dialogRef.close();
       });
     } else {
-      console.log(this.cinema)
-      this.cinemaService.update(this.cinema).subscribe((a) => {
-        console.log("updated cinema: " + a.name);
-        this.getCinemas();
+      this.cinemaService.update(this.cinema).subscribe(_ => {
+        this.dialogRef.close();
       });
     }
-
-
-
-    this.form.reset();
-
-    this.cinema = new Cinema();
   }
 
   getCinemas(): void {
     this.cinemaService.getAll().subscribe(cinemas => this.cinemas = cinemas.resources);
-
   }
 
-  goBack(): void {
-    this.location.back();
-  }
 }

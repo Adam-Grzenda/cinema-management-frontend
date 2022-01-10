@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CinemaHallService} from "../../services/cinema-hall.service";
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {CinemaHallService} from "../../../services/cinema-hall.service";
 import {Location} from "@angular/common";
-import {CinemaHall} from "../../../model/cinema-hall";
+import {CinemaHall} from "../../../../model/cinema-hall";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Cinema} from "../../../model/cinema";
-import {CinemaService} from "../../services/cinema.service";
+import {Cinema} from "../../../../model/cinema";
+import {CinemaService} from "../../../services/cinema.service";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 
 @Component({
@@ -17,22 +18,21 @@ import {first} from "rxjs";
 export class AddCinemaHallComponent implements OnInit {
 
   public addMode: boolean = true;
-  private id: number;
 
   maxNumber: number = 25;
 
-  cinemaHalls: CinemaHall[] = [];
-
   cinemas: Cinema[] = [];
 
-  hallTypes: String[] = ['normal', 'premium', 'imax']
+  cinemaHalls: CinemaHall[] = [];
 
-  @Input()
-  cinemaHall: CinemaHall = new CinemaHall();
+  private cinemaHall: CinemaHall;
+
+  hallTypes: String[] = ['normal', 'premium', 'imax']
 
   form: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { hall: CinemaHall },
     private cinemaHallService: CinemaHallService,
     private cinemaService: CinemaService,
     private location: Location,
@@ -44,12 +44,10 @@ export class AddCinemaHallComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params['id'];
-    this.addMode = !this.id;
+    this.addMode = this.data.hall == null;
 
     this.getHalls();
     this.getCinemas();
-
     this.form = this.formBuilder.group({
       number: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1), Validators.max(this.maxNumber)]],
@@ -57,8 +55,19 @@ export class AddCinemaHallComponent implements OnInit {
       cinema: ["", [Validators.required]]
     })
 
-    if (!this.addMode) {
-      this.cinemaHallService.getOne(this.id).pipe(first()).subscribe(h => {
+    if (this.addMode) {
+      this.cinemaHall = new CinemaHall();
+    } else {
+      this.cinemaHall = this.data.hall;
+      this.form.patchValue(this.cinemaHall);
+      this.form.patchValue({
+        cinema: this.cinemaHall.cinema.name
+      })
+      console.log(this.cinemaHall)
+    }
+
+    /*if (!this.addMode) {
+      this.cinemaHallService.getOne(this.data.hall.id).pipe(first()).subscribe(h => {
         this.cinemaHall = h;
         h.getRelation<Cinema>('cinema').subscribe(c => {
           this.cinemaHall.cinema = c;
@@ -66,25 +75,27 @@ export class AddCinemaHallComponent implements OnInit {
         })
       });
 
-    }
+    }*/
 
   }
 
 
   getHalls(): void {
-    this.cinemaHallService.getAll().subscribe(halls => this.cinemaHalls = halls.resources);
+    this.cinemaHallService.getAll().subscribe(h => this.cinemaHalls = h.resources);
   }
 
   getCinemas(): void {
-    this.cinemaService.getAll().subscribe(cinemas => this.cinemas = cinemas.resources);
+    this.cinemaService.getAll().subscribe(c => this.cinemas = c.resources);
 
   }
+
 
   save() {
     this.cinemaHall.number = this.form.value.number
     this.cinemaHall.type = this.form.value.type
     this.cinemaHall.cinema = this.form.value.cinema
-
+    console.log(this.form.value.cinema)
+    //#TODO save subscribe cinemahall.cinema based on the name + adjust save and update
 
 
     if (this.addMode) {

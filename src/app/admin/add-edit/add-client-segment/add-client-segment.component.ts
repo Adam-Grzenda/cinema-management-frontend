@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ClientSegment} from "../../../model/client-segment";
+import {ClientSegment} from "../../../../model/client-segment";
 import {Location} from "@angular/common";
-import {ClientSegmentService} from "../../services/client-segment.service";
-import {PromoOfferService} from "../../services/promo-offer.service";
-import {PromoOffer} from "../../../model/promo-offer";
+import {ClientSegmentService} from "../../../services/client-segment.service";
+import {PromoOfferService} from "../../../services/promo-offer.service";
+import {PromoOffer} from "../../../../model/promo-offer";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
 

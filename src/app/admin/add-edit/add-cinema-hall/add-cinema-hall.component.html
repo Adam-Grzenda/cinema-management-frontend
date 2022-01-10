@@ -1,14 +1,16 @@
-<h2 *ngIf="addMode">Add new cinema hall</h2>
-<h2 *ngIf="!addMode">Edit cinema hall</h2>
-
-<hr>
-<div class="center">
-  <button (click)="goBack()">Return</button>
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new cinema hall</h2>
+  <h2 class="center" *ngIf="!addMode">Edit cinema hall</h2>
 </div>
-<br>
+
 <hr>
 
-<br>
 <div class="center">
   <form [formGroup]="form" (ngSubmit)="save()">
 
@@ -35,8 +37,8 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Cinema</mat-label>
-      <mat-select formControlName="cinema" id="cinema" ngDefaultControl>
-        <mat-option *ngFor="let cinema of cinemas" [value]="cinema">{{cinema.name}}</mat-option>
+      <mat-select formControlName="cinema">
+        <mat-option *ngFor="let cinema of cinemas" value="{{cinema.name}}"><!--[value]="cinema"-->{{cinema.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 

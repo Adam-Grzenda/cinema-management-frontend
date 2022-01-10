@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TypeList} from "../../model/type-list";
 import {AdminListService} from "../services/admin-list.service";
+import {AddCinemaComponent} from "../admin/add-edit/add-cinema/add-cinema.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-type-list',
@@ -10,19 +12,17 @@ import {AdminListService} from "../services/admin-list.service";
 export class TypeListComponent implements OnInit {
 
   @Input()
-  typeList:TypeList[];
+  typeList: TypeList[];
 
   @Input()
   cinema_id: number = 0;
 
   constructor(
-  ) { }
+    private dialog: MatDialog
+  ) {
+  }
 
   ngOnInit(): void {
   }
 
-  load(type: TypeList) {
-    //this.adminListService.updateList(type.id);
-
-  }
 }

@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Film} from "../../../model/film";
-import {Advertisement} from "../../../model/advertisement";
+import {Film} from "../../../../model/film";
+import {Advertisement} from "../../../../model/advertisement";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
-import {AdvertisementService} from "../../services/advertisement.service";
-import {FilmService} from "../../services/film.service";
+import {AdvertisementService} from "../../../services/advertisement.service";
+import {FilmService} from "../../../services/film.service";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
 

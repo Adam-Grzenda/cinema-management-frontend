@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductType} from "../../../model/product-type";
+import {ProductType} from "../../../../model/product-type";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
-import {ProductTypeService} from "../../services/product-type.service";
+import {ProductTypeService} from "../../../services/product-type.service";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
 

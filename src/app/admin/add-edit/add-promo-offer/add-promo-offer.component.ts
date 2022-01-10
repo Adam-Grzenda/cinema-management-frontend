@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PromoOffer} from "../../../model/promo-offer";
-import {CinemaHallService} from "../../services/cinema-hall.service";
-import {CinemaService} from "../../services/cinema.service";
+import {PromoOffer} from "../../../../model/promo-offer";
+import {CinemaHallService} from "../../../services/cinema-hall.service";
+import {CinemaService} from "../../../services/cinema.service";
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PromoOfferService} from "../../services/promo-offer.service";
+import {PromoOfferService} from "../../../services/promo-offer.service";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
 

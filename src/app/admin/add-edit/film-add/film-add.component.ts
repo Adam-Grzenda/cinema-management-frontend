@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Film} from "../../../model/film";
-import {FilmService} from "../../services/film.service";
-import {ImageService} from "../../services/image.service";
+import {Film} from "../../../../model/film";
+import {FilmService} from "../../../services/film.service";
+import {ImageService} from "../../../services/image.service";
 
 @Component({
   selector: 'app-film-add',
