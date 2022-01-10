@@ -6,6 +6,8 @@ import {ChairService} from "../../services/chair.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {CinemaHall} from "../../../model/cinema-hall";
 import {MatPaginator} from "@angular/material/paginator";
+import {MatDialog} from "@angular/material/dialog";
+import {ChairTypeComponent} from "../chair-type/chair-type.component";
 
 @Component({
   selector: 'app-chairs-table',
@@ -20,7 +22,7 @@ export class ChairsTableComponent implements OnInit {
   private chairs: any;
 
   dataSource: MatTableDataSource<Chair>;
-  displayedColumns: string[] = ['id', 'hallRow', 'hallColumn', 'chairType'];
+  displayedColumns: string[] = ['id', 'hallRow', 'hallColumn', 'chairType', 'modify', 'delete'];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,7 +30,8 @@ export class ChairsTableComponent implements OnInit {
 
   constructor(
     private cinemaHallService: CinemaHallService,
-    private chairService: ChairService
+    private chairService: ChairService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -63,5 +66,12 @@ export class ChairsTableComponent implements OnInit {
     }
   }
 
+  modify(chair: Chair): void {
+    this.dialog.open(ChairTypeComponent, {
+      data: {chair: chair},
+      height: '80%',
+      width: '50%'
+    })
+  }
 }
 

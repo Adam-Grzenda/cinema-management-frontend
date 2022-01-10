@@ -58,6 +58,7 @@ import {MatTableModule} from "@angular/material/table";
 import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
 import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { ChairTypeComponent } from './manager/chair-type/chair-type.component';
 
 
 
@@ -88,6 +89,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ChairsTableComponent,
     AddFoodCourtComponent,
     FoodCourtProductTypeComponent,
+    ChairTypeComponent,
   ],
     imports: [
         BrowserModule,
