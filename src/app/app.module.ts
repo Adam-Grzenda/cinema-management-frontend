@@ -61,6 +61,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { ChairTypeComponent } from './manager/chair-type/chair-type.component';
 import { CinemaTableComponent } from './admin/tables/cinema-table/cinema-table.component';
 import { CinemaHallTableComponent } from './admin/tables/cinema-hall-table/cinema-hall-table.component';
+import { AdvertisementTableComponent } from './admin/tables/advertisement-table/advertisement-table.component';
 
 
 
@@ -94,6 +95,7 @@ import { CinemaHallTableComponent } from './admin/tables/cinema-hall-table/cinem
     ChairTypeComponent,
     CinemaTableComponent,
     CinemaHallTableComponent,
+    AdvertisementTableComponent,
   ],
     imports: [
         BrowserModule,

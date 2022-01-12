@@ -19,7 +19,8 @@ export class CinemaHallTableComponent implements OnInit {
   private halls: Array<CinemaHall>
 
   dataSource: MatTableDataSource<CinemaHall>;
-  displayedColumns: string[] = ['id', 'number', 'type', 'cinema_id', 'modify', 'delete'];
+  displayedColumns: string[] =
+    ['id', 'number', 'type', 'cinema_id', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

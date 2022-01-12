@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Film} from "../../../../model/film";
 import {Advertisement} from "../../../../model/advertisement";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
 import {AdvertisementService} from "../../../services/advertisement.service";
 import {FilmService} from "../../../services/film.service";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 
 @Component({
@@ -17,30 +16,28 @@ import {first} from "rxjs";
 export class AddAdvertisementComponent implements OnInit {
 
   public addMode: boolean = true;
-  private id: number;
 
   films: Film[] = [];
 
   ads: Advertisement[] = [];
 
-  @Input()
-  advertisement: Advertisement = new Advertisement();
+  private advertisement: Advertisement;
 
   form: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { ad: Advertisement },
     private advertisementService: AdvertisementService,
     private filmService: FilmService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private dialogRef: MatDialogRef<AddAdvertisementComponent>
   ) {
   }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params['id'];
-    this.addMode = !this.id;
+    this.addMode = this.data.ad == null;
 
     this.getAds();
     this.getFilms();
@@ -49,22 +46,24 @@ export class AddAdvertisementComponent implements OnInit {
       companyName: ["", [Validators.required]],
       duration: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1)]],
-      film: [""]
+      film: ["", [Validators.required]]
     })
 
-    if (!this.addMode) {
-      this.advertisementService.getOne(this.id).pipe(first()).subscribe(a => {
-        this.advertisement = a;
-        this.form.patchValue(this.advertisement);
 
-        /*a.getRelation<Film>('film').subscribe(f => {
-            this.advertisement.film = f;
-            this.form.patchValue(this.advertisement);
-          },
-          (er) => {
-            this.form.patchValue(this.advertisement);
-          })*/
-      });
+    if (this.addMode) {
+      this.advertisement = new Advertisement();
+    } else {
+      this.advertisement = this.data.ad;
+      this.form.patchValue(this.advertisement);
+      if (this.advertisement.film) {
+        this.form.patchValue({
+          film: this.advertisement.film.title
+        });
+      } else {
+        this.form.patchValue({
+          film: 'null'
+        });
+      }
     }
   }
 
@@ -73,26 +72,64 @@ export class AddAdvertisementComponent implements OnInit {
   }
 
   getFilms(): void {
-    this.filmService.getFilms().subscribe(films => this.films = films.resources);
+    this.filmService.getAll().subscribe(films => this.films = films.resources);
 
   }
 
   save() {
     this.advertisement.companyName = this.form.value.companyName;
     this.advertisement.duration = this.form.value.duration;
-    this.advertisement.film = this.form.value.film;
+
+    if (this.form.value.film == 'null') {
+
+      if (this.addMode) {
+        this.advertisementService.add(this.advertisement).subscribe(_ => {
+          this.dialogRef.close();
+        });
+      } else {
+        this.advertisement.getRelation<Film>('film').subscribe(f => {
+            this.advertisement.deleteRelation<Film>('film', f).subscribe(_ => {
+              this.advertisementService.update(this.advertisement).subscribe(_ => {
+                this.dialogRef.close();
+              });
+            });
+          },
+          _ => {
+            this.advertisementService.update(this.advertisement).subscribe(_ => {
+              this.dialogRef.close();
+            });
+          });
+      }
+    } else {
+      this.filmService.getByTitle(this.form.value.film).subscribe(f => {
+        console.log(f);
+        this.advertisement.film = f;
+
+        if (this.addMode) {
+          this.advertisementService.add(this.advertisement).subscribe(_ => {
+            this.dialogRef.close();
+          });
+        } else {
+          this.advertisement.bindRelation<Film>('film', this.advertisement.film)
+            .subscribe(_ => {
+              this.advertisementService.update(this.advertisement).subscribe(_ => {
+                this.dialogRef.close();
+              })
+            })
+        }
+
+      });
+
+
+    }
+
+    /*
 
 
     if (this.addMode) {
 
-      this.advertisementService.add(this.advertisement).subscribe((a) => {
-        console.log("saved advertisement: company: " + a.companyName + " duration: " +
-          a.duration);
-        this.getAds();
-
-        this.form.reset();
-
-        this.advertisement = new Advertisement();
+      this.advertisementService.add(this.advertisement).subscribe(_ => {
+        this.dialogRef.close();
       });
     } else {
 
@@ -101,13 +138,7 @@ export class AddAdvertisementComponent implements OnInit {
         this.advertisement.bindRelation<Film>('film', this.form.value.film).subscribe(_ => {
 
           this.advertisementService.update(this.advertisement).subscribe(a => {
-            console.log("updated advertisement: company: " + a.companyName + " duration: " +
-              a.duration);
-            this.getAds();
-
-            this.form.reset();
-
-            this.advertisement = new Advertisement();
+            this.dialogRef.close();
           })
 
         });
@@ -117,35 +148,18 @@ export class AddAdvertisementComponent implements OnInit {
             this.advertisement.deleteRelation<Film>('film', f).subscribe(_ => {
 
               this.advertisementService.update(this.advertisement).subscribe(a => {
-                console.log("updated advertisement: company: " + a.companyName + " duration: " +
-                  a.duration);
-                this.getAds();
-
-                this.form.reset();
-
-                this.advertisement = new Advertisement();
+                this.dialogRef.close();
               })
 
             });
           },
           e => {
             this.advertisementService.update(this.advertisement).subscribe(a => {
-              console.log("updated advertisement: company: " + a.companyName + " duration: " +
-                a.duration);
-              this.getAds();
-
-              this.form.reset();
-
-              this.advertisement = new Advertisement();
+              this.dialogRef.close();
             })
           })
       }
-    }
-  }
-
-
-  goBack(): void {
-    this.location.back();
+    }*/
   }
 
 }

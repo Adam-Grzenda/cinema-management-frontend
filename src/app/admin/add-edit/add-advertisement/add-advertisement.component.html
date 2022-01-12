@@ -1,53 +1,60 @@
-<h2 *ngIf="addMode">Add new advertisement</h2>
-<h2 *ngIf="!addMode">Edit the advertisement</h2>
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new advertisement</h2>
+  <h2 class="center" *ngIf="!addMode">Edit the advertisement</h2>
+</div>
 
-
-<button (click)="goBack()">Return</button>
 
 <br>
 <hr>
 
 <br>
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
 
-<form [formGroup]="form" (ngSubmit)="save()">
-
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Company Name</mat-label>
-    <input matInput formControlName="companyName"
-           placeholder="enter a valid number">
-  </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Company Name</mat-label>
+      <input matInput formControlName="companyName"
+             placeholder="enter a valid number">
+    </mat-form-field>
 
 
-  <br>
+    <br>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Duration</mat-label>
-    <input matInput type="number" min="10" step="5"
-           formControlName="duration"
-           placeholder="enter a ad duration">
-  </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Duration(in sec.)</mat-label>
+      <input matInput type="number" min="10" step="5"
+             formControlName="duration"
+             placeholder="enter a ad duration">
+    </mat-form-field>
 
-  <br>
+    <br>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Film</mat-label>
-    <mat-select placeholder="null" formControlName="film">
-      <mat-option [value]="null">None</mat-option>
-      <mat-option *ngFor="let film of films" [value]="film">{{film.title}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Film</mat-label>
+      <mat-select placeholder="null" formControlName="film">
+        <mat-option value="null">None</mat-option>
+        <mat-option *ngFor="let film of films" value="{{film.title}}">{{film.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <br>
+    <br>
 
-  <button type="submit" [disabled]="!form.dirty">Save advertisement</button>
+    <button type="submit" [disabled]="!form.valid">Save advertisement</button>
 
-</form>
+  </form>
+</div>
 
 <br>
 <hr>
 
 <ul>
-  <li  *ngFor="let a of ads">Reklama: Firma: {{a.companyName}}
+  <li *ngFor="let a of ads">Reklama: Firma: {{a.companyName}}
     <div *ngIf="a.film else elseBlock"> Film: {{a.film.title}}</div>
     <ng-template #elseBlock><br>Film: none</ng-template>
   </li>

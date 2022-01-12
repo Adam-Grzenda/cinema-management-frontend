@@ -1,5 +1,12 @@
+#closeBttn {
+  float: right;
+}
+
 .center {
   display: flex;
   justify-content: center;
-  text-align: center;
+}
+
+#save {
+  width: 100%;
 }

@@ -12,6 +12,7 @@
 
     <app-cinema-table *ngIf="type.name=='cinema'"></app-cinema-table>
     <app-cinema-hall-table *ngIf="type.name=='cinema hall'"></app-cinema-hall-table>
+    <app-advertisement-table *ngIf="type.name=='advertisement'"></app-advertisement-table>
 
     <div *ngIf="type.type=='manager'">
       <mat-accordion *ngFor="let item of type.objectList">

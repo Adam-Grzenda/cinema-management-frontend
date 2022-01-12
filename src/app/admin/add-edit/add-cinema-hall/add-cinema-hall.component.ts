@@ -81,12 +81,13 @@ export class AddCinemaHallComponent implements OnInit {
       this.cinemaHall.cinema = c;
 
       if (this.addMode) {
-        this.cinemaHallService.add(this.cinemaHall).subscribe((a) => {
+        this.cinemaHallService.add(this.cinemaHall).subscribe(_ => {
           this.dialogRef.close();
         });
       } else {
-        this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema).subscribe(_ => {
-          this.cinemaHallService.update(this.cinemaHall).subscribe((a) => {
+        this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema)
+          .subscribe(_ => {
+          this.cinemaHallService.update(this.cinemaHall).subscribe(_ => {
             this.dialogRef.close();
           });
         })
