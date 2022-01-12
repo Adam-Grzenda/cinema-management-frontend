@@ -7,7 +7,6 @@ import {CinemaHall} from "../../../../model/cinema-hall";
 import {CinemaService} from "../../../services/cinema.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CinemaHallService} from "../../../services/cinema-hall.service";
-import {AddCinemaComponent} from "../../add-edit/add-cinema/add-cinema.component";
 import {AddCinemaHallComponent} from "../../add-edit/add-cinema-hall/add-cinema-hall.component";
 
 @Component({
@@ -18,7 +17,6 @@ import {AddCinemaHallComponent} from "../../add-edit/add-cinema-hall/add-cinema-
 export class CinemaHallTableComponent implements OnInit {
 
   private halls: Array<CinemaHall>
-  private cinemas: Array<Cinema>;
 
   dataSource: MatTableDataSource<CinemaHall>;
   displayedColumns: string[] = ['id', 'number', 'type', 'cinema_id', 'modify', 'delete'];
