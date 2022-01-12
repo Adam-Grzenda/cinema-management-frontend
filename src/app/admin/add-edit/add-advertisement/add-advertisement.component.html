@@ -9,11 +9,8 @@
   <h2 class="center" *ngIf="!addMode">Edit the advertisement</h2>
 </div>
 
-
-<br>
 <hr>
 
-<br>
 <div class="center">
   <form [formGroup]="form" (ngSubmit)="save()">
 
@@ -38,14 +35,14 @@
     <mat-form-field appearance="fill">
       <mat-label>Film</mat-label>
       <mat-select placeholder="null" formControlName="film">
-        <mat-option value="null">None</mat-option>
+        <mat-option value="None">None</mat-option>
         <mat-option *ngFor="let film of films" value="{{film.title}}">{{film.title}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <br>
 
-    <button type="submit" [disabled]="!form.valid">Save advertisement</button>
+    <button type="submit" id="save" [disabled]="!form.valid">Save advertisement</button>
 
   </form>
 </div>

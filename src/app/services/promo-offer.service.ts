@@ -38,4 +38,12 @@ export class PromoOfferService implements ServiceInterface {
     return of(new ResourceCollection());
   }
 
+  getByName(name: string): Observable<PromoOffer> {
+    return this.resourceService.searchResource(PromoOffer, "findPromoOfferByName", {
+      params: {
+        name: name
+      }
+    });
+  }
+
 }

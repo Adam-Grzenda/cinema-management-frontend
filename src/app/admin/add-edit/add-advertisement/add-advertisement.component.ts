@@ -41,7 +41,6 @@ export class AddAdvertisementComponent implements OnInit {
 
     this.getAds();
     this.getFilms();
-
     this.form = this.formBuilder.group({
       companyName: ["", [Validators.required]],
       duration: ["", [Validators.required, Validators.pattern("[0-9]*"),
@@ -61,7 +60,7 @@ export class AddAdvertisementComponent implements OnInit {
         });
       } else {
         this.form.patchValue({
-          film: 'null'
+          film: 'None'
         });
       }
     }
@@ -73,20 +72,20 @@ export class AddAdvertisementComponent implements OnInit {
 
   getFilms(): void {
     this.filmService.getAll().subscribe(films => this.films = films.resources);
-
   }
 
   save() {
     this.advertisement.companyName = this.form.value.companyName;
     this.advertisement.duration = this.form.value.duration;
 
-    if (this.form.value.film == 'null') {
+    if (this.form.value.film == 'None') {
 
       if (this.addMode) {
         this.advertisementService.add(this.advertisement).subscribe(_ => {
           this.dialogRef.close();
         });
       } else {
+
         this.advertisement.getRelation<Film>('film').subscribe(f => {
             this.advertisement.deleteRelation<Film>('film', f).subscribe(_ => {
               this.advertisementService.update(this.advertisement).subscribe(_ => {
@@ -102,7 +101,6 @@ export class AddAdvertisementComponent implements OnInit {
       }
     } else {
       this.filmService.getByTitle(this.form.value.film).subscribe(f => {
-        console.log(f);
         this.advertisement.film = f;
 
         if (this.addMode) {
@@ -114,52 +112,11 @@ export class AddAdvertisementComponent implements OnInit {
             .subscribe(_ => {
               this.advertisementService.update(this.advertisement).subscribe(_ => {
                 this.dialogRef.close();
-              })
-            })
-        }
-
-      });
-
-
-    }
-
-    /*
-
-
-    if (this.addMode) {
-
-      this.advertisementService.add(this.advertisement).subscribe(_ => {
-        this.dialogRef.close();
-      });
-    } else {
-
-      if (this.form.value.film) {
-
-        this.advertisement.bindRelation<Film>('film', this.form.value.film).subscribe(_ => {
-
-          this.advertisementService.update(this.advertisement).subscribe(a => {
-            this.dialogRef.close();
-          })
-
-        });
-      } else {
-
-        this.advertisement.getRelation<Film>('film').subscribe(f => {
-            this.advertisement.deleteRelation<Film>('film', f).subscribe(_ => {
-
-              this.advertisementService.update(this.advertisement).subscribe(a => {
-                this.dialogRef.close();
-              })
-
+              });
             });
-          },
-          e => {
-            this.advertisementService.update(this.advertisement).subscribe(a => {
-              this.dialogRef.close();
-            })
-          })
-      }
-    }*/
+        }
+      });
+    }
   }
 
 }

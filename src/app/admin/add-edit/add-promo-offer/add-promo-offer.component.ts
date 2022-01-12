@@ -1,12 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {PromoOffer} from "../../../../model/promo-offer";
-import {CinemaHallService} from "../../../services/cinema-hall.service";
-import {CinemaService} from "../../../services/cinema.service";
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PromoOfferService} from "../../../services/promo-offer.service";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-promo-offer',
@@ -16,28 +13,27 @@ import {first} from "rxjs";
 export class AddPromoOfferComponent implements OnInit {
 
   public addMode: boolean = true;
-  private id: number;
 
   public maxNumber: number = 75;
 
   offers: PromoOffer[] = [];
 
-  @Input()
-  offer: PromoOffer = new PromoOffer();
+  private offer: PromoOffer;
 
   form: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { offer: PromoOffer },
     private promoOfferService: PromoOfferService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
-  ) { }
+    private dialogRef: MatDialogRef<AddPromoOfferComponent>
+  ) {
+  }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params['id'];
-    this.addMode = !this.id;
+    this.addMode = this.data.offer == null;
 
     this.getOffers();
     this.form = this.formBuilder.group({
@@ -46,12 +42,11 @@ export class AddPromoOfferComponent implements OnInit {
         Validators.min(1), Validators.max(this.maxNumber)]],
     })
 
-    if(!this.addMode) {
-      this.promoOfferService.getOne(this.id).pipe(first()).subscribe(o => {
-        this.offer = o;
-        this.form.patchValue(this.offer);
-        console.log(this.offer)
-      })
+    if (this.addMode) {
+      this.offer = new PromoOffer();
+    } else {
+      this.offer = this.data.offer;
+      this.form.patchValue(this.offer);
     }
   }
 
@@ -64,28 +59,14 @@ export class AddPromoOfferComponent implements OnInit {
     this.offer.discount = this.form.value.discount
 
     if (this.addMode) {
-      this.promoOfferService.add(this.offer).subscribe((a) => {
-        console.log("saved: offer: " + a.name +" discount: " +a.discount);
-        this.getOffers();
+      this.promoOfferService.add(this.offer).subscribe(_ => {
+        this.dialogRef.close();
       });
     } else {
-      this.promoOfferService.update(this.offer).subscribe((a) => {
-        console.log("saved: offer: " + a.name +" discount: " +a.discount);
-        this.getOffers();
+      this.promoOfferService.update(this.offer).subscribe(_ => {
+        this.dialogRef.close();
       });
     }
-
-
-
-    this.form.reset();
-
-    this.offer = new PromoOffer();
-  }
-
-
-
-  goBack(): void {
-    this.location.back();
   }
 
 }

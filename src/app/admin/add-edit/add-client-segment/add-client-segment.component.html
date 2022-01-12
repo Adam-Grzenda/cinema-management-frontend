@@ -1,39 +1,43 @@
-<h2 *ngIf="addMode">Add new client segment</h2>
-<h2 *ngIf="!addMode">Edit client segment</h2>
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new client segment</h2>
+  <h2 class="center" *ngIf="!addMode">Edit client segment</h2>
+</div>
 
 <hr>
 
-<button (click)="goBack()">Return</button>
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
 
-<br>
-<hr>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Client Segment Name</mat-label>
+      <input matInput formControlName="name"
+             placeholder="enter a valid name">
+    </mat-form-field>
 
+    <br>
+    <br>
 
-<br>
+    <mat-form-field appearance="fill">
+      <mat-label>Promo Offer</mat-label>
+      <mat-select placeholder="null" formControlName="promoOffer">
+        <mat-option value="None">None</mat-option>
+        <mat-option *ngFor="let offer of offers" value="{{offer.name}}">{{offer.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-<form [formGroup]="form" (ngSubmit)="save()">
+    <br>
+    <br>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Client Segment Name</mat-label>
-    <input matInput formControlName="name"
-           placeholder="enter a valid name">
-  </mat-form-field>
+    <button type="submit" [disabled]="!form.valid">Save Client Segment</button>
 
-  <br>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Promo Offer</mat-label>
-    <mat-select placeholder="null" formControlName="promoOffer">
-      <mat-option [value]="null">None</mat-option>
-      <mat-option *ngFor="let offer of offers" [value]="offer">{{offer.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <br>
-
-  <button type="submit" [disabled]="!form.valid">Save Client Segment</button>
-
-</form>
+  </form>
+</div>
 
 <br>
 <hr>

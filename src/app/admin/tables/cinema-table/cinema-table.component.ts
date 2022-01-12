@@ -62,7 +62,7 @@ export class CinemaTableComponent implements OnInit {
   modify(cinema: Cinema): void {
     const dialogRef = this.dialog.open(AddCinemaComponent, {
       data: {cinema: cinema},
-      height: '80%',
+      height: '60%',
       width: '50%'
     });
 

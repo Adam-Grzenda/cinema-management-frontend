@@ -45,18 +45,16 @@ export class AdvertisementTableComponent implements OnInit {
             ad.film = f;
           },
           error => {
-          })
+          });
       }
       this.dataSource = new MatTableDataSource<Advertisement>(this.advertisements);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
-    })
+    });
   }
 
   delete(ad: Advertisement) {
-    this.advertisementService.delete(ad).subscribe(a => {
-      console.log("deleted: " + a.id);
+    this.advertisementService.delete(ad).subscribe(_ => {
       this.getAds();
     })
 

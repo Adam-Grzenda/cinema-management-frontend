@@ -62,6 +62,9 @@ import { ChairTypeComponent } from './manager/chair-type/chair-type.component';
 import { CinemaTableComponent } from './admin/tables/cinema-table/cinema-table.component';
 import { CinemaHallTableComponent } from './admin/tables/cinema-hall-table/cinema-hall-table.component';
 import { AdvertisementTableComponent } from './admin/tables/advertisement-table/advertisement-table.component';
+import { PromoOfferTableComponent } from './admin/tables/promo-offer-table/promo-offer-table.component';
+import { ProductTypeTableComponent } from './admin/tables/product-type-table/product-type-table.component';
+import { ClientSegmentTableComponent } from './admin/tables/client-segment-table/client-segment-table.component';
 
 
 
@@ -96,6 +99,9 @@ import { AdvertisementTableComponent } from './admin/tables/advertisement-table/
     CinemaTableComponent,
     CinemaHallTableComponent,
     AdvertisementTableComponent,
+    PromoOfferTableComponent,
+    ProductTypeTableComponent,
+    ClientSegmentTableComponent,
   ],
     imports: [
         BrowserModule,

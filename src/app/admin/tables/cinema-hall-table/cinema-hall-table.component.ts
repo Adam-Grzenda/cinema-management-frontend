@@ -42,20 +42,20 @@ export class CinemaHallTableComponent implements OnInit {
           hall.getRelation<Cinema>('cinema').subscribe(c => {
             hall.cinema = c;
             //#TODO dziwne errory, ale działa
-          })
+          });
       }
         this.dataSource = new MatTableDataSource<CinemaHall>(this.halls);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
-    )
+    );
   }
 
   delete(hall: CinemaHall) {
     this.cinemaHallService.delete(hall).subscribe(h => {
       console.log("deleted: " + h.id);
       this.getHalls();
-    })
+    });
   }
 
   applyFilter(event: Event) {
@@ -84,12 +84,11 @@ export class CinemaHallTableComponent implements OnInit {
       data: {hall: null},
       height: '80%',
       width: '50%'
-    })
+    });
 
     dialogRef.afterClosed().subscribe(_=> {
       this.getHalls();
-    })
-
+    });
   }
 
 }

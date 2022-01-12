@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ProductType} from "../../../../model/product-type";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
 import {ProductTypeService} from "../../../services/product-type.service";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {CinemaHall} from "../../../../model/cinema-hall";
 
 @Component({
   selector: 'app-add-product-type',
@@ -14,26 +16,24 @@ import {first} from "rxjs";
 export class AddProductTypeComponent implements OnInit {
 
   public addMode: boolean = true;
-  private id: number;
 
   types: ProductType[] = [];
 
-  @Input()
-  productType: ProductType = new ProductType();
+  private productType: ProductType;
 
   form: FormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { type: ProductType },
     private productTypeService: ProductTypeService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private dialogRef: MatDialogRef<AddProductTypeComponent>
   ) { }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params['id'];
-    this.addMode = !this.id;
+    this.addMode = this.data.type == null;
 
     this.getTypes();
     this.form = this.formBuilder.group({
@@ -43,13 +43,12 @@ export class AddProductTypeComponent implements OnInit {
         Validators.min(1)]],
     })
 
-    if (!this.addMode) {
-      this.productTypeService.getOne(this.id).pipe(first()).subscribe(t => {
-        this.productType = t;
-        this.form.patchValue(this.productType);
-      })
+    if (this.addMode) {
+      this.productType = new ProductType();
+    } else {
+      this.productType = this.data.type;
+      this.form.patchValue(this.productType);
     }
-
   }
 
   getTypes(): void {
@@ -61,19 +60,14 @@ export class AddProductTypeComponent implements OnInit {
     this.productType.name = this.form.value.name;
     this.productType.unit = this.form.value.unit;
     this.productType.amount = this.form.value.amount;
-    console.log(this.productType)
 
     if (this.addMode) {
-      this.productTypeService.add(this.productType).subscribe((a) => {
-        console.log("saved type: name: " + a.name + " unit: " +
-          a.unit + " amount: " + a.amount);
-        this.getTypes();
+      this.productTypeService.add(this.productType).subscribe(_ => {
+        this.dialogRef.close();
       });
     } else {
-      this.productTypeService.update(this.productType).subscribe((a) => {
-        console.log("updated type: name: " + a.name + " unit: " +
-          a.unit + " amount: " + a.amount);
-        this.getTypes();
+      this.productTypeService.update(this.productType).subscribe(_ => {
+        this.dialogRef.close();
       });
     }
 
