@@ -76,7 +76,7 @@ export class CinemaHallTableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_=> {
       this.getHalls();
-    })
+    });
   }
 
   add() {

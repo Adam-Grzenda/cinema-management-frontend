@@ -48,12 +48,18 @@ export class ObjectPanelComponent implements OnInit {
         break;
 
       case CinemaHall:
-        // @ts-ignore
-        this.item.getRelation<Cinema>('cinema').subscribe(
-          (i: { id: any; }) => {
-            this.title = "Hall nr: " + this.item.number + " Cinema: " + i.id;
-          }
-        )
+
+        if (this.type.type=="manager") {
+          this.title = "Hall nr: " + this.item.number;
+        } else {
+          // @ts-ignore
+          this.item.getRelation<Cinema>('cinema').subscribe(
+            (i: { id: any; }) => {
+              this.title = "Hall nr: " + this.item.number + " Cinema: " + i.id;
+            }
+          )
+        }
+
 
 
 

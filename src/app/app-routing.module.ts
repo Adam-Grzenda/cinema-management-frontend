@@ -13,9 +13,9 @@ import {AddProductTypeComponent} from "./admin/add-edit/add-product-type/add-pro
 import {FilmEditComponent} from "./admin/add-edit/film-edit/film-edit.component";
 import {MainManagerComponent} from "./manager/main-manager/main-manager.component";
 import {CinemaChooseComponent} from "./manager/cinema-choose/cinema-choose.component";
-import {AddFoodCourtComponent} from "./manager/add-food-court/add-food-court.component";
+import {AddFoodCourtComponent} from "./manager/add-edit/add-food-court/add-food-court.component";
 import {FoodCourtProductType} from "../model/FoodCourt-ProductType";
-import {FoodCourtProductTypeComponent} from "./manager/food-court-product-type/food-court-product-type.component";
+import {FoodCourtProductTypeComponent} from "./manager/add-edit/food-court-product-type/food-court-product-type.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},

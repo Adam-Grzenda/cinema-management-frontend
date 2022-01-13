@@ -1,5 +1,5 @@
 <a class="button" id="add" mat-raised-button color="primary"
-   (click)="add()">Add new cinema hall</a>
+   (click)="add()">Add new food court</a>
 
 <hr>
 
@@ -18,21 +18,15 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="number">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="number">Number</th>
-      <td mat-cell *matCellDef="let object"> {{object.number}} </td>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
+      <td mat-cell *matCellDef="let object"> {{object.name}} </td>
     </ng-container>
 
 
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="type">Type</th>
-      <td mat-cell *matCellDef="let object"> {{object.type}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="cinema_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="cinema_id">Cinema_id</th>
-      <td mat-cell *matCellDef="let object"> <div *ngIf="object['cinema']">{{object['cinema'].id}}</div> </td>
+    <ng-container matColumnDef="checkoutNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="checkoutNumber">Checkout number</th>
+      <td mat-cell *matCellDef="let object"> {{object["checkoutNumber"]}} </td>
     </ng-container>
 
 

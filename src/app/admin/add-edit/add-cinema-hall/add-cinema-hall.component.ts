@@ -60,10 +60,9 @@ export class AddCinemaHallComponent implements OnInit {
       this.form.patchValue(this.cinemaHall);
       this.form.patchValue({
         cinema: this.cinemaHall.cinema.name
-      })
+      });
     }
   }
-
 
   getHalls(): void {
     this.cinemaHallService.getAll().subscribe(h => this.cinemaHalls = h.resources);

@@ -1,3 +1,8 @@
+<a class="button" id="add" mat-raised-button color="primary"
+   (click)="add()">Add new chair</a>
+
+<hr>
+
 <mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>

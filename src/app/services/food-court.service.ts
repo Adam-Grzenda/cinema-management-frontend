@@ -34,12 +34,16 @@ export class FoodCourtService implements ServiceInterface {
     return this.resourceService.deleteResource(foodCourt);
   }
 
-  getAllSub(id: number): Observable<ResourceCollection<FoodCourt>> {
+  getByCinemaId(id: number): Observable<ResourceCollection<FoodCourt>> {
     return this.resourceService.searchCollection(FoodCourt, 'getAllByCinema_Id', {
       params: {
         id: id,
       }
     })
+  }
+
+  getAllSub(id: number): Observable<ResourceCollection<any>> {
+    return of(new ResourceCollection());
   }
 
 }

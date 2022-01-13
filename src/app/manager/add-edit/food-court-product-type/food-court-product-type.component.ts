@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FoodCourt} from "../../../model/food-court";
+import {FoodCourt} from "../../../../model/food-court";
 
 @Component({
   selector: 'app-food-court-product-type',

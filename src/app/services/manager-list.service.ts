@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {TypeList} from "../../model/type-list";
-import {ServiceInterface} from "./service-interface";
 import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
 import {FoodCourtService} from "./food-court.service";
@@ -16,13 +15,14 @@ export class ManagerListService {
   constructor(
     private cinemaService: CinemaService,
     private foodCourtService: FoodCourtService,
+    private foodCourtProductTypeService: FoodCourtProductTypeService
   ) {
     this.managerList = new Array<TypeList>();
 
     const halls: TypeList = new TypeList();
     halls.id = 11
     halls.type = 'manager'
-    halls.name = "cinema halls"
+    halls.name = "cinema hall"
     halls.addLink = ""
     halls.editLink = ""
     halls.service = this.cinemaService;
@@ -30,7 +30,7 @@ export class ManagerListService {
     const courts: TypeList = new TypeList();
     courts.id = 22
     courts.type = 'admin'
-    courts.name = "food courts"
+    courts.name = "food court"
     courts.addLink = "/manager/add-food-court"
     courts.editLink = "/manager/edit-food-court"
     courts.service = this.foodCourtService;
@@ -41,7 +41,7 @@ export class ManagerListService {
     courts_types.name = 'Product types for food court'
     courts_types.addLink = "/manager/add-food-court-product-type"
     courts_types.editLink = ""
-    courts_types.service = this.foodCourtService;
+    courts_types.service = this.foodCourtProductTypeService;
 
     this.managerList.push(halls, courts, courts_types)
 

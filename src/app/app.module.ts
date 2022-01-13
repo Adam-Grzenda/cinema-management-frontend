@@ -49,22 +49,23 @@ import { ObjectPanelComponent } from './object-panel/object-panel.component';
 import { MainManagerComponent } from './manager/main-manager/main-manager.component';
 import { CinemaChooseComponent } from './manager/cinema-choose/cinema-choose.component';
 import {MatSortModule} from "@angular/material/sort";
-import { ChairsTableComponent } from './manager/chairs-table/chairs-table.component';
+import { ChairsTableComponent } from './manager/tables/chairs-table/chairs-table.component';
 import {Advertisement} from "../model/advertisement";
 import {PromoOffer} from "../model/promo-offer";
 import {ProductType} from "../model/product-type";
 import {ClientSegment} from "../model/client-segment";
 import {MatTableModule} from "@angular/material/table";
-import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
-import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
+import { AddFoodCourtComponent } from './manager/add-edit/add-food-court/add-food-court.component';
+import { FoodCourtProductTypeComponent } from './manager/add-edit/food-court-product-type/food-court-product-type.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
-import { ChairTypeComponent } from './manager/chair-type/chair-type.component';
+import { ChairTypeComponent } from './manager/add-edit/chair-type/chair-type.component';
 import { CinemaTableComponent } from './admin/tables/cinema-table/cinema-table.component';
 import { CinemaHallTableComponent } from './admin/tables/cinema-hall-table/cinema-hall-table.component';
 import { AdvertisementTableComponent } from './admin/tables/advertisement-table/advertisement-table.component';
 import { PromoOfferTableComponent } from './admin/tables/promo-offer-table/promo-offer-table.component';
 import { ProductTypeTableComponent } from './admin/tables/product-type-table/product-type-table.component';
 import { ClientSegmentTableComponent } from './admin/tables/client-segment-table/client-segment-table.component';
+import { FoodCourtTableComponent } from './manager/tables/food-court-table/food-court-table.component';
 
 
 
@@ -102,6 +103,7 @@ import { ClientSegmentTableComponent } from './admin/tables/client-segment-table
     PromoOfferTableComponent,
     ProductTypeTableComponent,
     ClientSegmentTableComponent,
+    FoodCourtTableComponent,
   ],
     imports: [
         BrowserModule,

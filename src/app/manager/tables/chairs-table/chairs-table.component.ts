@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Chair} from "../../../model/chair";
-import {CinemaHallService} from "../../services/cinema-hall.service";
+import {Chair} from "../../../../model/chair";
+import {CinemaHallService} from "../../../services/cinema-hall.service";
 import {MatSort, Sort} from "@angular/material/sort";
-import {ChairService} from "../../services/chair.service";
+import {ChairService} from "../../../services/chair.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {CinemaHall} from "../../../model/cinema-hall";
+import {CinemaHall} from "../../../../model/cinema-hall";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
-import {ChairTypeComponent} from "../chair-type/chair-type.component";
+import {ChairTypeComponent} from "../../add-edit/chair-type/chair-type.component";
 
 @Component({
   selector: 'app-chairs-table',
@@ -51,8 +51,7 @@ export class ChairsTableComponent implements OnInit {
   }
 
   delete(chair: Chair) {
-    this.chairService.delete(chair).subscribe(c => {
-      console.log("deleted: " + chair.id);
+    this.chairService.delete(chair).subscribe(_ => {
       this.getChairs(this.hall.id);
     })
   }
@@ -69,6 +68,14 @@ export class ChairsTableComponent implements OnInit {
   modify(chair: Chair): void {
     this.dialog.open(ChairTypeComponent, {
       data: {chair: chair},
+      height: '80%',
+      width: '50%'
+    })
+  }
+
+  add(): void {
+    this.dialog.open(ChairTypeComponent, {
+      data: {chair: null},
       height: '80%',
       width: '50%'
     })
