@@ -14,7 +14,7 @@
           <li ngbDropdownItem *ngIf="!currentUser" (click)="userService.login()">Sign in</li>
           <li ngbDropdownItem *ngIf="currentUser" (click)="userService.logout()">Sign out</li>
           <li ngbDropdownItem *ngIf="currentUser && currentUser.hasRole('admin')" [routerLink]="'/admin/main'">Manage as admin</li>
-          <li ngbDropdownItem *ngIf="currentUser && currentUser.hasRole('manager')" [routerLink]="'/manager'">Manager panel</li>
+          <li ngbDropdownItem *ngIf="currentUser && currentUser.hasRole('manager')" [routerLink]="'/manager/main/' + currentUser.cinema">Manager panel</li>
         </ul>
       </li>
     </ul>
