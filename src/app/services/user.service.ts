@@ -26,12 +26,12 @@ export class UserService {
     return this.oauthService.loadUserProfile()
   }
 
-  currentUserHasRole(role: String) {
+  currentUserHasRole(role: string) {
     console.log("In current user has role")
     return this.getCurrentUser().then(
       (value) => {
           let user: User = User.fromKeycloakUserInfo(value);
-          return true;
+          return user.hasRole(role);
       }
     )
   }
@@ -41,4 +41,12 @@ export class UserService {
       .pipe(filter(e => ['token_received'].includes(e.type)));
   }
 
+  currentUserHasRoleAndAssignedToCinema(role: string, cinemaID: number) {
+    return this.getCurrentUser().then(
+      (value) => {
+        let user: User = User.fromKeycloakUserInfo(value);
+        return user.hasRole(role) && user.cinema == cinemaID;
+      }
+    )
+  }
 }

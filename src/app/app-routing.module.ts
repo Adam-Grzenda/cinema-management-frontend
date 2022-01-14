@@ -16,6 +16,7 @@ import {CinemaChooseComponent} from "./manager/cinema-choose/cinema-choose.compo
 import {AddFoodCourtComponent} from "./manager/add-food-court/add-food-court.component";
 import {FoodCourtProductTypeComponent} from "./manager/food-court-product-type/food-court-product-type.component";
 import {AdminGuard} from "./admin-guard.service";
+import {ManagerGuard} from "./manager.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
@@ -53,7 +54,9 @@ const routes: Routes = [
     }},
   {path: 'manager/main', redirectTo: 'manager',pathMatch: 'full'},
 
-  {path: 'manager/main/:cinema-id', component: MainManagerComponent},
+  {path: 'manager/main/:cinema-id', component: MainManagerComponent, canActivate: [ManagerGuard], data: {
+    role: 'manager'
+  }},
 
   {path: 'manager/add-food-court', component: AddFoodCourtComponent},
   {path: 'manager/edit-food-court/:id', component: AddFoodCourtComponent},
