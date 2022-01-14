@@ -23,6 +23,7 @@
     "@angular/router": "~13.1.0",
     "@lagoshny/ngx-hateoas-client": "^3.0.3",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
+    "angular-oauth2-oidc": "^13.0.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
     "mdb-angular-ui-kit": "^1.6.0",

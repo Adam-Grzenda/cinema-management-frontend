@@ -58,6 +58,7 @@ import {MatTableModule} from "@angular/material/table";
 import { AddFoodCourtComponent } from './manager/add-food-court/add-food-court.component';
 import { FoodCourtProductTypeComponent } from './manager/food-court-product-type/food-court-product-type.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {OAuthModule} from "angular-oauth2-oidc";
 
 
 
@@ -112,7 +113,13 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         MatStepperModule,
         MatSortModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        OAuthModule.forRoot(
+        {resourceServer: {
+            allowedUrls: ['http://localhost:8080/'],
+            sendAccessToken: true
+          }}
+        )
     ],
   providers: [
     MatDatepickerModule,
