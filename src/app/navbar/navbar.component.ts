@@ -38,4 +38,5 @@ export class NavbarComponent implements OnInit {
   onToggleSidebar() {
     this.sidebarToggleEvent.emit("toggle");
   }
+
 }

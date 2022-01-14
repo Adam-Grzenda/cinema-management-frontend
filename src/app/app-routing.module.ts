@@ -14,15 +14,15 @@ import {FilmEditComponent} from "./admin/film-edit/film-edit.component";
 import {MainManagerComponent} from "./manager/main-manager/main-manager.component";
 import {CinemaChooseComponent} from "./manager/cinema-choose/cinema-choose.component";
 import {AddFoodCourtComponent} from "./manager/add-food-court/add-food-court.component";
-import {FoodCourtProductType} from "../model/FoodCourt-ProductType";
 import {FoodCourtProductTypeComponent} from "./manager/food-court-product-type/food-court-product-type.component";
+import {AdminGuard} from "./admin-guard.service";
 
 const routes: Routes = [
   {path: '', redirectTo: 'customer', pathMatch: 'full'},
   {path: 'customer', component: LandingComponent},
   {path: 'film/:id', component: FilmDetailsComponent},
 
-  {path: 'admin/main', component: MainAdminComponent},
+  {path: 'admin/main', component: MainAdminComponent, canActivate: [AdminGuard]},
   {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
 
   {path: 'admin/add-cinema', component: AddCinemaComponent},

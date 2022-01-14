@@ -16,7 +16,7 @@ export class AppComponent {
     issuer: 'http://localhost:8081/auth/realms/cinema-management',
     redirectUri: window.location.origin,
     clientId: 'cinema-management-frontend',
-    scope: 'openid profile email offline_access',
+    scope: 'openid profile email offline_access roles',
     responseType: 'code',
     disableAtHashCheck: true,
     showDebugInformation: true

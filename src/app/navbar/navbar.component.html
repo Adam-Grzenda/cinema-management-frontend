@@ -13,6 +13,7 @@
           <li ngbDropdownItem>My orders</li>
           <li ngbDropdownItem *ngIf="!currentUser" (click)="userService.login()">Sign in</li>
           <li ngbDropdownItem *ngIf="currentUser" (click)="userService.logout()">Sign out</li>
+          <li ngbDropdownItem *ngIf="currentUser && currentUser.hasRole('admin')" [routerLink]="'/admin/main'">Manage</li>
         </ul>
       </li>
     </ul>
