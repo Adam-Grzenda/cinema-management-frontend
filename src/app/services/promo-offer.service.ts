@@ -46,4 +46,8 @@ export class PromoOfferService implements ServiceInterface {
     });
   }
 
+  getByUserId(id: number) : Observable<ResourceCollection<PromoOffer>> {
+    return this.resourceService.searchCollection(PromoOffer, "")
+  }
+
 }

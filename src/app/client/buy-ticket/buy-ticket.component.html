@@ -34,6 +34,7 @@
         </ng-template>
       </form>
     </mat-step>
+
     <mat-step [stepControl]="detailsForm">
       <form [formGroup]="detailsForm">
         <ng-template matStepLabel>Order details</ng-template>
@@ -60,6 +61,24 @@
 
           <hr>
 
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="promoForm">
+      <form [formGroup]="promoForm">
+        <ng-template matStepLabel>Pick promo offer</ng-template>
+        <ng-template matStepContent>
+          <mat-form-field appearance="fill">
+            <mat-label>Pick a promo offer</mat-label>
+            <mat-select formControlName="promo">
+              <mat-option *ngFor="let offer of availableOffers" [value]="offer">
+                {{offer.name}}({{offer.discount}}%)
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
           <button mat-button matStepperNext>Next</button>
         </ng-template>
       </form>
