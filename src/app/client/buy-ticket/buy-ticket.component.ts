@@ -23,7 +23,7 @@ export class BuyTicketComponent implements OnInit {
   public availableChairs: Array<Chair>; //tutaj są ładowane dostępne fotele dla danego seansu
 
   //Order elements
-  public user: User; //Tutaj teraz jest zaciagany z user service placeholder - bede ogarnial auth po weekendzie pewnie
+  public user: User;
   public chairs: Array<Chair> = new Array<Chair>(); //TODO tutaj dodawać wybrane fotele + screening
   public pickedFoodCourtProducts: Array<FoodCourtProduct> = new Array<FoodCourtProduct>(); //TODO póki co tego nie implementujmy
 
@@ -79,7 +79,6 @@ export class BuyTicketComponent implements OnInit {
 
     this.order = new Order();
     this.order.chairs = this.chairs;
-    this.order.userId = this.user.id;
     this.order.foodProducts = this.pickedFoodCourtProducts;
     this.order.filmShowId = this.data.screening.id;
     this.getOrderCalculation();
