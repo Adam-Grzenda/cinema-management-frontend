@@ -22,7 +22,9 @@ const routes: Routes = [
   {path: 'customer', component: LandingComponent},
   {path: 'film/:id', component: FilmDetailsComponent},
 
-  {path: 'admin/main', component: MainAdminComponent, canActivate: [AdminGuard]},
+  {path: 'admin/main', component: MainAdminComponent, canActivate: [AdminGuard], data: {
+    role: 'admin'
+    }},
   {path: 'admin', redirectTo: 'admin/main', pathMatch: 'full'},
 
   {path: 'admin/add-cinema', component: AddCinemaComponent},
@@ -46,7 +48,9 @@ const routes: Routes = [
   {path: 'admin/add-product-type', component: AddProductTypeComponent},
   {path: 'admin/edit-product-type/:id', component: AddProductTypeComponent},
 
-  {path: 'manager', component: CinemaChooseComponent},
+  {path: 'manager', component: CinemaChooseComponent, canActivate: [AdminGuard], data: {
+    role: 'manager'
+    }},
   {path: 'manager/main', redirectTo: 'manager',pathMatch: 'full'},
 
   {path: 'manager/main/:cinema-id', component: MainManagerComponent},
