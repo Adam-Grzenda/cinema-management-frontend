@@ -15,12 +15,15 @@
       <mat-expansion-panel-header>
         <mat-panel-title>See screenings</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="screenings">
+      <div class="screenings" *ngIf="screenings && screenings.length>0">
       <div *ngFor="let screening of screenings" style="padding: 10px">
         <a mat-raised-button (click)="onClickScreening(screening)">
           {{screening.date | date: 'short' }}
         </a>
       </div>
+      </div>
+      <div class="screenings" *ngIf="screenings && screenings.length==0">
+        Sorry, no film shows are available in the selected time frame
       </div>
     </mat-expansion-panel>
   </div>
