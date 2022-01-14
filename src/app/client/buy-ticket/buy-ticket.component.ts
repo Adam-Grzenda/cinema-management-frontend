@@ -10,8 +10,6 @@ import {Order} from "../../../model/order/order";
 import {OrderService} from "../../services/order.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OrderProductCalculation} from "../../../model/order/orderProductCalculation";
-import {OAuthService} from "angular-oauth2-oidc";
-import {KeycloakUser} from "../../../model/user/keycloak-user";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -36,10 +34,9 @@ export class BuyTicketComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { screening: FilmShow },
     private chairService: ChairService,
-    private userService: UserService,
+    public userService: UserService,
     private orderService: OrderService,
     private formBuilder:FormBuilder,
-    private oauthService: OAuthService
   ) {
   }
 
@@ -56,9 +53,9 @@ export class BuyTicketComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
     })
 
-    this.getCurrentUser().then(
+    this.userService.getCurrentUser().then(
       (value => {
-        this.user = this.getUserFromKeycloakUserInfo(value)
+        this.user = User.fromKeycloakUserInfo(value);
         this.detailsForm.setValue({ //ten form nie powinien być edytowalny teraz
             name: this.user.name,
             surname: this.user.surname,
@@ -88,8 +85,6 @@ export class BuyTicketComponent implements OnInit {
     this.orderService.calculateOrder(this.order).subscribe(
       (next) => {
         this.orderSummary = next
-        console.log(next);
-        console.log(this.orderSummary)
       }
     );
   }
@@ -100,26 +95,6 @@ export class BuyTicketComponent implements OnInit {
     );
   }
 
-  login() {
-    this.oauthService.initLoginFlowInPopup();
-  }
 
-  isUserLoggedIn(): boolean {
-    return this.oauthService.hasValidIdToken();
-  }
-
-  getCurrentUser(): Promise<Object> {
-    return this.oauthService.loadUserProfile()
-  }
-
-  getUserFromKeycloakUserInfo(keycloakUserInfo: any): User {
-    let userInfo: KeycloakUser = new KeycloakUser();
-    Object.assign(userInfo, keycloakUserInfo);
-    let user = new User();
-    user.email = userInfo.info.email;
-    user.name = userInfo.info.given_name;
-    user.surname = userInfo.info.family_name;
-    return user;
-  }
 
 }

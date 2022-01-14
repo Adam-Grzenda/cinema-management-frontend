@@ -22,14 +22,6 @@ export class AppComponent {
     showDebugInformation: true
   }
 
-  public login() {
-    this.oauthService.initLoginFlow();
-  }
-
-  public logout() {
-    this.oauthService.logOut();
-  }
-
   private configure() {
     this.oauthService.configure(this.authConfig);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();

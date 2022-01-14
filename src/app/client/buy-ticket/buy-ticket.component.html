@@ -13,12 +13,12 @@
 
 <mat-dialog-content>
 
-  <div *ngIf="!isUserLoggedIn()">
+  <div *ngIf="!userService.isUserLoggedIn()">
     <p>Login or register before booking a film show</p>
-      <button (click)="login()">Click here to login or register</button>
+      <button (click)="userService.login()">Click here to login or register</button>
   </div>
 
-  <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="isUserLoggedIn()">
+  <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="userService.isUserLoggedIn()">
     <mat-step [stepControl]="seatForm">
       <form [formGroup]="seatForm">
         <ng-template matStepLabel>Pick seats</ng-template>

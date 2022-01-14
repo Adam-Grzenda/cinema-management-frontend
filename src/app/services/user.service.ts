@@ -1,22 +1,34 @@
 import {Injectable} from '@angular/core';
 import {User} from "../../model/user/user";
-import {Observable, of} from "rxjs";
+import {filter, Observable, of} from "rxjs";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private oauthService: OAuthService) { }
 
-  getLoggedInUser(): Observable<User> {
-    let user: User = new User();
+  login() {
+    this.oauthService.initLoginFlowInPopup();
+  }
 
-    user.id = 1;
-    user.name = 'John';
-    user.surname = 'Smith';
-    user.email = 'john.smith@mail.com';
-    return of(user);
+  logout() {
+    this.oauthService.logOut();
+  }
+
+  isUserLoggedIn(): boolean {
+    return this.oauthService.hasValidIdToken();
+  }
+
+  getCurrentUser(): Promise<Object> {
+    return this.oauthService.loadUserProfile()
+  }
+
+  getTokenReceivedEvent(): Observable<any> {
+    return this.oauthService.events
+      .pipe(filter(e => ['token_received'].includes(e.type)));
   }
 
 }
