@@ -32,7 +32,7 @@
             </mat-select>
           </mat-form-field>
           <br>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="addChairs()">Next</button>
         </ng-template>
       </form>
     </mat-step>
@@ -42,8 +42,6 @@
         <ng-template matStepLabel>Order details</ng-template>
         <ng-template matStepContent>
           <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
-          Tutaj musi zostać wymuszone logowanie / rejestracja - uprości to zarządzanie - clienta będziemy sobie szukali na backendzie po tokenie
-          w tym kontekście chyba nie będziemy tego forma potrzebować - do przegadania
           <hr>
 
           <mat-form-field class="example-full-width" appearance="fill">
@@ -63,7 +61,7 @@
 
           <hr>
 
-          <button mat-button matStepperNext (click)="createOrder()">Next</button>
+          <button mat-button matStepperNext>Next</button>
         </ng-template>
       </form>
     </mat-step>
@@ -81,7 +79,7 @@
             </mat-select>
           </mat-form-field>
           <br>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="createOrder()">Next</button>
         </ng-template>
       </form>
     </mat-step>

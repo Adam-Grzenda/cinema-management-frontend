@@ -46,7 +46,6 @@ export class BuyTicketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAvailableChairs();
 
     this.seatForm = this.formBuilder.group({
       seat: ["", Validators.required]
@@ -66,12 +65,17 @@ export class BuyTicketComponent implements OnInit {
       (value => {
         this.user = User.fromKeycloakUserInfo(value);
         this.detailsForm.setValue({ //ten form nie powinien być edytowalny teraz
-            name: this.user.name,
-            surname: this.user.surname,
-            email: this.user.email
-          })
+          name: this.user.name,
+          surname: this.user.surname,
+          email: this.user.email
+        });
+
+        this.getOffersForClient();
       })
     );
+
+    this.getAvailableChairs();
+
   }
 
   getAvailableChairs() {
@@ -82,17 +86,19 @@ export class BuyTicketComponent implements OnInit {
 
   getOffersForClient() {
     this.promoOfferService.getByUserId(this.user.id).subscribe(o => {
+      console.log("ooooo")
       this.availableOffers = o.resources;
+      console.log(this.availableOffers);
+
     });
   }
 
   createOrder() {
-    this.chairs.push(this.seatForm.value.seat)
-
     this.order = new Order();
     this.order.chairs = this.chairs;
     this.order.foodProducts = this.pickedFoodCourtProducts;
     this.order.filmShowId = this.data.screening.id;
+    this.order.promoOfferId = this.promoForm.value.promo.id;
     this.getOrderCalculation();
   }
 
@@ -111,5 +117,8 @@ export class BuyTicketComponent implements OnInit {
   }
 
 
-
+  addChairs() {
+    this.chairs = new Array<Chair>();
+    this.chairs.push(this.seatForm.value.seat)
+  }
 }

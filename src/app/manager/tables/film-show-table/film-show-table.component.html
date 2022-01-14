@@ -30,14 +30,14 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="cinemaHall_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="cinemaHall_id">CinemaHall Number</th>
-      <td mat-cell *matCellDef="let object"> <div *ngIf="object['cinemaHall']">{{object['cinemaHall'].number}}</div> </td>
+    <ng-container matColumnDef="cinemaHall.number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="cinemaHall.number" sortActionDescription="Sort by number">Cinema Hall Number</th>
+      <td mat-cell *matCellDef="let object"> <div *ngIf="object.cinemaHall">{{object.cinemaHall.number}}</div> </td>
     </ng-container>
 
-    <ng-container matColumnDef="film_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="film_id">Film</th>
-      <td mat-cell *matCellDef="let object"> <div *ngIf="object['film']">{{object['film'].title}}</div> </td>
+    <ng-container matColumnDef="film.title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="film.title">Film</th>
+      <td mat-cell *matCellDef="let object"><div *ngIf="object.film">{{object.film.title}}</div>  </td>
     </ng-container>
 
 

@@ -13,6 +13,7 @@
     <div *ngIf="type.type=='admin'">
       <app-cinema-table *ngIf="type.name=='cinema'"></app-cinema-table>
       <app-cinema-hall-table *ngIf="type.name=='cinema hall'"></app-cinema-hall-table>
+      <app-film-table *ngIf="type.name=='film'"></app-film-table>
       <app-advertisement-table *ngIf="type.name=='advertisement'"></app-advertisement-table>
       <app-promo-offer-table *ngIf="type.name=='promo offer'"></app-promo-offer-table>
       <app-product-type-table *ngIf="type.name=='product type'"></app-product-type-table>
