@@ -17,7 +17,7 @@ import {AddFoodCourtComponent} from "../../add-edit/add-food-court/add-food-cour
 export class FoodCourtTableComponent implements OnInit {
 
   @Input()
-  cinema_id: number;
+  cinemaId: number;
 
   private courts: Array<FoodCourt>;
 
@@ -40,7 +40,7 @@ export class FoodCourtTableComponent implements OnInit {
   }
 
   private getCourts() {
-    this.foodCourtService.getByCinemaId(this.cinema_id).subscribe(f => {
+    this.foodCourtService.getByCinemaId(this.cinemaId).subscribe(f => {
         this.courts = f.resources;
 
         this.dataSource = new MatTableDataSource<FoodCourt>(this.courts);
@@ -69,7 +69,7 @@ export class FoodCourtTableComponent implements OnInit {
     const dialogRef = this.dialog.open(AddFoodCourtComponent, {
       data: {
         court: court,
-        cinema_id: this.cinema_id
+        cinema_id: this.cinemaId
       },
       height: '80%',
       width: '50%'
@@ -84,7 +84,7 @@ export class FoodCourtTableComponent implements OnInit {
     const dialogRef = this.dialog.open(AddFoodCourtComponent, {
       data: {
         court: null,
-        cinema_id: this.cinema_id
+        cinema_id: this.cinemaId
       },
       height: '80%',
       width: '50%'

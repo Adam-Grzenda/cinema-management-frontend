@@ -36,10 +36,10 @@ export class CinemaService implements ServiceInterface {
   }
 
   public getAllSub(id: number): Observable<ResourceCollection<CinemaHall>> {
-    return this.resourceService.searchCollection(CinemaHall, "findCinemaHallsByCinema_Id",
+    return this.resourceService.searchCollection(CinemaHall, "findAllByCinema_Id",
       {
         params: {
-          id: id
+          cinemaId: id
         }
       })
   }

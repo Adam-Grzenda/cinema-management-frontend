@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TypeList} from "../../model/type-list";
-import {AdminListService} from "../services/admin-list.service";
-import {AddCinemaComponent} from "../admin/add-edit/add-cinema/add-cinema.component";
-import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-type-list',
@@ -15,10 +12,9 @@ export class TypeListComponent implements OnInit {
   typeList: TypeList[];
 
   @Input()
-  cinema_id: number = 0;
+  cinemaId: number = 0;
 
   constructor(
-    private dialog: MatDialog
   ) {
   }
 

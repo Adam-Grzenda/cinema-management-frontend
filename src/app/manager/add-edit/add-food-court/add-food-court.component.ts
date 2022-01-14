@@ -1,14 +1,9 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {Cinema} from "../../../../model/cinema";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CinemaService} from "../../../services/cinema.service";
-import {Location} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
 import {FoodCourt} from "../../../../model/food-court";
 import {FoodCourtService} from "../../../services/food-court.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CinemaHall} from "../../../../model/cinema-hall";
 
 @Component({
   selector: 'app-add-food-court',
@@ -17,14 +12,14 @@ import {CinemaHall} from "../../../../model/cinema-hall";
 })
 export class AddFoodCourtComponent implements OnInit {
 
+  @Input()
+  foodCourt: FoodCourt;
+
   public addMode: boolean = true;
 
   maxNumber: number = 10;
 
   foodCourts: FoodCourt[] = [];
-
-  @Input()
-  foodCourt: FoodCourt = new FoodCourt();
 
   form: FormGroup;
 
@@ -35,7 +30,6 @@ export class AddFoodCourtComponent implements OnInit {
     },
     private foodCourtService: FoodCourtService,
     private cinemaService: CinemaService,
-    private location: Location,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddFoodCourtComponent>
   ) {

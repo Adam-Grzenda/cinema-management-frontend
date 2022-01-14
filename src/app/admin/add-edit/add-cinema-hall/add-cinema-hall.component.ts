@@ -25,7 +25,7 @@ export class AddCinemaHallComponent implements OnInit {
 
   private cinemaHall: CinemaHall;
 
-  hallTypes: String[] = ['normal', 'premium', 'imax']
+  hallTypes: string[] = ['normal', 'premium', 'imax'];
 
   form: FormGroup;
 
@@ -76,21 +76,20 @@ export class AddCinemaHallComponent implements OnInit {
   save() {
     this.cinemaHall.number = this.form.value.number
     this.cinemaHall.type = this.form.value.type
-    this.cinemaService.getByName(this.form.value.cinema).subscribe(c => {
-      this.cinemaHall.cinema = c;
+    // @ts-ignore
+    this.cinemaHall.cinema = this.cinemas.find(c => c.name == this.form.value.cinema);
 
       if (this.addMode) {
         this.cinemaHallService.add(this.cinemaHall).subscribe(_ => {
           this.dialogRef.close();
         });
       } else {
-        this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema)
-          .subscribe(_ => {
-          this.cinemaHallService.update(this.cinemaHall).subscribe(_ => {
-            this.dialogRef.close();
-          });
-        })
+        this.cinemaHallService.update(this.cinemaHall).subscribe(_ => {
+          this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema)
+            .subscribe(_ => {
+              this.dialogRef.close();
+            });
+        });
       }
-    })
   }
 }

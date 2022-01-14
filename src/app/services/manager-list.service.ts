@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {CinemaService} from "./cinema.service";
 import {FoodCourtService} from "./food-court.service";
 import {FoodCourtProductTypeService} from "./food-court-product-type.service";
+import {FilmShowService} from "./film-show.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +16,36 @@ export class ManagerListService {
   constructor(
     private cinemaService: CinemaService,
     private foodCourtService: FoodCourtService,
-    private foodCourtProductTypeService: FoodCourtProductTypeService
+    private foodCourtProductTypeService: FoodCourtProductTypeService,
+    private filmShowService:FilmShowService
   ) {
     this.managerList = new Array<TypeList>();
 
     const halls: TypeList = new TypeList();
-    halls.id = 11
-    halls.type = 'manager'
-    halls.name = "cinema hall"
-    halls.addLink = ""
-    halls.editLink = ""
+    halls.id = 11;
+    halls.type = 'manager';
+    halls.name = "cinema hall";
     halls.service = this.cinemaService;
 
     const courts: TypeList = new TypeList();
-    courts.id = 22
-    courts.type = 'admin'
-    courts.name = "food court"
-    courts.addLink = "/manager/add-food-court"
-    courts.editLink = "/manager/edit-food-court"
+    courts.id = 22;
+    courts.type = 'admin';
+    courts.name = "food court";
     courts.service = this.foodCourtService;
 
     const courts_types: TypeList = new TypeList();
     courts_types.id = 33;
-    courts_types.type = 'manager'
-    courts_types.name = 'Product types for food court'
-    courts_types.addLink = "/manager/add-food-court-product-type"
-    courts_types.editLink = ""
+    courts_types.type = 'manager';
+    courts_types.name = 'Product types for food court';
     courts_types.service = this.foodCourtProductTypeService;
 
-    this.managerList.push(halls, courts, courts_types)
+    const shows: TypeList = new TypeList();
+    shows.id = 44;
+    shows.type = 'admin';
+    shows.name = 'film show';
+    shows.service = this.filmShowService;
 
+    this.managerList.push(halls, courts, courts_types, shows)
   }
 
 

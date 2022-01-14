@@ -7,7 +7,6 @@ import {CinemaHall} from "../../model/cinema-hall";
 import {Film} from "../../model/film";
 import {Advertisement} from "../../model/advertisement";
 import {TypeList} from "../../model/type-list";
-import {Observable} from "rxjs";
 import {AdminListService} from "../services/admin-list.service";
 import {FoodCourt} from "../../model/food-court";
 
@@ -30,7 +29,6 @@ export class ObjectPanelComponent implements OnInit {
   title: string;
 
   constructor(
-    private service: AdminListService
   ) {
   }
 
@@ -82,16 +80,5 @@ export class ObjectPanelComponent implements OnInit {
         this.title = "Unknown"
     }
   }
-
-  delete() {
-    console.log(this.item);
-    let it: Observable<Cinema> = this.type.service.delete(this.item);
-    //#TODO zwraca undefined
-    it.subscribe(a => {
-      console.log(a.name)
-      this.service.updateLists();
-    });
-  }
-
 
 }

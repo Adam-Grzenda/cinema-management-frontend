@@ -42,4 +42,12 @@ export class CinemaHallService implements ServiceInterface {
     return this.resourceService.customQuery<ResourceCollection<Chair>>(CinemaHall, HttpMethod.GET, "/" + id + "/chairs")
   }
 
+  getAllByCinemaId(id: number): Observable<ResourceCollection<CinemaHall>> {
+    return this.resourceService.searchCollection<CinemaHall>(CinemaHall, "findAllByCinema_Id", {
+      params: {
+        cinemaId: id
+      }
+    });
+  }
+
 }

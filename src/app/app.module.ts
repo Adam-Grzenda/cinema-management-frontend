@@ -66,6 +66,8 @@ import { PromoOfferTableComponent } from './admin/tables/promo-offer-table/promo
 import { ProductTypeTableComponent } from './admin/tables/product-type-table/product-type-table.component';
 import { ClientSegmentTableComponent } from './admin/tables/client-segment-table/client-segment-table.component';
 import { FoodCourtTableComponent } from './manager/tables/food-court-table/food-court-table.component';
+import { FilmShowTableComponent } from './manager/tables/film-show-table/film-show-table.component';
+import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-show.component';
 
 
 
@@ -104,6 +106,8 @@ import { FoodCourtTableComponent } from './manager/tables/food-court-table/food-
     ProductTypeTableComponent,
     ClientSegmentTableComponent,
     FoodCourtTableComponent,
+    FilmShowTableComponent,
+    AddFilmShowComponent,
   ],
     imports: [
         BrowserModule,
