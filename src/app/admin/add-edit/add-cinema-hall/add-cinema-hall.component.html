@@ -1,0 +1,58 @@
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new cinema hall</h2>
+  <h2 class="center" *ngIf="!addMode">Edit cinema hall</h2>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Cinema Hall Number</mat-label>
+      <input matInput type="number" min="1" step="1" max="{{this.maxNumber}}"
+             formControlName="number"
+             placeholder="enter a valid number">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cinema Hall Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of hallTypes" value="{{type}}">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cinema</mat-label>
+      <mat-select formControlName="cinema">
+        <mat-option *ngFor="let cinema of cinemas" value="{{cinema.name}}"><!--[value]="cinema"-->{{cinema.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <div class="center">
+      <button type="submit" id="save" [disabled]="!form.valid">Save cinema hall</button>
+    </div>
+  </form>
+</div>
+
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let c of cinemaHalls">Kino: --- Sala: {{c.number}}</li>
+</ul>

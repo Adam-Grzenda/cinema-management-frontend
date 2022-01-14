@@ -9,8 +9,9 @@ import {ServiceInterface} from "./service-interface";
 })
 export class FilmService implements ServiceInterface {
 
-  public getFilms(): Observable<ResourceCollection<Film>> {
-    return this.resourceService.getCollection(Film);
+  constructor(
+    private resourceService: HateoasResourceService
+  ) {
   }
 
   public getAll(): Observable<ResourceCollection<Film>> {
@@ -33,9 +34,19 @@ export class FilmService implements ServiceInterface {
     return this.resourceService.deleteResource(film);
   }
 
-  getAllSub(id: number): Observable<ResourceCollection<any>> {
+  public getAllSub(id: number): Observable<ResourceCollection<any>> {
     return of(new ResourceCollection());
   }
+
+  public getByTitle(title: string): Observable<Film> {
+    return this.resourceService.searchResource(Film, 'getFilmByTitle',
+      {
+        params: {
+          title: title
+        }
+      })
+  }
+
 
   public addSampleFilms(): void {
     let movies: Film[] = this.sampleFilms();
@@ -44,10 +55,6 @@ export class FilmService implements ServiceInterface {
     }
   }
 
-  constructor(
-    private resourceService: HateoasResourceService
-  ) {
-  }
 
   private sampleFilms(): Array<Film> {
     const movie1 = new Film();

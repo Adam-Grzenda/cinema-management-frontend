@@ -1,0 +1,47 @@
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new promo offer</h2>
+  <h2 class="center" *ngIf="!addMode">Edit promo offer</h2>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Promo Offer Name</mat-label>
+      <input matInput formControlName="name"
+             placeholder="enter a valid name">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Discount(%)</mat-label>
+      <input matInput type="number" min="1" step="1" max="{{this.maxNumber}}"
+             formControlName="discount"
+             placeholder="enter a valid number">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <div class="center">
+      <button type="submit" id="save" [disabled]="!form.valid">Save Promo Offer</button>
+    </div>
+  </form>
+</div>
+
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let o of offers">Oferta: {{o.name}} Discount: {{o.discount}}</li>
+</ul>

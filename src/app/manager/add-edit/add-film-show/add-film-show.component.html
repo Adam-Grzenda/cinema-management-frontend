@@ -1,0 +1,63 @@
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 *ngIf="addMode" class="center">Add new film show</h2>
+  <h2 *ngIf="!addMode" class="center">Edit film show</h2>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput type="date" formControlName="date" placeholder="screening date">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Screening Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of showTypes" value="{{type}}">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cinema Hall</mat-label>
+      <mat-select formControlName="hall">
+        <mat-option *ngFor="let hall of halls" value="{{hall.number}}">{{hall.number | number}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Film</mat-label>
+      <mat-select formControlName="film">
+        <mat-option *ngFor="let film of films" value="{{film.title}}">{{film.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="center">
+      <button type="submit" [disabled]="!form.valid">Save film show</button>
+    </div>
+  </form>
+</div>
+<br>
+<hr>
+

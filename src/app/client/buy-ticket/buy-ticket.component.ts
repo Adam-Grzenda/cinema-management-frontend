@@ -9,6 +9,8 @@ import {FoodCourtProduct} from "../../../model/FoodCourtProduct";
 import {Order} from "../../../model/order/order";
 import {OrderService} from "../../services/order.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PromoOffer} from "../../../model/promo-offer";
+import {PromoOfferService} from "../../services/promo-offer.service";
 import {OrderProductCalculation} from "../../../model/order/orderProductCalculation";
 
 @Component({
@@ -19,6 +21,7 @@ import {OrderProductCalculation} from "../../../model/order/orderProductCalculat
 export class BuyTicketComponent implements OnInit {
 
   public availableChairs: Array<Chair>; //tutaj są ładowane dostępne fotele dla danego seansu
+  public availableOffers: Array<PromoOffer>;
 
   //Order elements
   public user: User;
@@ -30,13 +33,15 @@ export class BuyTicketComponent implements OnInit {
 
   seatForm: FormGroup
   detailsForm: FormGroup
+  promoForm: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { screening: FilmShow },
     private chairService: ChairService,
     public userService: UserService,
     private orderService: OrderService,
-    private formBuilder:FormBuilder,
+    private promoOfferService:PromoOfferService,
+    private formBuilder: FormBuilder
   ) {
   }
 
@@ -45,12 +50,16 @@ export class BuyTicketComponent implements OnInit {
 
     this.seatForm = this.formBuilder.group({
       seat: ["", Validators.required]
-    })
+    });
 
     this.detailsForm = this.formBuilder.group({
       name: ["", Validators.required],
       surname: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
+    });
+
+    this.promoForm = this.formBuilder.group({
+      promo: [""]
     })
 
     this.userService.getCurrentUser().then(
@@ -68,7 +77,13 @@ export class BuyTicketComponent implements OnInit {
   getAvailableChairs() {
     this.chairService.getFreeChairsForScreening(this.data.screening).subscribe(
       (next) => this.availableChairs = next.resources
-    )
+    );
+  }
+
+  getOffersForClient() {
+    this.promoOfferService.getByUserId(this.user.id).subscribe(o => {
+      this.availableOffers = o.resources;
+    });
   }
 
   createOrder() {
