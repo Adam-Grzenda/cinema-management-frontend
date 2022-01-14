@@ -6,6 +6,7 @@ export class User {
   name: string;
   surname: string;
   roles: string[];
+  cinema: number;
 
   static fromKeycloakUserInfo(keycloakUserInfo: any): User {
     let userInfo: KeycloakUser = new KeycloakUser();
@@ -15,6 +16,7 @@ export class User {
     user.name = userInfo.info.given_name;
     user.surname = userInfo.info.family_name;
     user.roles = userInfo.info.resource_access["cinema-management-frontend"].roles;
+    user.cinema = userInfo.info.cinema;
     return user;
   }
 

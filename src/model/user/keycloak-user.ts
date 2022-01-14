@@ -10,5 +10,6 @@ export class UserInfo {
     "cinema-management-frontend": {
       roles: string[]
     }
-  }
+  };
+  cinema: number;
 }
