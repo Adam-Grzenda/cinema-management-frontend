@@ -11,7 +11,7 @@ export class UserService {
   constructor(private oauthService: OAuthService) { }
 
   login() {
-    this.oauthService.initLoginFlowInPopup();
+    this.oauthService.initLoginFlow();
   }
 
   logout() {
