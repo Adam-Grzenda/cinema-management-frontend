@@ -4,12 +4,14 @@ import {FilmShow} from "../../../model/film-show";
 import {ChairService} from "../../services/chair.service";
 import {Chair} from "../../../model/chair";
 import {UserService} from "../../services/user.service";
-import {User} from "../../../model/user";
+import {User} from "../../../model/user/user";
 import {FoodCourtProduct} from "../../../model/FoodCourtProduct";
 import {Order} from "../../../model/order/order";
 import {OrderService} from "../../services/order.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OrderProductCalculation} from "../../../model/order/orderProductCalculation";
+import {OAuthService} from "angular-oauth2-oidc";
+import {KeycloakUser} from "../../../model/user/keycloak-user";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -36,15 +38,14 @@ export class BuyTicketComponent implements OnInit {
     private chairService: ChairService,
     private userService: UserService,
     private orderService: OrderService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private oauthService: OAuthService
   ) {
   }
 
   ngOnInit(): void {
     this.getAvailableChairs();
-    this.userService.getLoggedInUser().subscribe(
-      (next) => this.user = next
-    );
+
     this.seatForm = this.formBuilder.group({
       seat: ["", Validators.required]
     })
@@ -55,14 +56,16 @@ export class BuyTicketComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
     })
 
-    if (this.user) {
-      this.detailsForm.setValue({
-        name: this.user.name,
-        surname: this.user.surname,
-        email: this.user.email
+    this.getCurrentUser().then(
+      (value => {
+        this.user = this.getUserFromKeycloakUserInfo(value)
+        this.detailsForm.setValue({ //ten form nie powinien być edytowalny teraz
+            name: this.user.name,
+            surname: this.user.surname,
+            email: this.user.email
+          })
       })
-    }
-
+    );
   }
 
   getAvailableChairs() {
@@ -93,13 +96,31 @@ export class BuyTicketComponent implements OnInit {
   }
 
   placeOrder() {
-    this.orderService.placeOrder(this.order).subscribe( //To generalnie już działa, także jak się ustawi fieldy z forma to powinno być oki
+    this.orderService.placeOrder(this.order).subscribe(
       (next) => console.log(next)
     );
-
   }
 
+  login() {
+    this.oauthService.initLoginFlowInPopup();
+  }
 
+  isUserLoggedIn(): boolean {
+    return this.oauthService.hasValidIdToken();
+  }
 
+  getCurrentUser(): Promise<Object> {
+    return this.oauthService.loadUserProfile()
+  }
+
+  getUserFromKeycloakUserInfo(keycloakUserInfo: any): User {
+    let userInfo: KeycloakUser = new KeycloakUser();
+    Object.assign(userInfo, keycloakUserInfo);
+    let user = new User();
+    user.email = userInfo.info.email;
+    user.name = userInfo.info.given_name;
+    user.surname = userInfo.info.family_name;
+    return user;
+  }
 
 }
