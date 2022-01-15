@@ -10,13 +10,6 @@
   <app-film-edit [film]="film" *ngIf="this.editFilmId===film.id"
                  (submittedEvent)="onSubmittedEvent()"></app-film-edit>
 </div>
-<div style="display:flex; justify-content: center; padding: 25px">
-  <a routerLink="/admin/add-film">
-    <button mat-icon-button>
-      <mat-icon>add</mat-icon>
-    </button>
-  </a>
-</div>
 
 <button (click)="filmService.addSampleFilms()">
   add sample movies

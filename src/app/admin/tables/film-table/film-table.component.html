@@ -40,9 +40,9 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="is3d">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="is3d">is3d</th>
-      <td mat-cell *matCellDef="let object"><div *ngIf="object.is3d"> {{object.is3d}} </div></td>
+    <ng-container matColumnDef="3D">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="3D">is3d</th>
+      <td mat-cell *matCellDef="let object">{{object['3D'] ? 'yes' : 'no'}}</td>
     </ng-container>
 
 

@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Film} from "../../../../model/film";
 import {FilmService} from "../../../services/film.service";
 import {ImageService} from "../../../services/image.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -39,8 +39,8 @@ export class AddFilmComponent implements OnInit {
       title: ["", [Validators.required]],
       director: ["", [Validators.required]],
       duration: ["", [Validators.required, Validators.min(0)]],
-      premiere: ["", [Validators.required]],
-      is3d: [""],
+      premiereDate: ["", [Validators.required]],
+      is3D: false,
       description: [""]
     });
 
@@ -48,7 +48,12 @@ export class AddFilmComponent implements OnInit {
       this.film = new Film();
     } else {
       this.film = this.data.film;
+      // @ts-ignore
+      this.film.is3D = this.data.film['3D']
       this.form.patchValue(this.film);
+      this.form.patchValue({
+        is3D: this.film.is3D
+      });
     }
   }
 
@@ -56,17 +61,20 @@ export class AddFilmComponent implements OnInit {
     this.film.title = this.form.value.title;
     this.film.director = this.form.value.director;
     this.film.duration = this.form.value.duration;
-    this.film.premiereDate = this.form.value.premiere;
-    this.film.is3d = this.form.value.is3d;
+    this.film.premiereDate = this.form.value.premiereDate;
+    // @ts-ignore
+    this.film['3D'] = this.form.value.is3D;
     this.film.description = this.form.value.description;
 
     if (this.addMode) {
       this.filmService.add(this.film).subscribe(f => {
-        console.log(f);
+        this.dialogRef.close();
+      });
+    } else {
+      this.filmService.update(this.film).subscribe(f => {
         this.dialogRef.close();
       });
     }
-
   }
 
   onImageUpload(input: any): void {

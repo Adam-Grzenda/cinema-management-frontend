@@ -19,7 +19,7 @@ export class FilmTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<Film>;
   displayedColumns: string[] =
-    ['id', 'title', 'director', 'duration', 'premiereDate', 'is3d', 'modify', 'delete'];
+    ['id', 'title', 'director', 'duration', 'premiereDate', '3D', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
