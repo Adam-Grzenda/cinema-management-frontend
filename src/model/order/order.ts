@@ -7,4 +7,5 @@ export class Order {
   filmShowId: number;
   promoOfferId: number;
   paymentType: string;
+  paymentStatus: string;
 }

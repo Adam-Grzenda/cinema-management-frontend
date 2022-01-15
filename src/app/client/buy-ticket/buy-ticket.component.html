@@ -4,11 +4,6 @@
       close
     </mat-icon>
   </button>
-  <h2 mat-dialog-title id="header">
-    Buy a ticket for this screening
-  </h2>
-
-
 </div>
 
 <mat-dialog-content>
@@ -19,7 +14,7 @@
   </div>
 
   <mat-stepper orientation="vertical" [linear]="true" *ngIf="userService.isUserLoggedIn()">
-    <mat-step [stepControl]="seatForm">
+    <mat-step [stepControl]="seatForm" [editable]="editable">
       <form [formGroup]="seatForm">
         <ng-template matStepLabel>Pick seats</ng-template>
         <ng-template matStepContent>
@@ -37,16 +32,16 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="detailsForm">
+    <mat-step [stepControl]="detailsForm" [editable]="editable">
       <form [formGroup]="detailsForm">
         <ng-template matStepLabel>Order details</ng-template>
         <ng-template matStepContent>
           <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
           <hr>
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill" ng-disabled="true">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="John" value="{{user.name}}" formControlName="name">
+            <input matInput placeholder="John" value="{{user.name}}"  formControlName="name">
           </mat-form-field>
 
           <hr>
@@ -79,7 +74,7 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="promoForm">
+    <mat-step [stepControl]="promoForm" [editable]="editable">
       <form [formGroup]="promoForm">
         <ng-template matStepLabel>Pick promo offer</ng-template>
         <ng-template matStepContent>
@@ -98,7 +93,7 @@
       </form>
     </mat-step>
 
-    <mat-step>
+    <mat-step [editable]="editable">
       <ng-template matStepLabel>Order summary</ng-template>
       <ng-template matStepContent>
         <hr>
@@ -122,14 +117,28 @@
             <td>{{product.itemCount}}</td>
             <td>{{product.finalPrice * product.itemCount}}</td>
           </tr>
+
+          <tr>
+            <td colspan="4"></td>
+            <td colspan="2">Total sum:</td>
+            <td>{{orderSum}}</td>
+          </tr>
         </table>
+
 
         <hr>
 
-        <button mat-button (click)="placeOrder()">Submit order</button>
+        <button mat-raised-button matStepperNext (click)="placeOrder()">Submit order</button>
       </ng-template>
+    </mat-step>
+
+    <mat-step [editable]="editable">
+      <h3 class="center">Order has been placed successfully!</h3>
+      <h4 class="center">Process the payment:</h4>
+      <app-payment [price]="orderSum" [placedOrder]="placedOrder"></app-payment>
     </mat-step>
   </mat-stepper>
 
 
 </mat-dialog-content>
+

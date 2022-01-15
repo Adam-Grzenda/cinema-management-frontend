@@ -2,6 +2,12 @@
   float: left;
   width: 20%;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 table, th, td {
   border:1px solid black;
   width: 100%;
@@ -14,3 +20,10 @@ table, th, td {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+#main {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+

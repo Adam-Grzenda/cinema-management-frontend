@@ -71,6 +71,7 @@ import { FilmShowTableComponent } from './manager/tables/film-show-table/film-sh
 import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-show.component';
 import { FilmTableComponent } from './admin/tables/film-table/film-table.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { PaymentComponent } from './client/payment/payment.component';
 
 
 
@@ -112,6 +113,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     FilmShowTableComponent,
     AddFilmShowComponent,
     FilmTableComponent,
+    PaymentComponent,
   ],
     imports: [
         BrowserModule,
