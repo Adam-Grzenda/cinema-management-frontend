@@ -34,7 +34,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Film</mat-label>
-      <mat-select placeholder="null" formControlName="film">
+      <mat-select placeholder="None" formControlName="film">
         <mat-option value="None">None</mat-option>
         <mat-option *ngFor="let film of films" value="{{film.title}}">{{film.title}}</mat-option>
       </mat-select>

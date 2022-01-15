@@ -31,16 +31,18 @@ export class BuyTicketComponent implements OnInit {
   order: Order;
   orderSummary: Array<OrderProductCalculation>;
 
-  seatForm: FormGroup
-  detailsForm: FormGroup
+  seatForm: FormGroup;
+  detailsForm: FormGroup;
   promoForm: FormGroup;
+
+  paymentTypes: Array<string> = ['CREDIT_CARD', 'DEBT_CARD', 'ONLINE_PAYMENT'];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { screening: FilmShow },
     private chairService: ChairService,
     public userService: UserService,
     private orderService: OrderService,
-    private promoOfferService:PromoOfferService,
+    private promoOfferService: PromoOfferService,
     private formBuilder: FormBuilder
   ) {
   }
@@ -55,16 +57,17 @@ export class BuyTicketComponent implements OnInit {
       name: ["", Validators.required],
       surname: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
+      paymentType: ["", [Validators.required]]
     });
 
     this.promoForm = this.formBuilder.group({
-      promo: [""]
+      promo: ["None"]
     })
 
     this.userService.getCurrentUser().then(
       (value => {
         this.user = User.fromKeycloakUserInfo(value);
-        this.detailsForm.setValue({ //ten form nie powinien być edytowalny teraz
+        this.detailsForm.patchValue({ //ten form nie powinien być edytowalny teraz
           name: this.user.name,
           surname: this.user.surname,
           email: this.user.email
@@ -80,16 +83,15 @@ export class BuyTicketComponent implements OnInit {
 
   getAvailableChairs() {
     this.chairService.getFreeChairsForScreening(this.data.screening).subscribe(
-      (next) => this.availableChairs = next.resources
-    );
+      (next) => {
+        this.availableChairs = next.resources;
+        this.availableChairs.sort(compareChairs);
+      })
   }
 
   getOffersForClient() {
     this.promoOfferService.getByUserId(this.user.id).subscribe(o => {
-      console.log("ooooo")
       this.availableOffers = o.resources;
-      console.log(this.availableOffers);
-
     });
   }
 
@@ -99,6 +101,7 @@ export class BuyTicketComponent implements OnInit {
     this.order.foodProducts = this.pickedFoodCourtProducts;
     this.order.filmShowId = this.data.screening.id;
     this.order.promoOfferId = this.promoForm.value.promo.id;
+    this.order.paymentType = this.detailsForm.value.paymentType;
     this.getOrderCalculation();
   }
 
@@ -119,6 +122,16 @@ export class BuyTicketComponent implements OnInit {
 
   addChairs() {
     this.chairs = new Array<Chair>();
-    this.chairs.push(this.seatForm.value.seat)
+    this.chairs = this.seatForm.value.seat;
+  }
+}
+
+function compareChairs(c1: Chair, c2: Chair) {
+  if (c1.hallRow < c2.hallRow) {
+    return -1;
+  } else if (c1.hallColumn < c2.hallColumn) {
+    return -1;
+  } else {
+    return 1;
   }
 }

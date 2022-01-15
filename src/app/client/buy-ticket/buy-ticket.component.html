@@ -4,7 +4,7 @@
       close
     </mat-icon>
   </button>
-  <h2 mat-dialog-title style="float: left">
+  <h2 mat-dialog-title id="header">
     Buy a ticket for this screening
   </h2>
 
@@ -15,17 +15,17 @@
 
   <div *ngIf="!userService.isUserLoggedIn()">
     <p>Login or register before booking a film show</p>
-      <button (click)="userService.login()">Click here to login or register</button>
+    <button (click)="userService.login()">Click here to login or register</button>
   </div>
 
-  <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="userService.isUserLoggedIn()">
+  <mat-stepper orientation="vertical" [linear]="true" *ngIf="userService.isUserLoggedIn()">
     <mat-step [stepControl]="seatForm">
       <form [formGroup]="seatForm">
         <ng-template matStepLabel>Pick seats</ng-template>
         <ng-template matStepContent>
           <mat-form-field appearance="fill">
             <mat-label>Pick a free seat</mat-label>
-            <mat-select formControlName="seat">
+            <mat-select formControlName="seat" multiple>
               <mat-option *ngFor="let chair of availableChairs" [value]="chair">
                 Row: {{chair.hallRow}} Column: {{chair.hallColumn}}
               </mat-option>
@@ -48,15 +48,28 @@
             <mat-label>Name</mat-label>
             <input matInput placeholder="John" value="{{user.name}}" formControlName="name">
           </mat-form-field>
+
           <hr>
+
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Surname</mat-label>
             <input matInput placeholder="Smith" value="{{user.surname}}" formControlName="surname">
           </mat-form-field>
+
           <hr>
+
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput placeholder="some_email@domain.com" value="{{user.email}}" formControlName="email">
+          </mat-form-field>
+
+          <hr>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Pick a payment type</mat-label>
+            <mat-select formControlName="paymentType">
+              <mat-option *ngFor="let type of paymentTypes" value="{{type}}">{{type}}</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <hr>
@@ -73,6 +86,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Pick a promo offer</mat-label>
             <mat-select formControlName="promo">
+              <mat-option value="None">None</mat-option>
               <mat-option *ngFor="let offer of availableOffers" [value]="offer">
                 {{offer.name}}({{offer.discount}}%)
               </mat-option>
@@ -87,9 +101,31 @@
     <mat-step>
       <ng-template matStepLabel>Order summary</ng-template>
       <ng-template matStepContent>
-        <div *ngFor="let product of orderSummary">
-          Type: {{product.type}} Subtype: {{product.subtype}} BasePrice: {{product.basePrice}}  Discount: {{product.discount}} FinalPrice: {{product.finalPrice}} ItemCount: {{product.itemCount}}
-        </div>
+        <hr>
+        <table>
+          <tr>
+            <th>Type</th>
+            <th>Subtype</th>
+            <th>BasePrice</th>
+            <th>Discount</th>
+            <th>FinalPrice</th>
+            <th>Item Count</th>
+            <th>Total</th>
+          </tr>
+
+          <tr *ngFor="let product of orderSummary">
+            <td>{{product.type}}</td>
+            <td>{{product.subtype}}</td>
+            <td>{{product.basePrice}}</td>
+            <td>{{product.discount}}</td>
+            <td>{{product.finalPrice}}</td>
+            <td>{{product.itemCount}}</td>
+            <td>{{product.finalPrice * product.itemCount}}</td>
+          </tr>
+        </table>
+
+        <hr>
+
         <button mat-button (click)="placeOrder()">Submit order</button>
       </ng-template>
     </mat-step>

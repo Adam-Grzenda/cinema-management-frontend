@@ -45,7 +45,7 @@ export class AddClientSegmentComponent implements OnInit {
     this.getOffers();
     this.form = this.formBuilder.group({
       name: ["", [Validators.required]],
-      promoOffer: [""]
+      promoOffer: ["None"]
     })
 
     if (this.addMode) {
