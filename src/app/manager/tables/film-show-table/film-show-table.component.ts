@@ -11,6 +11,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {Film} from "../../../../model/film";
 import {AddCinemaHallComponent} from "../../../admin/add-edit/add-cinema-hall/add-cinema-hall.component";
 import {AddFilmShowComponent} from "../../add-edit/add-film-show/add-film-show.component";
+import {getSortingDataAccessor} from "../../../tools";
+
 
 @Component({
   selector: 'app-film-show-table',
@@ -22,21 +24,22 @@ export class FilmShowTableComponent implements OnInit {
   @Input()
   cinemaId: number;
 
-  private shows:Array<FilmShow>;
+  private filmShows: Array<FilmShow>;
 
   dataSource: MatTableDataSource<FilmShow>;
   displayedColumns: string[] =
-    ['id', 'date', 'type', 'cinemaHall_id', 'film_id', 'modify', 'delete'];
+    ['id', 'date', 'type', 'cinemaHall.number', 'film.title', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private filmShowService:FilmShowService,
-    private cinemaHallService:CinemaHallService,
-    private filmService:FilmService,
+    private filmShowService: FilmShowService,
+    private cinemaHallService: CinemaHallService,
+    private filmService: FilmService,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getShows();
@@ -44,8 +47,8 @@ export class FilmShowTableComponent implements OnInit {
 
   private getShows() {
     this.filmShowService.getAllByCinemaId(this.cinemaId).subscribe(s => {
-      this.shows = s.resources;
-      for (let show of this.shows) {
+      this.filmShows = s.resources;
+      for (let show of this.filmShows) {
         show.getRelation<CinemaHall>('cinemaHall').subscribe(h => {
           show.cinemaHall = h;
         });
@@ -54,7 +57,8 @@ export class FilmShowTableComponent implements OnInit {
         });
       }
 
-      this.dataSource = new MatTableDataSource<FilmShow>(this.shows);
+      this.dataSource = new MatTableDataSource<FilmShow>(this.filmShows);
+      this.dataSource.sortingDataAccessor = getSortingDataAccessor();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -82,7 +86,7 @@ export class FilmShowTableComponent implements OnInit {
       width: '50%'
     });
 
-    dialogRef.afterClosed().subscribe(_=> {
+    dialogRef.afterClosed().subscribe(_ => {
       this.getShows();
     });
   }
@@ -94,7 +98,7 @@ export class FilmShowTableComponent implements OnInit {
       width: '50%'
     });
 
-    dialogRef.afterClosed().subscribe(_=> {
+    dialogRef.afterClosed().subscribe(_ => {
       this.getShows();
     });
   }

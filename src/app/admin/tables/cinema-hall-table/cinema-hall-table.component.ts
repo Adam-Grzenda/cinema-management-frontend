@@ -8,6 +8,9 @@ import {CinemaService} from "../../../services/cinema.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CinemaHallService} from "../../../services/cinema-hall.service";
 import {AddCinemaHallComponent} from "../../add-edit/add-cinema-hall/add-cinema-hall.component";
+import {getSortingDataAccessor} from "../../../tools";
+
+
 
 @Component({
   selector: 'app-cinema-hall-table',
@@ -16,20 +19,21 @@ import {AddCinemaHallComponent} from "../../add-edit/add-cinema-hall/add-cinema-
 })
 export class CinemaHallTableComponent implements OnInit {
 
-  private halls: Array<CinemaHall>
+  private halls: Array<CinemaHall>;
 
   dataSource: MatTableDataSource<CinemaHall>;
   displayedColumns: string[] =
-    ['id', 'number', 'type', 'cinema_id', 'modify', 'delete'];
+    ['id', 'number', 'type', 'cinema.id', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private cinemaHallService:CinemaHallService,
+    private cinemaHallService: CinemaHallService,
     private cinemaService: CinemaService,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getHalls();
@@ -43,8 +47,9 @@ export class CinemaHallTableComponent implements OnInit {
             hall.cinema = c;
             //#TODO dziwne errory, ale działa
           });
-      }
+        }
         this.dataSource = new MatTableDataSource<CinemaHall>(this.halls);
+        this.dataSource.sortingDataAccessor = getSortingDataAccessor();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -74,7 +79,7 @@ export class CinemaHallTableComponent implements OnInit {
       width: '50%'
     });
 
-    dialogRef.afterClosed().subscribe(_=> {
+    dialogRef.afterClosed().subscribe(_ => {
       this.getHalls();
     });
   }
@@ -86,7 +91,7 @@ export class CinemaHallTableComponent implements OnInit {
       width: '50%'
     });
 
-    dialogRef.afterClosed().subscribe(_=> {
+    dialogRef.afterClosed().subscribe(_ => {
       this.getHalls();
     });
   }

@@ -1,0 +1,17 @@
+:host {
+  background-color: lightgreen;
+  size: 200px 200px;
+  display: block;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row {
+  display: table-cell;
+  width: 80%;
+  margin-left: 10%;
+  padding: 5%;
+}

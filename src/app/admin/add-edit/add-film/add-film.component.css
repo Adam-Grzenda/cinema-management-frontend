@@ -32,3 +32,20 @@ mat-form-field.mat-form-field {
   width: 250px;
   height: 250px;
 }
+
+#image {
+  display: none;
+}
+
+#closeBttn {
+  float: right;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+#save {
+  width: 100%;
+}

@@ -15,3 +15,8 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+#screening {
+  padding: 10px;
+}
+

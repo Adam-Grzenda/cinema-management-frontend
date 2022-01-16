@@ -30,4 +30,8 @@ export class AppComponent {
   }
 
   title = 'cinema-management-client';
+
+
 }
+
+

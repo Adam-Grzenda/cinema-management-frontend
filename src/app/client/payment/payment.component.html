@@ -1,0 +1,9 @@
+<h2 class="center">Mock payment: price: {{price}}</h2>
+<h3 class="center">Set payment status to:</h3>
+
+<div class="button-row, center">
+  <button mat-raised-button [mat-dialog-close]="true" (click)="updateStatus('IN_PROCESS')">"in process"</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="updateStatus('CLOSED')">"closed"</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="true" (click)="updateStatus('CANCELLED')">"cancelled"</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true" (click)="updateStatus('FAILED')">"failed"</button>
+</div>

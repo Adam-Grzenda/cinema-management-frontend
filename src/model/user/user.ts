@@ -1,7 +1,7 @@
 import {KeycloakUser} from "./keycloak-user";
 
 export class User {
-  id: number;
+  id: string;
   email: string;
   name: string;
   surname: string;
@@ -12,6 +12,7 @@ export class User {
     let userInfo: KeycloakUser = new KeycloakUser();
     Object.assign(userInfo, keycloakUserInfo);
     let user = new User();
+    user.id = userInfo.info.sub;
     user.email = userInfo.info.email;
     user.name = userInfo.info.given_name;
     user.surname = userInfo.info.family_name;

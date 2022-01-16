@@ -8,6 +8,7 @@ import {FilmService} from "../../../services/film.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Film} from "../../../../model/film";
 import {AddAdvertisementComponent} from "../../add-edit/add-advertisement/add-advertisement.component";
+import {getSortingDataAccessor} from "../../../tools";
 
 @Component({
   selector: 'app-advertisement-table',
@@ -20,7 +21,7 @@ export class AdvertisementTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<Advertisement>;
   displayedColumns: string[] =
-    ['id', 'companyName', 'duration', 'film_id', 'modify', 'delete'];
+    ['id', 'companyName', 'duration', 'film.id', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -45,9 +46,11 @@ export class AdvertisementTableComponent implements OnInit {
             ad.film = f;
           },
           error => {
+          ad.film = new Film();
           });
       }
       this.dataSource = new MatTableDataSource<Advertisement>(this.advertisements);
+      this.dataSource.sortingDataAccessor = getSortingDataAccessor();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

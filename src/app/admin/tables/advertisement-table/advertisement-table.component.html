@@ -30,12 +30,9 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="film_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="film_id">Film_id</th>
-      <td mat-cell *matCellDef="let object">
-        <div *ngIf="object.film">{{object.film.id }}</div>
-        <div *ngIf="!object.film">None</div>
-      </td>
+    <ng-container matColumnDef="film.id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="film.id">Film_id</th>
+      <td mat-cell *matCellDef="let object"><div *ngIf="object.film"> {{object.film.id}}</div></td>
     </ng-container>
 
 

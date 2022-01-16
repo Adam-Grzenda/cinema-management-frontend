@@ -97,7 +97,7 @@ export class FilmCard implements OnInit {
     this.dialog.open(BuyTicketComponent, {
       data: {screening: screening},
       height: '80%',
-      width: '50%'
+      width: '70%'
     });
   }
 

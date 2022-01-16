@@ -20,7 +20,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {AppRoutingModule} from './app-routing.module';
-import {FilmAddComponent} from './admin/add-edit/film-add/film-add.component';
+import {AddFilmComponent} from './admin/add-edit/add-film/add-film.component';
 import {FilmDetailsComponent} from './film/film-details/film-details.component';
 import {MainAdminComponent} from './admin/main-admin/main-admin.component';
 import {AddCinemaComponent} from './admin/add-edit/add-cinema/add-cinema.component';
@@ -69,6 +69,9 @@ import { ClientSegmentTableComponent } from './admin/tables/client-segment-table
 import { FoodCourtTableComponent } from './manager/tables/food-court-table/food-court-table.component';
 import { FilmShowTableComponent } from './manager/tables/film-show-table/film-show-table.component';
 import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-show.component';
+import { FilmTableComponent } from './admin/tables/film-table/film-table.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { PaymentComponent } from './client/payment/payment.component';
 
 
 
@@ -80,7 +83,7 @@ import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-
     NavbarComponent,
     SidebarComponent,
     FilmEditComponent,
-    FilmAddComponent,
+    AddFilmComponent,
     FilmDetailsComponent,
     FilterComponent,
     FilmCard,
@@ -109,6 +112,8 @@ import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-
     FoodCourtTableComponent,
     FilmShowTableComponent,
     AddFilmShowComponent,
+    FilmTableComponent,
+    PaymentComponent,
   ],
     imports: [
         BrowserModule,
@@ -135,11 +140,14 @@ import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-
         MatTableModule,
         MatPaginatorModule,
         OAuthModule.forRoot(
-        {resourceServer: {
-            allowedUrls: ['http://localhost:8080/'],
-            sendAccessToken: true
-          }}
-        )
+            {
+                resourceServer: {
+                    allowedUrls: ['http://localhost:8080/'],
+                    sendAccessToken: true
+                }
+            }
+        ),
+        MatCheckboxModule
     ],
   providers: [
     MatDatepickerModule,

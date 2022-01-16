@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {PlacedOrder} from "../../model/order/placedOrder";
 import {OrderProductCalculation} from "../../model/order/orderProductCalculation";
+import {OrderStateRequest} from "../../model/order/order-state-request";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,13 @@ export class OrderService {
     let headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<Array<OrderProductCalculation>>(
       environment.apiEndpoint + "/calculateOrder", order, {headers}
+    )
+  }
+
+  public updateState(request: OrderStateRequest) {
+    let headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<PlacedOrder>(
+      environment.apiEndpoint + "/updateOrderState", request, {headers}
     )
   }
 

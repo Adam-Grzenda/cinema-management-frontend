@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ClientSegment} from "../../../../model/client-segment";
 import {MatTableDataSource} from "@angular/material/table";
-import {Advertisement} from "../../../../model/advertisement";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {ClientSegmentService} from "../../../services/client-segment.service";
 import {PromoOfferService} from "../../../services/promo-offer.service";
 import {MatDialog} from "@angular/material/dialog";
 import {PromoOffer} from "../../../../model/promo-offer";
-import {AddAdvertisementComponent} from "../../add-edit/add-advertisement/add-advertisement.component";
 import {AddClientSegmentComponent} from "../../add-edit/add-client-segment/add-client-segment.component";
+import {getSortingDataAccessor} from "../../../tools";
 
 @Component({
   selector: 'app-client-segment-table',
@@ -22,7 +21,7 @@ export class ClientSegmentTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<ClientSegment>;
   displayedColumns: string[] =
-    ['id', 'name', 'promo_offer_id', 'modify', 'delete'];
+    ['id', 'name', 'promoOffer.id', 'modify', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -47,9 +46,11 @@ export class ClientSegmentTableComponent implements OnInit {
             seg.promoOffer = o;
           },
           error => {
+          seg.promoOffer = new PromoOffer();
           });
       }
       this.dataSource = new MatTableDataSource<ClientSegment>(this.segments);
+      this.dataSource.sortingDataAccessor = getSortingDataAccessor();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

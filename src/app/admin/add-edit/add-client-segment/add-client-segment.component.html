@@ -25,7 +25,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Promo Offer</mat-label>
-      <mat-select placeholder="null" formControlName="promoOffer">
+      <mat-select placeholder="None" formControlName="promoOffer">
         <mat-option value="None">None</mat-option>
         <mat-option *ngFor="let offer of offers" value="{{offer.name}}">{{offer.name}}</mat-option>
       </mat-select>

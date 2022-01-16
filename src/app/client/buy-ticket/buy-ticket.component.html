@@ -4,58 +4,55 @@
       close
     </mat-icon>
   </button>
-  <h2 mat-dialog-title style="float: left">
-    Buy a ticket for this screening
-  </h2>
-
-
 </div>
 
 <mat-dialog-content>
 
   <div *ngIf="!userService.isUserLoggedIn()">
     <p>Login or register before booking a film show</p>
-      <button (click)="userService.login()">Click here to login or register</button>
+    <button (click)="userService.login()">Click here to login or register</button>
   </div>
 
-  <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="userService.isUserLoggedIn()">
-    <mat-step [stepControl]="seatForm">
+  <mat-stepper orientation="vertical" [linear]="true" *ngIf="userService.isUserLoggedIn()">
+    <mat-step [stepControl]="seatForm" [editable]="editable">
       <form [formGroup]="seatForm">
         <ng-template matStepLabel>Pick seats</ng-template>
         <ng-template matStepContent>
           <mat-form-field appearance="fill">
             <mat-label>Pick a free seat</mat-label>
-            <mat-select formControlName="seat">
+            <mat-select formControlName="seat" multiple>
               <mat-option *ngFor="let chair of availableChairs" [value]="chair">
                 Row: {{chair.hallRow}} Column: {{chair.hallColumn}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <br>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="addChairs()">Next</button>
         </ng-template>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="detailsForm">
+    <mat-step [stepControl]="detailsForm" [editable]="editable">
       <form [formGroup]="detailsForm">
         <ng-template matStepLabel>Order details</ng-template>
         <ng-template matStepContent>
           <p>Drugi krok - tutaj będzie logowanie / podanie danych / wybór płatności</p>
-          Tutaj musi zostać wymuszone logowanie / rejestracja - uprości to zarządzanie - clienta będziemy sobie szukali na backendzie po tokenie
-          w tym kontekście chyba nie będziemy tego forma potrzebować - do przegadania
           <hr>
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill" ng-disabled="true">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="John" value="{{user.name}}" formControlName="name">
+            <input matInput placeholder="John" value="{{user.name}}"  formControlName="name">
           </mat-form-field>
+
           <hr>
+
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Surname</mat-label>
             <input matInput placeholder="Smith" value="{{user.surname}}" formControlName="surname">
           </mat-form-field>
+
           <hr>
+
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput placeholder="some_email@domain.com" value="{{user.email}}" formControlName="email">
@@ -63,39 +60,85 @@
 
           <hr>
 
-          <button mat-button matStepperNext (click)="createOrder()">Next</button>
+          <mat-form-field appearance="fill">
+            <mat-label>Pick a payment type</mat-label>
+            <mat-select formControlName="paymentType">
+              <mat-option *ngFor="let type of paymentTypes" value="{{type}}">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr>
+
+          <button mat-button matStepperNext>Next</button>
         </ng-template>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="promoForm">
+    <mat-step [stepControl]="promoForm" [editable]="editable">
       <form [formGroup]="promoForm">
         <ng-template matStepLabel>Pick promo offer</ng-template>
         <ng-template matStepContent>
           <mat-form-field appearance="fill">
             <mat-label>Pick a promo offer</mat-label>
             <mat-select formControlName="promo">
+              <mat-option value="None">None</mat-option>
               <mat-option *ngFor="let offer of availableOffers" [value]="offer">
                 {{offer.name}}({{offer.discount}}%)
               </mat-option>
             </mat-select>
           </mat-form-field>
           <br>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="createOrder()">Next</button>
         </ng-template>
       </form>
     </mat-step>
 
-    <mat-step>
+    <mat-step [editable]="editable">
       <ng-template matStepLabel>Order summary</ng-template>
       <ng-template matStepContent>
-        <div *ngFor="let product of orderSummary">
-          Type: {{product.type}} Subtype: {{product.subtype}} BasePrice: {{product.basePrice}}  Discount: {{product.discount}} FinalPrice: {{product.finalPrice}} ItemCount: {{product.itemCount}}
-        </div>
-        <button mat-button (click)="placeOrder()">Submit order</button>
+        <hr>
+        <table>
+          <tr>
+            <th>Type</th>
+            <th>Subtype</th>
+            <th>BasePrice</th>
+            <th>Discount</th>
+            <th>FinalPrice</th>
+            <th>Item Count</th>
+            <th>Total</th>
+          </tr>
+
+          <tr *ngFor="let product of orderSummary">
+            <td>{{product.type}}</td>
+            <td>{{product.subtype}}</td>
+            <td>{{product.basePrice}}</td>
+            <td>{{product.discount}}</td>
+            <td>{{product.finalPrice}}</td>
+            <td>{{product.itemCount}}</td>
+            <td>{{product.finalPrice * product.itemCount}}</td>
+          </tr>
+
+          <tr>
+            <td colspan="4"></td>
+            <td colspan="2">Total sum:</td>
+            <td>{{orderSum}}</td>
+          </tr>
+        </table>
+
+
+        <hr>
+
+        <button mat-raised-button matStepperNext (click)="placeOrder()">Submit order</button>
       </ng-template>
+    </mat-step>
+
+    <mat-step [editable]="editable">
+      <h3 class="center">Order has been placed successfully!</h3>
+      <h4 class="center">Process the payment:</h4>
+      <app-payment [price]="orderSum" [placedOrder]="placedOrder"></app-payment>
     </mat-step>
   </mat-stepper>
 
 
 </mat-dialog-content>
+

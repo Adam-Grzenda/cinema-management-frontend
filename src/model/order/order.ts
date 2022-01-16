@@ -5,4 +5,7 @@ export class Order {
   chairs: Array<Chair>;
   foodProducts: Array<FoodCourtProduct>;
   filmShowId: number;
+  promoOfferId: number;
+  paymentType: string;
+  paymentStatus: string;
 }

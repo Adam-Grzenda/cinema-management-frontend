@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {LandingComponent} from './landing/landing.component';
 import {RouterModule, Routes} from "@angular/router";
-import {FilmAddComponent} from "./admin/add-edit/film-add/film-add.component";
+import {AddFilmComponent} from "./admin/add-edit/add-film/add-film.component";
 import {FilmDetailsComponent} from "./film/film-details/film-details.component";
 import {MainAdminComponent} from "./admin/main-admin/main-admin.component";
 import {AddCinemaComponent} from "./admin/add-edit/add-cinema/add-cinema.component";
@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'admin/add-cinema-hall', component: AddCinemaHallComponent},
   {path: 'admin/edit-cinema-hall/:id', component: AddCinemaHallComponent},
 
-  {path: 'admin/add-film', component: FilmAddComponent},
+  {path: 'admin/add-film', component: AddFilmComponent},
   {path: 'admin/edit-film/:id', component: FilmEditComponent},
 
   {path: 'admin/add-advertisement', component: AddAdvertisementComponent},

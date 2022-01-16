@@ -12,6 +12,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PromoOffer} from "../../../model/promo-offer";
 import {PromoOfferService} from "../../services/promo-offer.service";
 import {OrderProductCalculation} from "../../../model/order/orderProductCalculation";
+import {PlacedOrder} from "../../../model/order/placedOrder";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -31,22 +32,29 @@ export class BuyTicketComponent implements OnInit {
   order: Order;
   orderSummary: Array<OrderProductCalculation>;
 
-  seatForm: FormGroup
-  detailsForm: FormGroup
+  seatForm: FormGroup;
+  detailsForm: FormGroup;
   promoForm: FormGroup;
+
+  paymentTypes: Array<string> = ['CREDIT_CARD', 'DEBT_CARD', 'ONLINE_PAYMENT'];
+
+  orderSum: number;
+
+  placedOrder: PlacedOrder;
+
+  editable = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { screening: FilmShow },
     private chairService: ChairService,
     public userService: UserService,
     private orderService: OrderService,
-    private promoOfferService:PromoOfferService,
+    private promoOfferService: PromoOfferService,
     private formBuilder: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
-    this.getAvailableChairs();
 
     this.seatForm = this.formBuilder.group({
       seat: ["", Validators.required]
@@ -56,28 +64,39 @@ export class BuyTicketComponent implements OnInit {
       name: ["", Validators.required],
       surname: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
+      paymentType: ["", [Validators.required]]
     });
+    this.detailsForm.controls['name'].disable();
+    this.detailsForm.controls['surname'].disable();
+    this.detailsForm.controls['email'].disable();
 
     this.promoForm = this.formBuilder.group({
-      promo: [""]
+      promo: ["None"]
     })
 
     this.userService.getCurrentUser().then(
       (value => {
         this.user = User.fromKeycloakUserInfo(value);
-        this.detailsForm.setValue({ //ten form nie powinien być edytowalny teraz
-            name: this.user.name,
-            surname: this.user.surname,
-            email: this.user.email
-          })
+        this.detailsForm.patchValue({
+          name: this.user.name,
+          surname: this.user.surname,
+          email: this.user.email
+        });
+
+        this.getOffersForClient();
       })
     );
+
+    this.getAvailableChairs();
+
   }
 
   getAvailableChairs() {
     this.chairService.getFreeChairsForScreening(this.data.screening).subscribe(
-      (next) => this.availableChairs = next.resources
-    );
+      (next) => {
+        this.availableChairs = next.resources;
+        this.availableChairs.sort(compareChairs);
+      })
   }
 
   getOffersForClient() {
@@ -87,29 +106,53 @@ export class BuyTicketComponent implements OnInit {
   }
 
   createOrder() {
-    this.chairs.push(this.seatForm.value.seat)
-
     this.order = new Order();
     this.order.chairs = this.chairs;
     this.order.foodProducts = this.pickedFoodCourtProducts;
     this.order.filmShowId = this.data.screening.id;
+    this.order.promoOfferId = this.promoForm.value.promo.id;
+    this.order.paymentType = this.detailsForm.value.paymentType;
+    this.order.paymentStatus = "OPEN";
     this.getOrderCalculation();
   }
 
   getOrderCalculation() {
     this.orderService.calculateOrder(this.order).subscribe(
       (next) => {
-        this.orderSummary = next
+        this.orderSummary = next;
+        this.orderSum = 0;
+        for (let type of this.orderSummary) {
+          this.orderSum += type.finalPrice * type.itemCount;
+        }
       }
     );
   }
 
   placeOrder() {
     this.orderService.placeOrder(this.order).subscribe(
-      (next) => console.log(next)
-    );
+      (next) => {
+        console.log(next)
+        this.placedOrder = next;
+      });
+    this.editable = false;
+    //#TODO refresh available chairs
   }
 
 
+  addChairs() {
+    this.chairs = new Array<Chair>();
+    this.chairs = this.seatForm.value.seat;
+  }
 
+
+}
+
+function compareChairs(c1: Chair, c2: Chair) {
+  if (c1.hallRow < c2.hallRow) {
+    return -1;
+  } else if (c1.hallColumn < c2.hallColumn) {
+    return -1;
+  } else {
+    return 1;
+  }
 }

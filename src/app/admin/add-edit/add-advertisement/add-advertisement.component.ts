@@ -45,7 +45,7 @@ export class AddAdvertisementComponent implements OnInit {
       companyName: ["", [Validators.required]],
       duration: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1)]],
-      film: ["", [Validators.required]]
+      film: ["None", [Validators.required]]
     })
 
 
