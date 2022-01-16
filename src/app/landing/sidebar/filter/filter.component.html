@@ -10,7 +10,7 @@
 </mat-form-field>
 
 <mat-form-field appearance="fill">
-  <mat-label>Favorite food</mat-label>
+  <mat-label>Sort By</mat-label>
   <mat-select (selectionChange)="onSortChanged()" [(ngModel)]="sortDirection">
     <mat-option *ngFor="let direction of availableDirections" [value]="direction"  >
       {{direction}}
