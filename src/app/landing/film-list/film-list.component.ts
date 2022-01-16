@@ -23,7 +23,7 @@ export class FilmListComponent implements OnInit {
 
 
   private loadFilms() {
-    this.filmService.getFilms().subscribe((next) => {
+    this.filmService.getAll().subscribe((next) => {
       this.films = next.resources;
       console.log(this.films);
     });

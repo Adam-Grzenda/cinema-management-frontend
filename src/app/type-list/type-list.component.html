@@ -1,5 +1,5 @@
 <mat-accordion *ngFor="let type of typeList">
-  <mat-expansion-panel class="main_panels" >
+  <mat-expansion-panel class="main_panels">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{type.name | uppercase}}
@@ -8,16 +8,28 @@
         Expand to manage {{type.name}}s
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <hr>
 
-      <a class="button" mat-raised-button color="primary"
-         [routerLink]="[type.addLink, {'cinema_id': cinema_id}]" *ngIf="type.type == 'admin'">Add new {{type.name}}</a>
+    <div *ngIf="type.type=='admin'">
+      <app-cinema-table *ngIf="type.name=='cinema'"></app-cinema-table>
+      <app-cinema-hall-table *ngIf="type.name=='cinema hall'"></app-cinema-hall-table>
+      <app-advertisement-table *ngIf="type.name=='advertisement'"></app-advertisement-table>
+      <app-promo-offer-table *ngIf="type.name=='promo offer'"></app-promo-offer-table>
+      <app-product-type-table *ngIf="type.name=='product type'"></app-product-type-table>
+      <app-client-segment-table *ngIf="type.name=='client segment'"></app-client-segment-table>
 
-      <hr>
 
+      <app-food-court-table [cinemaId]="cinemaId" *ngIf="type.name=='food court'"></app-food-court-table>
+      <app-film-show-table [cinemaId]="cinemaId" *ngIf="type.name=='film show'"></app-film-show-table>
+    </div>
+
+
+    <div *ngIf="type.type=='manager'">
       <mat-accordion *ngFor="let item of type.objectList">
-        <app-object-panel [item]="item" [type]="type" [cinema_id]="cinema_id"></app-object-panel>
+        <app-object-panel [item]="item" [type]="type" [cinema_id]="cinemaId"></app-object-panel>
         <hr>
       </mat-accordion>
+    </div>
 
   </mat-expansion-panel>
   <hr>

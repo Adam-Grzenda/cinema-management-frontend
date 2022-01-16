@@ -1,0 +1,54 @@
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center" *ngIf="addMode">Add new product type</h2>
+  <h2 class="center" *ngIf="!addMode">Edit product type</h2>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Product Type Name</mat-label>
+      <input matInput formControlName="name"
+             placeholder="enter a valid name">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Product Type Unit</mat-label>
+      <input matInput formControlName="unit"
+             placeholder="enter a valid unit">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Product Type Amount</mat-label>
+      <input matInput formControlName="amount"
+             placeholder="enter a valid amount">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <button type="submit" id="save" [disabled]="!form.valid">Save product type</button>
+
+  </form>
+</div>
+
+<br>
+<hr>
+
+<ul>
+  <li *ngFor="let t of types">Type: {{t.name}} Unit: {{t.unit}} Amount: {{t.amount}}</li>
+</ul>

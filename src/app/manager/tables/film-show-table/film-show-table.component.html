@@ -1,0 +1,76 @@
+<a class="button" id="add" mat-raised-button color="primary"
+   (click)="add()">Add new film show</a>
+
+<hr>
+
+<mat-form-field appearance="fill">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID</th>
+      <td mat-cell *matCellDef="let object">{{object.id}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="date">Date</th>
+      <td mat-cell *matCellDef="let object"> {{object.date}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="type">Type</th>
+      <td mat-cell *matCellDef="let object"> {{object.type}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="cinemaHall_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="cinemaHall_id">CinemaHall Number</th>
+      <td mat-cell *matCellDef="let object"> <div *ngIf="object['cinemaHall']">{{object['cinemaHall'].number}}</div> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="film_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="film_id">Film</th>
+      <td mat-cell *matCellDef="let object"> <div *ngIf="object['film']">{{object['film'].title}}</div> </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="modify">
+      <th mat-header-cell *matHeaderCellDef>Modify</th>
+      <td mat-cell *matCellDef="let object">
+        <a mat-raised-button color="accent" (click)="modify(object)">modify</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let object">
+        <a mat-raised-button color="warn" (click)="delete(object)">delete</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data found</td>
+    </tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                 aria-label="Select page of users"></mat-paginator>
+</div>
+
+
+
+
+
+
+
