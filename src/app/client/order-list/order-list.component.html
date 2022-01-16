@@ -1,0 +1,39 @@
+<h2>Your orders:</h2>
+<div *ngFor="let order of orderList">
+  <h4>Order from: {{order.orderDate}}</h4>
+
+  <h5>Order status:</h5>
+  <b id="green" *ngIf="order.paymentStatus == 'CLOSED'">{{order.paymentStatus}}</b>
+  <b id="red" *ngIf="order.paymentStatus == 'FAILED'">{{order.paymentStatus}}</b>
+  <b id="orange" *ngIf="order.paymentStatus == 'CANCELLED'">{{order.paymentStatus}}</b>
+  <b id="yellow" *ngIf="order.paymentStatus == 'OPEN' || order.paymentStatus == 'IN_PROCESS'">{{order.paymentStatus}}</b>
+
+  <hr>
+
+  <table>
+    <tr><h5>Tickets:</h5></tr>
+    <tr>
+      <th>Film Title</th>
+      <th>Screening date</th>
+      <th>Cinema</th>
+      <th>Cinema hall</th>
+      <th>Hall Row</th>
+      <th>Hall Column</th>
+      <th>Price</th>
+    </tr>
+
+    <tr *ngFor="let ticket of order.tickets">
+      <th>{{ticket.filmShowTitle}}</th>
+      <th>{{ticket.hallNumber}}</th>
+      <th>{{ticket.cinemaName}}</th>
+      <th>{{ticket.filmShowDate}}</th>
+      <th>{{ticket.hallRow}}</th>
+      <th>{{ticket.hallColumn}}</th>
+      <th>{{ticket.finalPrice}}</th>
+
+    </tr>
+  </table>
+
+  <hr>
+
+</div>

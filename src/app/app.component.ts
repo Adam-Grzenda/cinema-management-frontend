@@ -7,6 +7,9 @@ import {AuthConfig, NullValidationHandler, OAuthService} from "angular-oauth2-oi
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  sidebarOpen: boolean = false;
+
   constructor(private oauthService: OAuthService) {
     this.configure();
   }
@@ -31,6 +34,9 @@ export class AppComponent {
 
   title = 'cinema-management-client';
 
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 
 }
 

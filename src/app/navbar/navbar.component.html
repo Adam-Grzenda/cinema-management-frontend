@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <button mat-icon-button (click)="onToggleSidebar()">
+    <button mat-icon-button (click)="onToggleSidebar()" *ngIf="visible">
       <mat-icon style="color: white">filter_alt</mat-icon>
     </button>
     <a class="navbar-brand" routerLink="/">Cinema Brand</a>
@@ -10,7 +10,7 @@
           {{currentUser ? currentUser.name + ' ' + currentUser.surname : 'My account'}}
         </a>
         <ul class="dropdown-menu-right" ngbDropdownMenu aria-labelledby="accountDropdown">
-          <li ngbDropdownItem>My orders</li>
+          <li ngbDropdownItem *ngIf="currentUser" (click)="goToOrders()">My orders</li>
           <li ngbDropdownItem *ngIf="!currentUser" (click)="userService.login()">Sign in</li>
           <li ngbDropdownItem *ngIf="currentUser" (click)="userService.logout()">Sign out</li>
           <li ngbDropdownItem *ngIf="currentUser && currentUser.hasRole('admin')" [routerLink]="'/admin/main'">Manage as admin</li>

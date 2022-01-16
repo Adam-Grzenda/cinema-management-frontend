@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {LandingComponent} from './landing/landing.component';
 import {FilmListComponent} from './landing/film-list/film-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -72,13 +71,13 @@ import { AddFilmShowComponent } from './manager/add-edit/add-film-show/add-film-
 import { FilmTableComponent } from './admin/tables/film-table/film-table.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { PaymentComponent } from './client/payment/payment.component';
+import { OrderListComponent } from './client/order-list/order-list.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
     FilmListComponent,
     NavbarComponent,
     SidebarComponent,
@@ -114,6 +113,7 @@ import { PaymentComponent } from './client/payment/payment.component';
     AddFilmShowComponent,
     FilmTableComponent,
     PaymentComponent,
+    OrderListComponent,
   ],
     imports: [
         BrowserModule,
