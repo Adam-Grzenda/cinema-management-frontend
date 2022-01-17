@@ -33,6 +33,7 @@ export class FilmCard implements OnInit {
 
   ngOnInit(): void {
     this.getFilmImage(this.film.imageSource);
+    this.loadScreeningsData();
 
     this.route.queryParams.subscribe(
       (params) =>
@@ -45,7 +46,7 @@ export class FilmCard implements OnInit {
         // By default only film shows that are happening in a week after the start date should be displayed
         this.endDate = endDateParam ? new Date(endDateParam) : this.getDefaultEndDate();
 
-        this.loadScreenings();
+        this.loadScreeningsData();
       }
     )
   }
@@ -71,12 +72,6 @@ export class FilmCard implements OnInit {
     this.imageService.getImage(imageId).subscribe(data => {
       this.createImageURL(data);
     })
-  }
-
-  loadScreenings() : void {
-    if (this.isScreeningsExpanded) {
-      this.loadScreeningsData();
-    }
   }
 
 

@@ -11,20 +11,20 @@
       <p>Premiered: {{film.premiereDate}}</p>
       <p>Duration: {{film.duration}} minutes</p>
     </div>
-    <mat-expansion-panel hideToggle (opened)="isScreeningsExpanded = true; loadScreenings()" (afterCollapse)="isScreeningsExpanded=false" >
+    <mat-expansion-panel hideToggle *ngIf="screenings && screenings.length>0">
       <mat-expansion-panel-header>
         <mat-panel-title>See screenings</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="screenings" *ngIf="screenings && screenings.length>0">
+      <div class="screenings">
       <div *ngFor="let screening of screenings" style="padding: 10px">
         <a mat-raised-button (click)="onClickScreening(screening)">
           {{screening.date | date: 'short' }}
         </a>
       </div>
       </div>
-      <div class="screenings" *ngIf="screenings && screenings.length==0">
-        Sorry, no film shows are available in the selected time frame
-      </div>
     </mat-expansion-panel>
+    <div class="screenings mat-caption" *ngIf="screenings && screenings.length==0">
+      Sorry, no film shows are available in the selected time frame
+    </div>
   </div>
 </div>
