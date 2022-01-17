@@ -40,9 +40,11 @@
     </tr>
   </table>
 
+  <br>
+
   <div *ngIf="order.paymentStatus != 'CLOSED' && order.paymentStatus != 'CANCELLED'">
 
-    <button mat-raised-button color="accent" (click)="completePayment(order.price, order.orderID)">Complete payment</button>
+    <button mat-raised-button color="accent" id="payment" (click)="completePayment(order.price, order.orderID)">Complete payment</button>
   </div>
 
   <hr>

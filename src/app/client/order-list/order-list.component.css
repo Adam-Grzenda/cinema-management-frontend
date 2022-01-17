@@ -46,3 +46,9 @@ tr:nth-child(even) {
 #orange {
   color: orange;
 }
+
+#payment {
+  width: 30%;
+  margin-left: 35%;
+  margin-right: 35%;
+}
