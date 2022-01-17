@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
-import {Router} from "@angular/router";
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from "@angular/router";
 
 @Component({
   selector: 'app-filter',
@@ -20,7 +20,8 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -29,12 +30,21 @@ export class FilterComponent implements OnInit {
   onDateEntered(): void {
     let dateStart = this.datePipe.transform(this.dateRange.dateStart, 'yyyy-MM-dd');
     let dateEnd = this.datePipe.transform(this.dateRange.dateEnd, 'yyyy-MM-dd');
-    this.router.navigate([], {queryParams: {dateFrom: dateStart, dateTo: dateEnd}});
+    let route = this.activatedRoute.snapshot
+    this.router.navigate([], {queryParams: {
+      dateFrom: dateStart, dateTo: dateEnd,
+      sort: route.queryParams['sort']}});
   }
 
   onSortChanged(): void {
-    console.log(this.sortDirection)
-    this.router.navigate([], {queryParams: {sort: this.sortDirection.replace(' ', '')}})
+    let route = this.activatedRoute.snapshot
+
+    this.router.navigate([], {queryParams: {
+      sort: this.sortDirection.replace(' ', ''),
+        dateFrom: route.queryParams['dateFrom'],
+        dateTo: route.queryParams['dateTo']
+    }})
+
   }
 
 
