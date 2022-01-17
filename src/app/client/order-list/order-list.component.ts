@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../services/order.service";
 import {OrderDisplay} from "../../../model/order/order-display";
+import {AddFilmComponent} from "../../admin/add-edit/add-film/add-film.component";
+import {MatDialog} from "@angular/material/dialog";
+import {PaymentComponent} from "../payment/payment.component";
 
 @Component({
   selector: 'app-order-list',
@@ -13,7 +16,8 @@ export class OrderListComponent implements OnInit {
 
 
   constructor(
-    private orderService: OrderService
+    private orderService: OrderService,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -28,4 +32,15 @@ export class OrderListComponent implements OnInit {
     })
   }
 
+  completePayment(price: number, id: string) {
+    const dialogRef = this.dialog.open(PaymentComponent, {
+      data: {price: price, orderId: id },
+      height: '60%',
+      width: '70%'
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getOrders();
+    });
+  }
 }

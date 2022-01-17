@@ -40,7 +40,7 @@ export class BuyTicketComponent implements OnInit {
 
   orderSum: number;
 
-  placedOrder: PlacedOrder;
+  placedOrder: PlacedOrder = new PlacedOrder();
 
   editable = true;
 
