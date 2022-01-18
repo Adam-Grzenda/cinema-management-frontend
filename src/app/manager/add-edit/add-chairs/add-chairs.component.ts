@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FoodCourt} from "../../../../model/food-court";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -20,7 +20,7 @@ export class AddChairsComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: {
-      hall_id: number
+      hallId: number
     },
     private chairService:ChairService,
     private formBuilder: FormBuilder,
@@ -35,18 +35,18 @@ export class AddChairsComponent implements OnInit {
       colNum: ["10", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1), Validators.max(this.maxNumber)]],
     })
+    this.hallId = this.data.hallId;
   }
 
   save() {
-    console.log('chair addition: ', this.form.value.rowNum, this.form.value.colNum)
+    console.log('chair addition: ', this.form.value.rowNum, this.form.value.colNum, this.hallId)
     this.chairService.addChairs(this.form.value.rowNum, this.form.value.colNum, this.hallId).subscribe(_ => {
 
       this.dialogRef.close();
     },
       _ => {
-        this.snackBar.open("Error! This chair violates unique constraint and could not be added.", "close", {
-          duration: 5000
-        });
+        this.dialogRef.close();
+
       });
   }
 
