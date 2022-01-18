@@ -8,6 +8,8 @@ import {CinemaHall} from "../../../../model/cinema-hall";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {ChairTypeComponent} from "../../add-edit/chair-type/chair-type.component";
+import {AddChairsComponent} from "../../add-edit/add-chairs/add-chairs.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-chairs-table',
@@ -31,13 +33,13 @@ export class ChairsTableComponent implements OnInit {
   constructor(
     private cinemaHallService: CinemaHallService,
     private chairService: ChairService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit(): void {
     this.getChairs(this.hall.id);
-
   }
 
 
@@ -47,13 +49,16 @@ export class ChairsTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.chairs);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+    });
   }
 
   delete(chair: Chair) {
     this.chairService.delete(chair).subscribe(_ => {
-      this.getChairs(this.hall.id);
-    })
+        this.getChairs(this.hall.id);
+      },
+      _ => {
+
+      });
   }
 
   applyFilter(event: Event) {
@@ -66,19 +71,27 @@ export class ChairsTableComponent implements OnInit {
   }
 
   modify(chair: Chair): void {
-    this.dialog.open(ChairTypeComponent, {
+    const dialogRef = this.dialog.open(ChairTypeComponent, {
       data: {chair: chair},
       height: '80%',
       width: '50%'
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getChairs(this.hall.id);
+    });
   }
 
   add(): void {
-    this.dialog.open(ChairTypeComponent, {
-      data: {chair: null},
+    const dialogRef = this.dialog.open(AddChairsComponent, {
+      data: {hallId: this.hall.id},
       height: '80%',
       width: '50%'
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getChairs(this.hall.id);
+    });
   }
 }
 

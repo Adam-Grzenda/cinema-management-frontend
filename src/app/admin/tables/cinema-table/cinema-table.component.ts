@@ -6,6 +6,7 @@ import {CinemaService} from "../../../services/cinema.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Cinema} from "../../../../model/cinema";
 import {AddCinemaComponent} from "../../add-edit/add-cinema/add-cinema.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-cinema-table',
@@ -26,6 +27,7 @@ export class CinemaTableComponent implements OnInit {
   constructor(
     private cinemaService: CinemaService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -47,7 +49,12 @@ export class CinemaTableComponent implements OnInit {
     this.cinemaService.delete(cinema).subscribe(c => {
       console.log("deleted: " + c.id);
       this.getCinemas();
-    })
+    },
+      er => {
+        this.snackBar.open("Error! This cinema is related to some cinema hall and could not be deleted.", "close", {
+          duration: 5000
+        });
+      });
   }
 
   applyFilter(event: Event) {

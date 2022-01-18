@@ -4,6 +4,7 @@ import {FilmService} from "../../../services/film.service";
 import {ImageService} from "../../../services/image.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-film',
@@ -27,7 +28,8 @@ export class AddFilmComponent implements OnInit {
     private filmService: FilmService,
     private imageService: ImageService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddFilmComponent>
+    private dialogRef: MatDialogRef<AddFilmComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -67,13 +69,23 @@ export class AddFilmComponent implements OnInit {
     this.film.description = this.form.value.description;
 
     if (this.addMode) {
-      this.filmService.add(this.film).subscribe(f => {
+      this.filmService.add(this.film).subscribe(_ => {
         this.dialogRef.close();
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This film violates unique constraint and could not be added.", "close", {
+            duration: 5000
+          });
+        });
     } else {
-      this.filmService.update(this.film).subscribe(f => {
+      this.filmService.update(this.film).subscribe(_ => {
         this.dialogRef.close();
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This film violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
+        });
     }
   }
 

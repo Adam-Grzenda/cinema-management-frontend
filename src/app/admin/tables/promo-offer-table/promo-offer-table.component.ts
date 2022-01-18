@@ -6,6 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {PromoOfferService} from "../../../services/promo-offer.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddPromoOfferComponent} from "../../add-edit/add-promo-offer/add-promo-offer.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-promo-offer-table',
@@ -26,6 +27,7 @@ export class PromoOfferTableComponent implements OnInit {
   constructor(
     private promoOfferService: PromoOfferService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -45,8 +47,13 @@ export class PromoOfferTableComponent implements OnInit {
 
   delete(offer: PromoOffer) {
     this.promoOfferService.delete(offer).subscribe(o => {
-      this.getOffers();
-    });
+        this.getOffers();
+      },
+      er => {
+        this.snackBar.open("Error! This offer is related to some client segment and could not be deleted.", "close", {
+          duration: 5000
+        });
+      });
   }
 
   applyFilter(event: Event) {

@@ -4,6 +4,7 @@ import {CinemaService} from "../../../services/cinema.service";
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-cinema',
@@ -25,7 +26,8 @@ export class AddCinemaComponent implements OnInit {
     private cinemaService: CinemaService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddCinemaComponent>
+    private dialogRef: MatDialogRef<AddCinemaComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -54,11 +56,21 @@ export class AddCinemaComponent implements OnInit {
     if (this.addMode) {
       this.cinemaService.add(this.cinema).subscribe(_ => {
         this.dialogRef.close();
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This cinema violates unique constraint and could not be added.", "close", {
+            duration: 5000
+          });
+        });
     } else {
       this.cinemaService.update(this.cinema).subscribe(_ => {
         this.dialogRef.close();
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This cinema violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
+        });
     }
   }
 

@@ -1,0 +1,20 @@
+#closeBttn {
+  float: right;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+#save {
+  width: 100%;
+}
+
+#danger {
+  background-color: lightcoral;
+}
+#submit {
+  width: 100%;
+}
+

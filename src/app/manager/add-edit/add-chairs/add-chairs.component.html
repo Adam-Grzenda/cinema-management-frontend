@@ -1,0 +1,48 @@
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center">Add chairs</h2>
+</div>
+
+<hr>
+
+<div id="danger">
+  <h3 class="center">WARNING!</h3>
+  <p class="center">Inserting new chair with row and column number same as existing one will not overwrite it!</p>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Number of chair rows</mat-label>
+      <input matInput type="number" min="1" step="1" max="{{this.maxNumber}}"
+             formControlName="rowNum"
+             placeholder="enter a number">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Number of chair columns</mat-label>
+      <input matInput type="number" min="1" step="1" max="{{this.maxNumber}}"
+             formControlName="colNum"
+             placeholder="enter a number">
+    </mat-form-field>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="center">
+      <button type="submit" id="submit" [disabled]="!form.valid">Add chairs!</button>
+    </div>
+  </form>
+</div>

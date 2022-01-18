@@ -4,6 +4,7 @@ import {Location} from "@angular/common";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PromoOfferService} from "../../../services/promo-offer.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-promo-offer',
@@ -27,7 +28,8 @@ export class AddPromoOfferComponent implements OnInit {
     private promoOfferService: PromoOfferService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddPromoOfferComponent>
+    private dialogRef: MatDialogRef<AddPromoOfferComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -60,12 +62,22 @@ export class AddPromoOfferComponent implements OnInit {
 
     if (this.addMode) {
       this.promoOfferService.add(this.offer).subscribe(_ => {
-        this.dialogRef.close();
-      });
+          this.dialogRef.close();
+        },
+        _ => {
+          this.snackBar.open("Error! This offer violates unique constraint and could not be added.", "close", {
+            duration: 5000
+          });
+        });
     } else {
       this.promoOfferService.update(this.offer).subscribe(_ => {
-        this.dialogRef.close();
-      });
+          this.dialogRef.close();
+        },
+        _ => {
+          this.snackBar.open("Error! This offer violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
+        });
     }
   }
 

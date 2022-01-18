@@ -33,11 +33,11 @@ export class ManagerListService {
     courts.name = "food court";
     courts.service = this.foodCourtService;
 
-    const courts_types: TypeList = new TypeList();
+    /*const courts_types: TypeList = new TypeList();
     courts_types.id = 33;
     courts_types.type = 'manager';
     courts_types.name = 'Product types for food court';
-    courts_types.service = this.foodCourtProductTypeService;
+    courts_types.service = this.foodCourtProductTypeService;*/
 
     const shows: TypeList = new TypeList();
     shows.id = 44;
@@ -45,7 +45,7 @@ export class ManagerListService {
     shows.name = 'film show';
     shows.service = this.filmShowService;
 
-    this.managerList.push(halls, courts, courts_types, shows)
+    this.managerList.push(halls, courts, shows)
   }
 
 

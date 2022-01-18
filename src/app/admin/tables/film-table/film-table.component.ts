@@ -7,6 +7,7 @@ import {FilmService} from "../../../services/film.service";
 import {MatDialog} from "@angular/material/dialog";
 import {getSortingDataAccessor} from "../../../tools";
 import {AddFilmComponent} from "../../add-edit/add-film/add-film.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-film-table',
@@ -27,6 +28,7 @@ export class FilmTableComponent implements OnInit {
   constructor(
     private filmService: FilmService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -46,9 +48,14 @@ export class FilmTableComponent implements OnInit {
   }
 
   delete(film: Film) {
-    this.filmService.delete(film).subscribe(f => {
+    this.filmService.delete(film).subscribe(_ => {
       this.getFilms();
-    })
+    },
+      _ => {
+      this.snackBar.open("Error! This film is related to other existing object and could not be deleted.", "close", {
+        duration: 5000
+      });
+    });
   }
 
   applyFilter(event: Event) {

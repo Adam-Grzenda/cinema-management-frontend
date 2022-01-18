@@ -2,13 +2,8 @@
 
   <div class="movie-box" *ngIf="this.editFilmId!==film.id">
     <app-film-card [film]="film"></app-film-card>
-    <button mat-icon-button (click)="onClickEdit(film.id)">
-      <mat-icon>mode_icon</mat-icon>
-    </button>
   </div>
 
-  <app-film-edit [film]="film" *ngIf="this.editFilmId===film.id"
-                 (submittedEvent)="onSubmittedEvent()"></app-film-edit>
 </div>
 
 <button (click)="filmService.addSampleFilms()">

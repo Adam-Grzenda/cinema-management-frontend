@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Cinema} from "../../../../model/cinema";
 import {CinemaService} from "../../../services/cinema.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -35,7 +36,8 @@ export class AddCinemaHallComponent implements OnInit {
     private cinemaService: CinemaService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddCinemaHallComponent>
+    private dialogRef: MatDialogRef<AddCinemaHallComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -79,17 +81,26 @@ export class AddCinemaHallComponent implements OnInit {
     // @ts-ignore
     this.cinemaHall.cinema = this.cinemas.find(c => c.name == this.form.value.cinema);
 
-      if (this.addMode) {
-        this.cinemaHallService.add(this.cinemaHall).subscribe(_ => {
-          this.dialogRef.close();
+    if (this.addMode) {
+      this.cinemaHallService.add(this.cinemaHall).subscribe(_ => {
+        this.dialogRef.close();
+      }, _ => {
+        this.snackBar.open("Error! This cinema hall violates unique constraint and could not be added.", "close", {
+          duration: 5000
         });
-      } else {
-        this.cinemaHallService.update(this.cinemaHall).subscribe(_ => {
-          this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema)
-            .subscribe(_ => {
+      });
+    } else {
+      this.cinemaHallService.update(this.cinemaHall).subscribe(_ => {
+        this.cinemaHall.bindRelation<Cinema>('cinema', this.cinemaHall.cinema)
+          .subscribe(_ => {
               this.dialogRef.close();
             });
+      },
+        _ => {
+          this.snackBar.open("Error! This cinema hall violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
         });
-      }
+    }
   }
 }

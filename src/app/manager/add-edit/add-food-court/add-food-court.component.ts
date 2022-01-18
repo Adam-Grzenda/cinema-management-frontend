@@ -12,7 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class AddFoodCourtComponent implements OnInit {
 
-  @Input()
+
   foodCourt: FoodCourt;
 
   public addMode: boolean = true;

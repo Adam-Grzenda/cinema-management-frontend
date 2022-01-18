@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CinemaHallService} from "../../../services/cinema-hall.service";
 import {AddCinemaHallComponent} from "../../add-edit/add-cinema-hall/add-cinema-hall.component";
 import {getSortingDataAccessor} from "../../../tools";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 
@@ -32,6 +33,7 @@ export class CinemaHallTableComponent implements OnInit {
     private cinemaHallService: CinemaHallService,
     private cinemaService: CinemaService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -60,7 +62,12 @@ export class CinemaHallTableComponent implements OnInit {
     this.cinemaHallService.delete(hall).subscribe(h => {
       console.log("deleted: " + h.id);
       this.getHalls();
-    });
+    },
+      er => {
+        this.snackBar.open("Error! This hall is related to some chairs and could not be deleted.", "close", {
+          duration: 5000
+        });
+      });
   }
 
   applyFilter(event: Event) {

@@ -14,7 +14,6 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {FilmEditComponent} from './admin/add-edit/film-edit/film-edit.component';
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
@@ -72,6 +71,8 @@ import { FilmTableComponent } from './admin/tables/film-table/film-table.compone
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { PaymentComponent } from './client/payment/payment.component';
 import { OrderListComponent } from './client/order-list/order-list.component';
+import { AddChairsComponent } from './manager/add-edit/add-chairs/add-chairs.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 
@@ -81,7 +82,6 @@ import { OrderListComponent } from './client/order-list/order-list.component';
     FilmListComponent,
     NavbarComponent,
     SidebarComponent,
-    FilmEditComponent,
     AddFilmComponent,
     FilmDetailsComponent,
     FilterComponent,
@@ -114,6 +114,7 @@ import { OrderListComponent } from './client/order-list/order-list.component';
     FilmTableComponent,
     PaymentComponent,
     OrderListComponent,
+    AddChairsComponent,
   ],
     imports: [
         BrowserModule,
@@ -151,7 +152,8 @@ import { OrderListComponent } from './client/order-list/order-list.component';
     ],
   providers: [
     MatDatepickerModule,
-    DatePipe
+    DatePipe,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })

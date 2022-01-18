@@ -7,6 +7,7 @@ import {CinemaHallService} from "../../../services/cinema-hall.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FilmShow} from "../../../../model/film-show";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-film-show',
@@ -35,7 +36,8 @@ export class AddFilmShowComponent implements OnInit {
     private filmService: FilmService,
     private cinemaHallService: CinemaHallService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddFilmShowComponent>
+    private dialogRef: MatDialogRef<AddFilmShowComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -86,7 +88,12 @@ export class AddFilmShowComponent implements OnInit {
     if (this.addMode) {
       this.filmShowService.add(this.screening).subscribe(_ => {
         this.dialogRef.close();
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This film show violates unique constraint and could not be added.", "close", {
+            duration: 5000
+          });
+        });
     } else {
       this.filmShowService.update(this.screening).subscribe(_ => {
         this.screening.bindRelation<CinemaHall>('cinemaHall', this.screening.cinemaHall)
@@ -96,7 +103,12 @@ export class AddFilmShowComponent implements OnInit {
                 this.dialogRef.close();
               });
           });
-      });
+      },
+        _ => {
+          this.snackBar.open("Error! This film show violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
+        });
     }
   }
 

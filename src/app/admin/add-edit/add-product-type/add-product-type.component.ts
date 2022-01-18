@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CinemaHall} from "../../../../model/cinema-hall";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-product-type',
@@ -28,8 +29,10 @@ export class AddProductTypeComponent implements OnInit {
     private productTypeService: ProductTypeService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddProductTypeComponent>
-  ) { }
+    private dialogRef: MatDialogRef<AddProductTypeComponent>,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -38,7 +41,7 @@ export class AddProductTypeComponent implements OnInit {
     this.getTypes();
     this.form = this.formBuilder.group({
       name: ["", [Validators.required]],
-      unit: ["", [Validators.required,Validators.pattern("[a-zA-Z]{1,5}")]],
+      unit: ["", [Validators.required, Validators.pattern("[a-zA-Z]{1,5}")]],
       amount: ["", [Validators.required, Validators.pattern("[0-9]*"),
         Validators.min(1)]],
     })
@@ -63,14 +66,23 @@ export class AddProductTypeComponent implements OnInit {
 
     if (this.addMode) {
       this.productTypeService.add(this.productType).subscribe(_ => {
-        this.dialogRef.close();
-      });
+          this.dialogRef.close();
+        },
+        _ => {
+          this.snackBar.open("Error! This product type violates unique constraint and could not be added.", "close", {
+            duration: 5000
+          });
+        });
     } else {
       this.productTypeService.update(this.productType).subscribe(_ => {
-        this.dialogRef.close();
-      });
+          this.dialogRef.close();
+        },
+        _ => {
+          this.snackBar.open("Error! This product type violates unique constraint and could not be updated.", "close", {
+            duration: 5000
+          });
+        });
     }
-
 
 
     this.productType = new ProductType();

@@ -1,14 +1,12 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClientSegment} from "../../../../model/client-segment";
 import {Location} from "@angular/common";
 import {ClientSegmentService} from "../../../services/client-segment.service";
 import {PromoOfferService} from "../../../services/promo-offer.service";
 import {PromoOffer} from "../../../../model/promo-offer";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Advertisement} from "../../../../model/advertisement";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-client-segment',
@@ -33,7 +31,8 @@ export class AddClientSegmentComponent implements OnInit {
     private promoOfferService: PromoOfferService,
     private location: Location,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddClientSegmentComponent>
+    private dialogRef: MatDialogRef<AddClientSegmentComponent>,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -80,21 +79,36 @@ export class AddClientSegmentComponent implements OnInit {
 
       if (this.addMode) {
         this.clientSegmentService.add(this.segment).subscribe(_ => {
-          this.dialogRef.close();
-        });
+            this.dialogRef.close();
+          },
+          _ => {
+            this.snackBar.open("Error! This client segment violates unique constraint and could not be added.", "close", {
+              duration: 5000
+            });
+          });
       } else {
 
         this.segment.getRelation<PromoOffer>('promoOffer').subscribe(o => {
             this.segment.deleteRelation<PromoOffer>('promoOffer', o).subscribe(_ => {
               this.clientSegmentService.update(this.segment).subscribe(_ => {
                 this.dialogRef.close();
-              });
+              },
+                _ => {
+                  this.snackBar.open("Error! This client segment violates unique constraint and could not be updated.", "close", {
+                    duration: 5000
+                  });
+                });
             });
           },
           _ => {
             this.clientSegmentService.update(this.segment).subscribe(_ => {
-              this.dialogRef.close();
-            });
+                this.dialogRef.close();
+              },
+              _ => {
+                this.snackBar.open("Error! This client segment violates unique constraint and could not be updated.", "close", {
+                  duration: 5000
+                });
+              });
           });
       }
     } else {
@@ -104,13 +118,23 @@ export class AddClientSegmentComponent implements OnInit {
         if (this.addMode) {
           this.clientSegmentService.add(this.segment).subscribe(_ => {
             this.dialogRef.close();
-          });
+          },
+            _ => {
+              this.snackBar.open("Error! This client segment violates unique constraint and could not be added.", "close", {
+                duration: 5000
+              });
+            });
         } else {
           this.segment.bindRelation<PromoOffer>('promoOffer', this.segment.promoOffer)
             .subscribe(_ => {
               this.clientSegmentService.update(this.segment).subscribe(_ => {
                 this.dialogRef.close();
-              });
+              },
+                _ => {
+                  this.snackBar.open("Error! This client segment violates unique constraint and could not be updated.", "close", {
+                    duration: 5000
+                  });
+                });
             });
         }
       });

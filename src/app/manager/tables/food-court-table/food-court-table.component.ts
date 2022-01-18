@@ -6,7 +6,6 @@ import {MatSort} from "@angular/material/sort";
 import {CinemaService} from "../../../services/cinema.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FoodCourtService} from "../../../services/food-court.service";
-import {Cinema} from "../../../../model/cinema";
 import {AddFoodCourtComponent} from "../../add-edit/add-food-court/add-food-court.component";
 
 @Component({

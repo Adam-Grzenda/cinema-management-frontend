@@ -1,1 +1,32 @@
-<p>chair-type works!</p>
+<div>
+  <button mat-icon-button class="small" id="closeBttn"
+          [mat-dialog-close]="true">
+    <mat-icon>
+      close
+    </mat-icon>
+  </button>
+  <h2 class="center">Edit chair type</h2>
+</div>
+
+<hr>
+
+<div class="center">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Chair Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" value="{{type}}">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="center">
+      <button type="submit" [disabled]="!form.valid">Save food court</button>
+    </div>
+  </form>
+</div>

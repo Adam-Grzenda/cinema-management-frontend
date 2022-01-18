@@ -39,10 +39,20 @@ export class ChairService implements ServiceInterface {
     return of(new ResourceCollection());
   }
 
-  getFreeChairsForScreening(screening: FilmShow): Observable<ResourceCollection<Chair>> {
+  public getFreeChairsForScreening(screening: FilmShow): Observable<ResourceCollection<Chair>> {
     return this.resourceService.searchCollection(Chair, 'findFreeChairsForShow', {
       params: {
         filmShowId: screening.id
+      }
+    });
+  }
+
+  public addChairs(rowNum:number, colNum:number, hallId: number):Observable<ResourceCollection<Chair>> {
+    return this.resourceService.searchCollection(Chair, 'addChairs', {
+      params: {
+        rowNum: rowNum,
+        colNum: colNum,
+        hallId: hallId
       }
     })
   }
