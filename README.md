@@ -1,5 +1,10 @@
 # CinemaManagementClient
 
+This application serves as a frontend for: https://github.com/Adam-Grzenda/CinemaManagement 
+
+It was developed as a first Angular application, and is meant to become a playground for learning its features.
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
 ## Development server
