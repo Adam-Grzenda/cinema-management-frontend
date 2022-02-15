@@ -67,7 +67,7 @@ export class AddFilmShowComponent implements OnInit {
 
   private getFilms() {
     this.filmService.getAll().subscribe(f => {
-      this.films = f.resources;
+      this.films = f;
     });
   }
 

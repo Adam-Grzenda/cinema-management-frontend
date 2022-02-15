@@ -71,7 +71,7 @@ export class AddAdvertisementComponent implements OnInit {
   }
 
   getFilms(): void {
-    this.filmService.getAll().subscribe(films => this.films = films.resources);
+    this.filmService.getAll().subscribe(films => this.films = films);
   }
 
   save() {
