@@ -32,7 +32,7 @@ export class FilmCard implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getFilmImage(this.film.imageSource);
+    this.getFilmImage(this.film.id);
     this.loadScreeningsData();
 
     this.route.queryParams.subscribe(
@@ -68,7 +68,7 @@ export class FilmCard implements OnInit {
     }
   }
 
-  getFilmImage(imageId: string) {
+  getFilmImage(imageId: number) {
     this.imageService.getImage(imageId).subscribe(data => {
       this.createImageURL(data);
     })
