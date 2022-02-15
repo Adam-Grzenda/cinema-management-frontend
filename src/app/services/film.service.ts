@@ -23,13 +23,12 @@ export class FilmService {
     return this.http.get<Film>(environment.apiEndpoint + '/films/' + id);
   }
 
-  public add(film: Film, poster?: File): Observable<Film> {
-    const data = new FormData();
-    if (poster) {
-      data.append("poster", poster);
-    }
-
-    return this.http.post<Film>(environment.apiEndpoint + '/films/', data);
+  public add(film: Film, poster?: string): Observable<Film> {
+    return this.http.post<Film>(environment.apiEndpoint + '/films/',
+      {
+        "film": film,
+        "poster": poster
+      });
   }
 
   public update(film: Film): Observable<Film> {
