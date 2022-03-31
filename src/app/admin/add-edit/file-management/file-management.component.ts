@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {File} from "../../../../model/file";
 import {FilesService} from "../../../services/files.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-file-management',
@@ -10,12 +11,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class FileManagementComponent implements OnInit {
 
-  select: File;
+  selection: File;
 
   files: Array<File>;
 
   constructor(private filesService: FilesService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private dialogRef: MatDialogRef<FileManagementComponent>) {
   }
 
   ngOnInit(): void {
@@ -31,11 +33,16 @@ export class FileManagementComponent implements OnInit {
   }
 
   selectFile(selection: File): void {
-    this.select = selection;
+    this.selection = selection;
   }
 
+  closeAndReturn(): void {
+    this.dialogRef.close({data: this.selection})
+  }
+
+
   isFileSelected(): boolean {
-    return !!this.select;
+    return !!this.selection;
   }
 
 }

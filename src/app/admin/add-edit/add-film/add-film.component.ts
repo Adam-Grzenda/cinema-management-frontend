@@ -3,8 +3,11 @@ import {Film} from "../../../../model/film";
 import {FilmService} from "../../../services/film.service";
 import {ImageService} from "../../../services/image.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FilesService} from "../../../services/files.service";
+import {FileManagementComponent} from "../file-management/file-management.component";
+import {File} from "../../../../model/file";
 
 @Component({
   selector: 'app-add-film',
@@ -18,6 +21,7 @@ export class AddFilmComponent implements OnInit {
   film: Film;
   image: string;
   form: FormGroup;
+  file: File;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { film: Film },
@@ -25,7 +29,9 @@ export class AddFilmComponent implements OnInit {
     private imageService: ImageService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddFilmComponent>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private filesService: FilesService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -85,16 +91,27 @@ export class AddFilmComponent implements OnInit {
     }
   }
 
-  onImageUpload(input: any): void {
-    const image: File = input.files[0];
-    const reader = new FileReader();
+  doFileSelection() {
+    const selectorRef = this.dialog.open(FileManagementComponent, {
+      height: '100%',
+      width: '100%',
+    })
 
-    reader.addEventListener('load', (event: any) => {
-      this.image = reader.result as string
-      this.image = this.image.split(',')[1];
-    });
-
-    reader.readAsDataURL(image);
+    selectorRef.afterClosed().subscribe(res => {
+        this.file = res.data
+    })
   }
+
+  // onImageUpload(input: any): void {
+  //   const image: File = input.files[0];
+  //   const reader = new FileReader();
+  //
+  //   reader.addEventListener('load', (event: any) => {
+  //     this.image = reader.result as string
+  //     this.image = this.image.split(',')[1];
+  //   });
+  //
+  //   reader.readAsDataURL(image);
+  // }
 
 }
