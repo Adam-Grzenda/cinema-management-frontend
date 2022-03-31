@@ -10,6 +10,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class FileManagementComponent implements OnInit {
 
+  select: File;
+
   files: Array<File>;
 
   constructor(private filesService: FilesService,
@@ -26,6 +28,14 @@ export class FileManagementComponent implements OnInit {
         })
       }
     )
+  }
+
+  selectFile(selection: File): void {
+    this.select = selection;
+  }
+
+  isFileSelected(): boolean {
+    return !!this.select;
   }
 
 }
