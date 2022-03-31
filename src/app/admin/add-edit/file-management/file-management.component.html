@@ -1,1 +1,7 @@
-<p>file-management works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let file of files">
+    <img matListAvatar src="{{file.href}}" alt="Could not load an image"/>
+    {{file.key}}
+  </mat-list-item>
+</mat-list>
+
