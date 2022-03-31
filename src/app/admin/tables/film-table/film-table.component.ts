@@ -38,7 +38,7 @@ export class FilmTableComponent implements OnInit {
 
   private getFilms() {
     this.filmService.getAll().subscribe(f => {
-      this.films = f.resources;
+      this.films = f;
 
       this.dataSource = new MatTableDataSource<Film>(this.films);
       this.dataSource.sortingDataAccessor = getSortingDataAccessor();

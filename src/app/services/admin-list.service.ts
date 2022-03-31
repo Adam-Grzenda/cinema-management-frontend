@@ -31,7 +31,7 @@ export class AdminListService {
     this.adminList = new Array<TypeList>();
     this.serviceList = new Array<ServiceInterface>();
 
-    this.serviceList.push(cinemaService, cinemaHallService, filmService,
+    this.serviceList.push(cinemaService, cinemaHallService,
       advertisementService, promoOfferService, clientSegmentService, productTypeService)
 
     const cinema: TypeList = new TypeList();
@@ -53,7 +53,7 @@ export class AdminListService {
     film.name = "film"
     film.addLink = "/admin/add-film"
     film.editLink = "/admin/edit-film"
-    film.service = this.filmService
+    // film.service = this.filmService
 
     const ad: TypeList = new TypeList();
     ad.id = 4;

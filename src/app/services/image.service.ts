@@ -16,8 +16,8 @@ export class ImageService {
     return this.http.post<ImageUploadResponse>(environment.apiEndpoint + "/upload", data);
   }
 
-  public getImage(id: string): Observable<Blob> {
-    return this.http.get(environment.apiEndpoint + "/file/" + id, {responseType: "blob"});
+  public getImage(id: number): Observable<Blob> {
+    return this.http.get(environment.apiEndpoint + "/films/" + id + "/poster", {responseType: "blob"});
   }
 }
 

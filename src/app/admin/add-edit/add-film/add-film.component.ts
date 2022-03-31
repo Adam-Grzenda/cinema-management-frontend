@@ -1,8 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Film} from "../../../../model/film";
 import {FilmService} from "../../../services/film.service";
 import {ImageService} from "../../../services/image.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -16,11 +16,7 @@ export class AddFilmComponent implements OnInit {
   public addMode: boolean = true;
 
   film: Film;
-
-  @Input()
-  image: any;
-
-
+  image: string;
   form: FormGroup;
 
   constructor(
@@ -69,9 +65,9 @@ export class AddFilmComponent implements OnInit {
     this.film.description = this.form.value.description;
 
     if (this.addMode) {
-      this.filmService.add(this.film).subscribe(_ => {
-        this.dialogRef.close();
-      },
+      this.filmService.add(this.film, this.image).subscribe(_ => {
+          this.dialogRef.close();
+        },
         _ => {
           this.snackBar.open("Error! This film violates unique constraint and could not be added.", "close", {
             duration: 5000
@@ -79,8 +75,8 @@ export class AddFilmComponent implements OnInit {
         });
     } else {
       this.filmService.update(this.film).subscribe(_ => {
-        this.dialogRef.close();
-      },
+          this.dialogRef.close();
+        },
         _ => {
           this.snackBar.open("Error! This film violates unique constraint and could not be updated.", "close", {
             duration: 5000
@@ -94,13 +90,9 @@ export class AddFilmComponent implements OnInit {
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
-      this.image = image;
-      this.imageService.uploadImage(image)
-        .subscribe((next) => {
-          this.film.imageSource = next.href;
-          console.log(this.film);
-        });
-    })
+      this.image = reader.result as string
+      this.image = this.image.split(',')[1];
+    });
 
     reader.readAsDataURL(image);
   }
