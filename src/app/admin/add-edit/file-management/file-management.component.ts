@@ -21,6 +21,10 @@ export class FileManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadFiles();
+  }
+
+  private loadFiles() {
     this.filesService.listFiles().subscribe(
       files => {
         this.files = files.files;
@@ -45,4 +49,21 @@ export class FileManagementComponent implements OnInit {
     return !!this.selection;
   }
 
+  uploadFile($event: any) {
+    if ($event.target.files.length > 0) {
+      this.filesService.putFile($event.target.files[0]).subscribe(
+        _ => {
+          this.loadFiles();
+        }
+      )
+    }
+  }
+
+  deleteSelected() {
+    this.filesService.deleteFile(this.selection.key).subscribe(
+      _ => {
+        this.loadFiles();
+      }
+    );
+  }
 }

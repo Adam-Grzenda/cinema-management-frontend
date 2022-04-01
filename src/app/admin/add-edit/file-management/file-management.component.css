@@ -1,0 +1,13 @@
+.dialog-buttons {
+  display: flex;
+  margin: 10px;
+  flex-direction: row;
+}
+
+button {
+  margin-left: 10px;
+}
+
+#selectButton {
+  margin-left: auto;
+}

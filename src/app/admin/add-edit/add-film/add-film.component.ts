@@ -93,25 +93,13 @@ export class AddFilmComponent implements OnInit {
 
   doFileSelection() {
     const selectorRef = this.dialog.open(FileManagementComponent, {
-      height: '100%',
-      width: '100%',
+      height: '50%',
+      width: '50%',
     })
 
     selectorRef.afterClosed().subscribe(res => {
         this.file = res.data
     })
   }
-
-  // onImageUpload(input: any): void {
-  //   const image: File = input.files[0];
-  //   const reader = new FileReader();
-  //
-  //   reader.addEventListener('load', (event: any) => {
-  //     this.image = reader.result as string
-  //     this.image = this.image.split(',')[1];
-  //   });
-  //
-  //   reader.readAsDataURL(image);
-  // }
 
 }
