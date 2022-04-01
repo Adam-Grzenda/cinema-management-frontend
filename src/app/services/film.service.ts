@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {ResourceCollection} from "@lagoshny/ngx-hateoas-client";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {File} from "../../model/file";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class FilmService {
     return this.http.get<Film>(environment.apiEndpoint + '/films/' + id);
   }
 
-  public add(film: Film, poster?: string): Observable<Film> {
+  public add(film: Film, poster?: File): Observable<Film> {
     return this.http.post<Film>(environment.apiEndpoint + '/films/',
       {
         "film": film,
@@ -31,8 +32,12 @@ export class FilmService {
       });
   }
 
-  public update(film: Film): Observable<Film> {
-    return this.http.put<Film>(environment.apiEndpoint + '/films/', film);
+  public update(film: Film, poster?: File): Observable<Film> {
+    console.log(film)
+    return this.http.put<Film>(environment.apiEndpoint + '/films/', {
+      "film": film,
+      "poster": poster
+    });
   }
 
   public delete(film: Film): Observable<any> {

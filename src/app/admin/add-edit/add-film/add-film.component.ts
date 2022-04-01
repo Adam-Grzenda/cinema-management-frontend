@@ -19,9 +19,8 @@ export class AddFilmComponent implements OnInit {
   public addMode: boolean = true;
 
   film: Film;
-  image: string;
   form: FormGroup;
-  file: File;
+  poster: File;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { film: Film },
@@ -71,7 +70,7 @@ export class AddFilmComponent implements OnInit {
     this.film.description = this.form.value.description;
 
     if (this.addMode) {
-      this.filmService.add(this.film, this.image).subscribe(_ => {
+      this.filmService.add(this.film, this.poster).subscribe(_ => {
           this.dialogRef.close();
         },
         _ => {
@@ -80,7 +79,7 @@ export class AddFilmComponent implements OnInit {
           });
         });
     } else {
-      this.filmService.update(this.film).subscribe(_ => {
+      this.filmService.update(this.film, this.poster).subscribe(_ => {
           this.dialogRef.close();
         },
         _ => {
@@ -98,7 +97,7 @@ export class AddFilmComponent implements OnInit {
     })
 
     selectorRef.afterClosed().subscribe(res => {
-        this.file = res.data
+        this.poster = res.data
     })
   }
 

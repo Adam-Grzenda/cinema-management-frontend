@@ -15,8 +15,8 @@
     <div class="card-body">
 
       <button class="addPhoto" mat-icon-button (click)="doFileSelection()">
-        <mat-icon *ngIf="!file">add_a_photo</mat-icon>
-        <img id="image" *ngIf="file" src="{{file.href}}" alt="Could not load requested image!"/>
+        <mat-icon *ngIf="!poster">add_a_photo</mat-icon>
+        <img id="image" *ngIf="poster" src="{{poster.href}}" alt="Could not load requested image!"/>
       </button>
 
       <form [formGroup]="form" (ngSubmit)="save()">
