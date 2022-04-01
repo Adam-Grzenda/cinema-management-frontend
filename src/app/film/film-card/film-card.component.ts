@@ -18,7 +18,7 @@ export class FilmCard implements OnInit {
   film: Film;
 
   screenings: Array<FilmShow>;
-  filmImage: any;
+  filmImageHref: string = "";
 
   startDate: Date;
   endDate: Date;
@@ -29,15 +29,15 @@ export class FilmCard implements OnInit {
   constructor(private imageService: ImageService,
               private filmShowService: FilmShowService,
               private dialog: MatDialog,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.getFilmImage(this.film.id);
     this.loadScreeningsData();
 
     this.route.queryParams.subscribe(
-      (params) =>
-      {
+      (params) => {
         const startDateParam = params['dateFrom'];
         const endDateParam = params['dateTo'];
 
@@ -57,23 +57,11 @@ export class FilmCard implements OnInit {
     return endDate;
   }
 
-  createImageURL(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.filmImage = reader.result;
-    })
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
   getFilmImage(imageId: number) {
     this.imageService.getImage(imageId).subscribe(data => {
-      this.createImageURL(data);
+      this.filmImageHref = data.href
     })
   }
-
 
   private loadScreeningsData() {
     if (this.startDate || this.endDate) {

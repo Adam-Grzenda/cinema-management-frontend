@@ -14,10 +14,9 @@
   <div class="movie-box">
     <div class="card-body">
 
-      <button class="addPhoto" mat-icon-button (click)="fileInput.click()">
-        <mat-icon>add_a_photo</mat-icon>
-        <input #fileInput type="file" accept="image/png" id="image"
-               (change)="onImageUpload(fileInput)" >
+      <button class="addPhoto" mat-icon-button (click)="doFileSelection()">
+        <mat-icon *ngIf="!poster">add_a_photo</mat-icon>
+        <img id="image" *ngIf="poster" src="{{poster.href}}" alt="Could not load requested image!"/>
       </button>
 
       <form [formGroup]="form" (ngSubmit)="save()">
@@ -39,7 +38,7 @@
           <textarea matInput rows="5" formControlName="description"></textarea>
         </mat-form-field>
 
-          <mat-checkbox formControlName="is3D">is3D?</mat-checkbox>
+        <mat-checkbox formControlName="is3D">is3D?</mat-checkbox>
 
         <br>
 

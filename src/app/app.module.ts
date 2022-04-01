@@ -73,6 +73,7 @@ import { PaymentComponent } from './client/payment/payment.component';
 import { OrderListComponent } from './client/order-list/order-list.component';
 import { AddChairsComponent } from './manager/add-edit/add-chairs/add-chairs.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { FileManagementComponent } from './admin/add-edit/file-management/file-management.component';
 
 
 
@@ -115,6 +116,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     PaymentComponent,
     OrderListComponent,
     AddChairsComponent,
+    FileManagementComponent,
   ],
     imports: [
         BrowserModule,

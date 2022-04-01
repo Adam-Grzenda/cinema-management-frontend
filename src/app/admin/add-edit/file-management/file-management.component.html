@@ -1,0 +1,22 @@
+<div class="card bg-light mb-2" style="align-self: center">
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let file of files" (click)="selectFile(file)">
+      <img matListAvatar src="{{file.href}}" alt="Could not load an image"/>
+      {{file.key}}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <mat-divider></mat-divider>
+
+  <div class="dialog-buttons">
+    <button mat-raised-button color="warn" [disabled]="!isFileSelected()" (click)="deleteSelected()">
+      Delete
+    </button>
+    <button mat-raised-button (click)=file_upload.click()>
+      Upload
+      <input type="file" #file_upload (change)="uploadFile($event)" accept="image/*" hidden="true">
+    </button>
+
+    <button id="selectButton" mat-raised-button [disabled]="!isFileSelected()" (click)="closeAndReturn()">Select</button>
+  </div>
+</div>

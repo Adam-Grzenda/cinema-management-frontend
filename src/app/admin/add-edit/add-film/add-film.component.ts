@@ -3,8 +3,11 @@ import {Film} from "../../../../model/film";
 import {FilmService} from "../../../services/film.service";
 import {ImageService} from "../../../services/image.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FilesService} from "../../../services/files.service";
+import {FileManagementComponent} from "../file-management/file-management.component";
+import {File} from "../../../../model/file";
 
 @Component({
   selector: 'app-add-film',
@@ -16,8 +19,8 @@ export class AddFilmComponent implements OnInit {
   public addMode: boolean = true;
 
   film: Film;
-  image: string;
   form: FormGroup;
+  poster: File;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { film: Film },
@@ -25,7 +28,9 @@ export class AddFilmComponent implements OnInit {
     private imageService: ImageService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddFilmComponent>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private filesService: FilesService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -65,7 +70,7 @@ export class AddFilmComponent implements OnInit {
     this.film.description = this.form.value.description;
 
     if (this.addMode) {
-      this.filmService.add(this.film, this.image).subscribe(_ => {
+      this.filmService.add(this.film, this.poster).subscribe(_ => {
           this.dialogRef.close();
         },
         _ => {
@@ -74,7 +79,7 @@ export class AddFilmComponent implements OnInit {
           });
         });
     } else {
-      this.filmService.update(this.film).subscribe(_ => {
+      this.filmService.update(this.film, this.poster).subscribe(_ => {
           this.dialogRef.close();
         },
         _ => {
@@ -85,16 +90,15 @@ export class AddFilmComponent implements OnInit {
     }
   }
 
-  onImageUpload(input: any): void {
-    const image: File = input.files[0];
-    const reader = new FileReader();
+  doFileSelection() {
+    const selectorRef = this.dialog.open(FileManagementComponent, {
+      height: '50%',
+      width: '50%',
+    })
 
-    reader.addEventListener('load', (event: any) => {
-      this.image = reader.result as string
-      this.image = this.image.split(',')[1];
-    });
-
-    reader.readAsDataURL(image);
+    selectorRef.afterClosed().subscribe(res => {
+        this.poster = res.data
+    })
   }
 
 }

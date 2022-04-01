@@ -34,7 +34,8 @@ mat-form-field.mat-form-field {
 }
 
 #image {
-  display: none;
+  width: 250px;
+  height: 250px;
 }
 
 #closeBttn {
